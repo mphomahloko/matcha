@@ -1,13 +1,28 @@
-<?php include_once('../public/default.php'); ?>
+<?php require_once('../public/header.php');?>
 
-<div class="container">
-    <h2 class="text-center ">Login</h2>
-    <form action="" method="post">
-        <div class="form-group">
-            <input type="text" name="username" id="user" class="form-control" placeholder="Username">
+<?php
+// if (Session::isLoggedIn())
+//     Router::redirect();
+$username = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    $data['username'] = $username = Input::get('username');
+    $data['password'] = Input::get('pwd');
+    dnd($data);
+    // $user->login();
+}
+?>
+        <div class="container">
+            <h2 class="text-center">Login</h2>
+            <form action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" method="post">
+                <?=alert('success', 'This is an error');?>
+                <div class="form-group">
+                    <input type="text" name="username" value="<?=$username?>" class="form-control" placeholder="Username" pattern="\w+" title=" Only Letters And/Or Numbers are allowed" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="pwd" id="inputError" class="form-control" placeholder="Password" minlenght="6" pattern="(?=\S*\d)(?=\S*[a-z])(?=\S*[A-Z])\S*" required>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
         </div>
-        <div class="form-group">
-            <input type="text" name="pwd" id="pwd" class="form-control" placeholder="Password">
-        </div>
-    </form>
-</div>
+<?php include_once(ROOT . DS . 'public/footer.php'); ?>
