@@ -1,6 +1,5 @@
 <?php
-require('database.php');
-
+// require('database.php');
 try {
     $dbh = new PDO("mysql:host=" . $host, $username, $password, $options);
     $dbh->exec("CREATE DATABASE IF NOT EXISTS db_matcha");
@@ -38,5 +37,4 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 $dbh = null;
-header('location: ../index.php');
 ?>

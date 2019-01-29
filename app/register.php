@@ -1,4 +1,4 @@
-<?php include_once('../public/header.php'); ?>
+<?php require_once('../public/header.php'); ?>
         <div class="container">
             <h2 class="text-center">Register</h2>
             <form action="" method="post">
@@ -6,7 +6,7 @@
                     <input type="email" name="email" class="form-control" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="Username" pattern="\w+" title=" Only Letters And/Or Numbers are allowed" required>
+                    <input type="text" name="username" class="form-control" placeholder="Username" pattern="\w+" title="Only Letters And/Or Numbers are allowed" required>
                 </div>
                 <div class="form-group">
                     <input type="text" name="fname" class="form-control" placeholder="First name" pattern='[a-zA-Z\-]+' required>
@@ -23,4 +23,4 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-<?php include_once('../public/footer.php'); ?>
+<?php require_once('../public/footer.php'); ?>

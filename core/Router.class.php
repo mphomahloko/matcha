@@ -1,5 +1,4 @@
 <?php
-
 //this is crap it needs alotta work
 class Router
 {

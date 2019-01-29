@@ -1,8 +1,5 @@
-<?php require_once('../public/header.php');?>
-
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/matcha/public/header.php');?>
 <?php
-// if (Session::isLoggedIn())
-//     Router::redirect();
 $username = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -25,4 +22,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-<?php include_once(ROOT . DS . 'public/footer.php'); ?>
+<?php require_once(ROOT . DS . 'public/footer.php'); ?>

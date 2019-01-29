@@ -1,4 +1,4 @@
-<?php require_once('../config/config.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/matcha/config/config.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
