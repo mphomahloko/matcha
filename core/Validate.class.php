@@ -27,6 +27,12 @@ class Validate
                {
                    switch ($rule)
                    {
+                       case 'verified':
+                            $check = $this->_db->findByKey('users', $item, $value);
+                            if ($check)
+                                if (!$check['verified'])
+                                    $this->addError(["{$display} has not yet been verified", $item]);
+                            break ;
                        case 'min':
                             if (strlen($value) < $rule_value)
                                 $this->addError(["{$display} is not long enough", $item]);
@@ -50,7 +56,7 @@ class Validate
                             break ;
                         case 'regex':
                             if (!preg_match($rule_value, $value))
-                                $this->addError(["{$display} does not match reuirements", $item]);
+                                $this->addError(["{$display} does not match requirements", $item]);
                             break ;
                    }
                }
@@ -81,6 +87,7 @@ class Validate
         return $this->_passed;
     }
 
+    //modify function
     public function displayErrors()
     {
         $html = '<ul class="bg-danger">';

@@ -3,6 +3,10 @@
 $username = $fname = $lname = $email = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    $username=Input::get('username');
+    $fname=Input::get('fname');
+    $lname=Input::get('lname');
+    $email=Input::get('email');
     $user = new Register();
     $user->registerAction();
 }

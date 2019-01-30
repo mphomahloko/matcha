@@ -17,8 +17,8 @@ class Register
                 'username' => [
                     'display' => 'Username',
                     'required' => true,
-                    'unique' => true,
-                    'regex' => "/\w+/"
+                    'regex' => "/\w+/",
+                    'verified' => true
                 ],
                 'pwd' => [
                     'display' => 'Password',
@@ -26,6 +26,8 @@ class Register
                     'regex' => "/(?=\S*\d)(?=\S*[a-z])(?=\S*[A-Z])\S*/"
                 ]
             ]);
+            if (!$validation->passed())
+                echo $validation->displayErrors();
         }
     }
 

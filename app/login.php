@@ -1,18 +1,17 @@
-<?php require_once($_SERVER['DOCUMENT_ROOT'].'/matcha/public/header.php');?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/matcha/public/header.php'); ?>
 <?php
 $username = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    $data['username'] = $username = Input::get('username');
-    $data['password'] = Input::get('pwd');
-    dnd($data);
-    // $user->login();
+    $username=Input::get('username');
+    $user = new Register();
+    $user->loginAction();
 }
 ?>
         <div class="container">
             <h2 class="text-center">Login</h2>
             <form action="<?php echo htmlentities($_SERVER['PHP_SELF'])?>" method="post">
-                <?=alert('success', 'This is an error');?>
+                <!-- ?=alert('success', 'This is an error');?> -->
                 <div class="form-group">
                     <input type="text" name="username" value="<?=$username?>" class="form-control" placeholder="Username" pattern="\w+" title=" Only Letters And/Or Numbers are allowed" required>
                 </div>
