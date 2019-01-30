@@ -3,12 +3,8 @@
 $username = $fname = $lname = $email = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    $data['username']=$username=Input::get('username');
-    $data['fname']=$fname=Input::get('fname');
-    $data['lname']=$lname=Input::get('lname');
-    $data['password']=Input::get('pwd');
-    $data['email']=$email=Input::get('email');
-    dnd($data);
+    $user = new Register();
+    $user->registerAction();
 }
 ?>
         <div class="container">

@@ -86,7 +86,7 @@ class DB
     {
         try
         {
-            if ($data[$primaryKey] == '')
+            if (!isset($data[$primaryKey]))
             {
                 $data[$primaryKey] = null;
                 $this->_insert($table, $data);
