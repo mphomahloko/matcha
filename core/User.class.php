@@ -17,5 +17,6 @@ class User
     }
 
     public function     logout()
-    {}
+    {
+    }
 }

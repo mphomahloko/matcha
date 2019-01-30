@@ -78,7 +78,9 @@ class Register
                     'lname' => Input::get('lname'),
                     'email' => Input::get('email'),
                     'password' => Input::get('pwd'),
+                    //Token has to be generated
                     'token' => 'khjagdhfgadgdsfjdgfdafg df'
+                    //email has to be sent to user
                 ]);
             }
             if (!$validation->passed())

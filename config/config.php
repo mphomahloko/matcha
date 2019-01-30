@@ -20,15 +20,3 @@ spl_autoload_register('autoload');
 
 //initializing the database
 DB::getInstance();
-// $test = DB::getInstance();
-// $test->save('users', 'id', 
-// [
-//         'id' => 1,
-//         'username'=>'tumelo',
-//         'fname'=>'monopoly',
-//         'lname'=>'mmmmmmm',
-//         'email'=>'me@gmail.com',
-//         'password'=>'12345',
-//         'token'=>'sfsfdsafads'
-//         ]
-// );
