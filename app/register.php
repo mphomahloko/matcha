@@ -1,18 +1,30 @@
-<?php require_once('../public/header.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/matcha/public/header.php');?>
+<?php
+$username = $fname = $lname = $email = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    $data['username']=$username=Input::get('username');
+    $data['fname']=$fname=Input::get('fname');
+    $data['lname']=$lname=Input::get('lname');
+    $data['password']=Input::get('pwd');
+    $data['email']=$email=Input::get('email');
+    dnd($data);
+}
+?>
         <div class="container">
             <h2 class="text-center">Register</h2>
-            <form action="" method="post">
+            <form action="<?= htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <input type="email" name="email" value='<?=$email?>' class="form-control" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="Username" pattern="\w+" title="Only Letters And/Or Numbers are allowed" required>
+                    <input type="text" name="username" value='<?=$username?>' class="form-control" placeholder="Username" pattern="\w+" title="Only Letters And/Or Numbers are allowed" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="fname" class="form-control" placeholder="First name" pattern='[a-zA-Z\-]+' required>
+                    <input type="text" name="fname" value='<?=$fname?>' class="form-control" placeholder="First name" pattern='[a-zA-Z\-]+' required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="lname" class="form-control" placeholder="Last name" pattern='[a-zA-Z\-]+' required>
+                    <input type="text" name="lname" value='<?=$fname?>' class="form-control" placeholder="Last name" pattern='[a-zA-Z\-]+' required>
                 </div>
                 <div class="form-group">
                     <input type="password" name="pwd" class="form-control" placeholder="Password" minlenght="6" pattern="(?=\S*\d)(?=\S*[a-z])(?=\S*[A-Z])\S*" required>
@@ -23,4 +35,4 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-<?php require_once('../public/footer.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/matcha/public/footer.php');?>

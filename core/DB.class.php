@@ -58,6 +58,14 @@ class DB
         return $result->fetchAll();
     }
 
+    public function findByKey($table, $key, $value)
+    {
+        $sql = 'SELECT * FROM `'.$table.'` WHERE `'.$key.'` =:val';
+        $param = ['val'=>$value];
+        $query = $this->_query($sql, $param);
+        return $query->fetch();
+    }
+
     private function _update($table, $primaryKey, $fields)
     {
         $sql = 'UPDATE `'.$table.'` SET ';

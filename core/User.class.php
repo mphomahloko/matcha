@@ -9,10 +9,8 @@ class User
     }
 
     protected function  _getUser()
-    {}
-
-    public function     register()
-    {}
+    {
+    }
     
     public function     login()
     {
