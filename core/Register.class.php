@@ -71,6 +71,8 @@ class Register
             ]);
             if ($validation->passed())
             {
+                //token needs modification
+                $token = password_hash( Input::get('email'), PASSWORD_DEFAULT ) . bin2hex(random_bytes(6));
                 //needs modification add helper a helper function
                 $this->_db->save('users', 'id', [
                     'username' => Input::get('username'),
@@ -78,10 +80,9 @@ class Register
                     'lname' => Input::get('lname'),
                     'email' => Input::get('email'),
                     'password' => Input::get('pwd'),
-                    //Token has to be generated
-                    'token' => 'khjagdhfgadgdsfjdgfdafg df'
-                    //email has to be sent to user
+                    'token' => $token
                 ]);
+                SendMail::verify(Input::get('email'));
             }
             if (!$validation->passed())
                 echo $validation->displayErrors();
