@@ -14,6 +14,7 @@ class User
     
     public function     login()
     {
+        // start the session to log the user in
     }
 
     public function     logout()

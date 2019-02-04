@@ -1,5 +1,5 @@
 <?php
-
+// stil needs to add more validations to this
 class Validate
 {
     private $_errors = [];
@@ -87,7 +87,7 @@ class Validate
         return $this->_passed;
     }
 
-    //modify function
+    //*NB remember to modify
     public function displayErrors()
     {
         $html = '<ul class="bg-danger">';
