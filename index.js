@@ -27,5 +27,6 @@ app.listen(port, (err)=>{
         console.log(err);
     } else {
         open('http://localhost:' + port);
+        console.log('listening to port:' + port);
     }
 });
