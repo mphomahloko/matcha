@@ -10,7 +10,7 @@ const con = mysql.createConnection({
 con.connect((err)=>{
     if (err) throw err;
     console.log('Connected');
-    con.query("CREATE DATABASE matcha", function (err, result) {
+    con.query("CREATE DATABASE IF NOT EXISTS matcha", (err, result) => {
         if (err) throw err;
         console.log("Database created");
       });
