@@ -2,9 +2,9 @@
   "name": "matcha",
   "version": "1.0.0",
   "description": "A dating site project because, love too can be industrialized",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js",
+    "start": "nodemon --exec babel-node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
