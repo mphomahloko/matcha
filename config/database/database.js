@@ -4,7 +4,7 @@ const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '123456',
-    socketPath: '/goinfre/mmahloko/Desktop/mampstack/mysql/tmp/mysql.sock'
+ //   socketPath: '/goinfre/mmahloko/Desktop/mampstack/mysql/tmp/mysql.sock'
 });
 
 con.connect((err)=>{
