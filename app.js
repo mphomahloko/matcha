@@ -4,9 +4,9 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 
 //  routes
-import routeToIndex from './src/routes/index';
-import routeToLogin from './src/routes/login';
-import routeToRegister from './src/routes/register';
+import routes from './src/routes/index';
+// import routeToLogin from './src/routes/login';
+// import routeToRegister from './src/routes/register';
 
 const app = express();
 
@@ -24,8 +24,8 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 
 
-app.use('/', routeToIndex);
-app.use('/login', routeToLogin);
-app.use('/register', routeToRegister);
+app.use('/', routes);
+// app.use('/login', routeToLogin);
+// app.use('/register', routeToRegister);
 
 module.exports = app;
