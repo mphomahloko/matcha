@@ -3,6 +3,7 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/login', (req, res)=>{
+    console.log(req.body);
     let user = req.body.username;
     let pass = req.body.password;
 
