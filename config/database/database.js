@@ -3,8 +3,8 @@ import mysql from 'mysql';
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '123456',
- //   socketPath: '/goinfre/mmahloko/Desktop/mampstack/mysql/tmp/mysql.sock'
+    password: '0P3nv13w',
+    socketPath: '/Users/molokomogashoa/Desktop/MAMP/mysql/tmp/mysql.sock'
 });
 
 con.connect((err)=>{
