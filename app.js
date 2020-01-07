@@ -28,11 +28,9 @@ app.use('/', routeToIndex);
 app.use('/login', routeToLogin);
 app.use('/register', routeToRegister);
 
-
 app.get('*', (req, res)=>{
      res.render('pages/index');
   //  res.send("404 Page Not Found");
 });
 
 module.exports = app;
-

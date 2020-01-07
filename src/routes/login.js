@@ -5,7 +5,7 @@ const router = express.Router();
 
 // /login routes
 
-router.get('/login', (req, res)=>{
+router.get('/', (req, res)=>{
     res.render('pages/login');
 });
 
@@ -35,4 +35,3 @@ router.post('/', (req, res)=>{
 });
 
 module.exports = router;
-
