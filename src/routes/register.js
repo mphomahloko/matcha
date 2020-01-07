@@ -5,7 +5,7 @@ const router = express.Router();
 
 // /register routes
 router.get('/', (req, res)=>{
-    res.render('pages/register');
+    res.render('pages/register', {username: "re000quired"});
 });
 
 router.post('/', (req, res)=>{

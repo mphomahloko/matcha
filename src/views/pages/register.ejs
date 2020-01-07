@@ -17,8 +17,16 @@
             <h1> Register</h1>
             <form action="register" method="POST">
             <table class="borderbox"><tr>
-                    <td>username:</td>
+                <td>username:</td>
+                <% if (username == 'required') {%>
                     <td><input type="text"  name="username"></td><tr></tr>
+                    <p class="alert alert-danger">
+                        Username cannot be empty
+                    </p>
+                <% } %>
+                <% if (username !== 'required') {%>
+                    <td><input type="text"  name="username" value="<%=username %>"></td><tr></tr>
+                <% } %>
                     <td>Email:</td>
                     <td><input type="email" name="email" id="email"></td><tr></tr>
                     <td>Name:</td>

@@ -15,7 +15,7 @@
         <CENTER>
         <div class="login-form">
             <h1> Profile</h1>
-            <form action="" method="">
+            <form action="profile" method="POST">
             <table class="borderbox"><tr>
                     <td>username:</td>
                     <td><input type="text"  name="username" value="<%= username %>"></td><tr></tr>
@@ -24,10 +24,7 @@
                     <td>Name:</td>
                     <td><input type="text" name="name" id="name"></td><tr></tr>
                     <td>Password:</td>
-                    <td><input type="password" name="password" ></td><tr></tr>
-                    <!-- <td>Confirm Password:</td> -->
-                    <!-- <td><input type="password" name="passwordConf"></td><tr></tr> -->
-                    <!-- <td><input type="hidden" name="token" value="<?php echo Token::generate();?>" ></td><tr></tr> -->
+                    <td><input type="password" name="password" value="<%=password%>"></td><tr></tr>
                     <td><input type="submit" name="submit" value="Update Profile"></td>
                 </tr>
             </table>
