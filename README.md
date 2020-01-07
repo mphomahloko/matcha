@@ -10,4 +10,6 @@
 </p>
 
 ## Authors
-- **[Mpho Mahloko](https://github.com/Mahloko)**
+- **[Johannes Phasha](https://github.com/jphasha)**
+- **[Mpho Mahloko](https://github.com/mahloko)**
+- **[Moloko Mogashoa](https://github.com/momogash)**

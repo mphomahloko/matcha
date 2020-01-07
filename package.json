@@ -1,7 +1,7 @@
 {
   "name": "matcha",
   "version": "1.0.0",
-  "description": "A dating site project because, love too can be industrialized",
+  "description": "Matcha an online dating site because, love too can be industrialised.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/Mahloko/matcha.git"
   },
-  "author": "Mpho Mahloko",
+  "author": "jphasha, mmahloko, momogash",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Mahloko/matcha/issues"
