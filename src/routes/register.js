@@ -74,18 +74,18 @@ router.post('/', (req, res)=>{
                 });
             });
 
-            // db.query('INSERT INTO matcha_users (username, password, email) VALUES (?,?,?)', [user, pass, email], (err, results) => {
-            //     if (results.affectedRows)
-            //     {
-            //         console.log("user info succesfully inserted into database");
-            //         res.send("user info successfully inserted into database");
-            //     }
-            //     else if (err)
-            //     {
-            //         console.log("failed to insert into database");
-            //         res.send("failed to insert into database");
-            //     }
-            // });
+            db.query('INSERT INTO matcha_users (username, password, email) VALUES (?,?,?)', [user, pass, email], (err, results) => {
+                if (results.affectedRows)
+                {
+                    console.log("user info succesfully inserted into database");
+                    res.send("user info successfully inserted into database");
+                }
+                else if (err)
+                {
+                    console.log("failed to insert into database");
+                    res.send("failed to insert into database");
+                }
+            });
         }
     }
     else
