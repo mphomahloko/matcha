@@ -7,6 +7,7 @@ import session from 'express-session';
 import routeToIndex from './src/routes/index';
 import routeToLogin from './src/routes/login';
 import routeToRegister from './src/routes/register';
+import routeToProfile from './src/routes/profile';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', routeToIndex);
 app.use('/login', routeToLogin);
 app.use('/register', routeToRegister);
+app.use('/profile', routeToProfile);
 
 app.get('*', (req, res)=>{
      res.render('pages/index');
