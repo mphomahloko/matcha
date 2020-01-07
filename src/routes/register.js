@@ -23,6 +23,8 @@ router.post('/', (req, res)=>{
         let validate_pass = pass.match(validPassPattern);
         let validate_email = email.match(validEmailPattern);
 
+        var existingEmail = false;
+
         if (!validate_user || !validate_email || !validate_pass)
         {
             if (!validate_user)
@@ -49,30 +51,32 @@ router.post('/', (req, res)=>{
 
         else
         {
-            db.query('SELECT username FROM matcha_users WHERE username = ?', [user], (err, results, fields) => {
+            // var existingUser = false;
+            // db.query('SELECT username FROM matcha_users WHERE username = ?', [user], (err, results, fields) => {
 
-                results.forEach(element => {
-                    let existingUserName = element.username;
-                    if (user === existingUserName)
-                    {
-                        console.log("that username already exists");
-                        res.send("that username already exists");
-                        res.end();
-                    }
-                });
-            });
+            //     results.forEach(element => {
+            //         let existingUserName = element.username;
+            //         if (user === existingUserName)
+            //         {
+                        
+            //             console.log("that username already exists");
+            //             // res.send("that username already exists");
+            //             // res.end();
+            //         }
+            //     });
+            // });
 
-            db.query('SELECT email FROM matcha_users WHERE email = ?', [email], (err, results, fields) => {
-                results.forEach(element => {
-                    let existingUserEmail = element.email;
-                    if (email === existingUserEmail)
-                    {
-                        console.log("that email matches that of an existing user");
-                        res.send("that email matches that of an existing user");
-                        res.end();
-                    }
-                });
-            });
+            // db.query('SELECT email FROM matcha_users WHERE email = ?', [email], (err, results, fields) => {
+            //     results.forEach(element => {
+            //         let existingUserEmail = element.email;
+            //         if (email === existingUserEmail)
+            //         {
+            //             console.log("that email matches that of an existing user");
+            //             // res.send("that email matches that of an existing user");
+            //             // res.end();
+            //         }
+            //     });
+            // });
 
             db.query('INSERT INTO matcha_users (username, password, email) VALUES (?,?,?)', [user, pass, email], (err, results) => {
                 if (results.affectedRows)
@@ -86,6 +90,7 @@ router.post('/', (req, res)=>{
                     res.send("failed to insert into database");
                 }
             });
+            // console.log(existingUser)
         }
     }
     else
