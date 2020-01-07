@@ -5,15 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Register</title>
+        <%- include('helpers/head'); -%>
+        <link href="/css/register.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
             <%- include('helpers/header'); -%>
         </header>
-        Register
-       <form action="register" method="post">
-
-       </form> 
+        <CENTER>
+        <div class="login-form">
+            <h1> Register</h1>
+            <form action="register" method="POST">
+            <table class="borderbox"><tr>
+                    <td>username:</td>
+                    <td><input type="text"  name="username"></td><tr></tr>
+                    <td>Email:</td>
+                    <td><input type="email" name="email" id="email"></td><tr></tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" id="name"></td><tr></tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password" ></td><tr></tr>
+                    <td>Confirm Password:</td>
+                    <td><input type="password" name="passwordConf"></td><tr></tr>
+                    <td><input type="hidden" name="token" value="<?php echo Token::generate();?>" ></td><tr></tr>
+                    <td><input type="submit" name="submit" value="Register Now"></td>
+                </tr>
+            </table>
+            </form>
+        </CENTER>
+        <footer>
+            <%- include('helpers/footer'); -%>
+        </footer>
     </body>
 
 </html>

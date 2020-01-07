@@ -5,9 +5,13 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Login</title>
+      <%- include('helpers/head'); -%>
       <link href="/css/login.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+      <header>
+            <%- include('helpers/header'); -%>
+        </header>
       <div class="login-form">
         <h1>Login</h1>
         <form action="login" method="POST">
@@ -16,5 +20,8 @@
           <input type="submit">
         </form>
       </div> 
+      <footer>
+            <%- include('helpers/footer'); -%>
+        </footer>
     </body>
 </html>
