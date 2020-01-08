@@ -16,25 +16,62 @@
         <div class="login-form">
             <h1> Register</h1>
             <form action="register" method="POST">
-            <table class="borderbox"><tr>
-                <td>username:</td>
-                <% if (username == 'required') {%>
+            <table class="borderbox">
+                <tr>
+                    <td>username:</td>
+                    <% if (username == 'empty') {%>
                     <td><input type="text"  name="username"></td><tr></tr>
                     <p class="alert alert-danger">
                         Username cannot be empty
                     </p>
-                <% } %>
-                <% if (username !== 'required') {%>
-                    <td><input type="text"  name="username" value="<%=username %>"></td><tr></tr>
-                <% } %>
+                    <% } %>
+                    <% if (username !== 'empty') {%>
+                    <td><input type="text"  name="username" value="<%=username %>" ></td><tr></tr>
+                    <% } %>
+
                     <td>Email:</td>
-                    <td><input type="email" name="email" id="email"></td><tr></tr>
+                    <% if (email == 'empty') {%>
+                    <td><input type="email" name="email" id="email" ></td><tr></tr>
+                    <p class="alert alert-danger">
+                            Email cannot be empty
+                    </p>
+                    <% } %>
+                    <% if (email !== 'empty') {%>
+                        <td><input type="email" name="email" value="<%=email %>"></td><tr></tr>
+                    <% } %>
+
                     <td>Name:</td>
-                    <td><input type="text" name="name" id="name"></td><tr></tr>
+                    <% if (name == 'empty') { %>
+                        <td><input type="text" name="name" id="name"></td><tr></tr>
+                        <p class="alert alert-danger">
+                            name cannot be empty
+                        </p>
+                    <% } %>
+                    <% if (name !== 'empty') { %>
+                    <td><input type="text" name="name" value="<%=name %>"></td><tr></tr>
+                    <% } %>
+
                     <td>Password:</td>
+                    <% if (password == 'empty') { %>
                     <td><input type="password" name="password" ></td><tr></tr>
+                    <p class="alert alert-danger">
+                            password cannot be empty
+                    </p>
+                    <% } %>
+                    <% if (password !== 'empty') { %>
+                    <td><input type="password" name="password" value=""></td><tr></tr>
+                    <% } %>
+
                     <td>Confirm Password:</td>
+                    <% if ('passwordConf' == 'empty') { %>
                     <td><input type="password" name="passwordConf"></td><tr></tr>
+                    <p class="alert alert-danger">
+                            Confirm Password cannot be empty
+                    </p>
+                    <% } %>
+                    <% if ('passwordConf' !== 'empty') { %>
+                    <td><input type="password" name="passwordConf"></td><tr></tr>
+                    <% } %>
                     <td><input type="hidden" name="token" value="<?php echo Token::generate();?>" ></td><tr></tr>
                     <td><input type="submit" name="submit" value="Register Now"></td>
                 </tr>

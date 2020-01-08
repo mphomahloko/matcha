@@ -5,7 +5,7 @@ const router = express.Router();
 
 // /register routes
 router.get('/', (req, res)=>{
-    res.render('pages/register', {username: "re000quired"});
+    res.render('pages/register', {username: "", email: "", name: "", password: "", passwordConf: ""});
 });
 
 router.post('/', (req, res)=>{
@@ -18,12 +18,12 @@ router.post('/', (req, res)=>{
         let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
         let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
         let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
+        let validNamePattern = //;
+        let validPassConfPattern = //;
 
         let validate_user = user.match(validUserPattern);
         let validate_pass = pass.match(validPassPattern);
         let validate_email = email.match(validEmailPattern);
-
-        var existingEmail = false;
 
         if (!validate_user || !validate_email || !validate_pass)
         {
@@ -51,7 +51,6 @@ router.post('/', (req, res)=>{
 
         else
         {
-            // var existingUser = false;
             // db.query('SELECT username FROM matcha_users WHERE username = ?', [user], (err, results, fields) => {
 
             //     results.forEach(element => {
@@ -95,8 +94,35 @@ router.post('/', (req, res)=>{
     }
     else
     {
-        console.log("all fields need to be filled in");
-        res.send("all fields need to be filled");
+        if (req.body.username == "")
+        {
+            console.log("please insert username");
+            res.render('pages/register',{ username: "empty", email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "not empty"});
+        }
+
+        if (req.body.email == "")
+        {
+            console.log("please insert email");
+            res.render('pages/register', {username: req.body.username, email: "empty", name: req.body.name, password: "not empty", passwordConf: "not empty"});
+        }
+
+        if (req.body.name == "")
+        {
+            console.log("please insert your name");
+            res.render('pages/register', {username: req.body.username, email: req.body.email, name: "empty", password: "not empty", passwordConf: "not empty"});
+        }
+
+        if (req.body.password == "")
+        {
+            console.log("you must enter a password");
+            res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "empty", passwordConf: "not empty"});
+        }
+
+        if (req.body.passwordConf == "")
+        {
+            console.log("please fill in the password confirm field");
+            res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "empty"});
+        }
     }
 });
 
