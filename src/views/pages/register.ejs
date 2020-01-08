@@ -63,13 +63,13 @@
                     <% } %>
 
                     <td>Confirm Password:</td>
-                    <% if ('passwordConf' == 'empty') { %>
+                    <% if (passwordConf == 'match') { %>
                     <td><input type="password" name="passwordConf"></td><tr></tr>
                     <p class="alert alert-danger">
-                            Confirm Password cannot be empty
+                            Confirm Password does not match password field
                     </p>
                     <% } %>
-                    <% if ('passwordConf' !== 'empty') { %>
+                    <% if (passwordConf !== 'match') { %>
                     <td><input type="password" name="passwordConf"></td><tr></tr>
                     <% } %>
                     <td><input type="hidden" name="token" value="<?php echo Token::generate();?>" ></td><tr></tr>

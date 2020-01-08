@@ -13,19 +13,24 @@ router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
     let email = req.body.email;
-    if (user && pass && email)
+    let name = req.body.name;
+    let confPass = req.body.passwordConf;
+
+    if (user && pass && email && name && confPass)
     {
         let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
         let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
         let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
-        let validNamePattern = //;
-        let validPassConfPattern = //;
+        let validNamePattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
+        let validPassConfPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
 
         let validate_user = user.match(validUserPattern);
         let validate_pass = pass.match(validPassPattern);
         let validate_email = email.match(validEmailPattern);
+        let validate_name = name.match(validNamePattern);
+        let validate_passConf = name.match(validPassConfPattern);
 
-        if (!validate_user || !validate_email || !validate_pass)
+        if (!validate_user || !validate_email || !validate_pass || !validate_name || !validate_passConf)
         {
             if (!validate_user)
             {
@@ -34,17 +39,31 @@ router.post('/', (req, res)=>{
                 res.end();
             }
 
-            if (!validate_email)
+            else if (!validate_email)
             {
                 console.log("your email needs to be in this format: user@mail.domain");
                 res.send("your email needs to be in this format: user@mail.domain");
                 res.end();
             }
 
-            if (!validate_pass)
+            else if (!validate_name)
+            {
+                console.log("your name need to be 2 - 50 characters long and contain atleast one lower case alphabet");
+                res.send("your name need to be 2 - 50 characters long and contain atleast one lower case alphabet");
+                res.end();
+            }
+
+            else if (!validate_pass)
             {
                 console.log("a password must contain lower and upper case characters, digit(s), and special character(s)");
                 res.send("a password must contain lower and upper case characters, digit(s), and special character(s)");
+                res.end();
+            }
+
+            else if (!validate_passConf)
+            {
+                console.log("your confirm password must match your password above");
+                res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "match"});
                 res.end();
             }
         }
@@ -77,52 +96,57 @@ router.post('/', (req, res)=>{
             //     });
             // });
 
-            db.query('INSERT INTO matcha_users (username, password, email) VALUES (?,?,?)', [user, pass, email], (err, results) => {
-                if (results.affectedRows)
-                {
-                    console.log("user info succesfully inserted into database");
-                    res.send("user info successfully inserted into database");
-                }
-                else if (err)
-                {
-                    console.log("failed to insert into database");
-                    res.send("failed to insert into database");
-                }
-            });
+            // db.query('INSERT INTO matcha_users (username, password, email) VALUES (?,?,?)', [user, pass, email], (err, results) => {
+            //     if (results.affectedRows)
+            //     {
+            //         console.log("user info succesfully inserted into database");
+            //         res.send("user info successfully inserted into database");
+            //     }
+            //     else if (err)
+            //     {
+            //         console.log("failed to insert into database");
+            //         res.send("failed to insert into database");
+            //     }
+            // });
             // console.log(existingUser)
         }
     }
     else
     {
+        console.log(req.body)
         if (req.body.username == "")
         {
             console.log("please insert username");
             res.render('pages/register',{ username: "empty", email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "not empty"});
+            res.end();
         }
 
-        if (req.body.email == "")
+        else if (req.body.email == "")
         {
             console.log("please insert email");
             res.render('pages/register', {username: req.body.username, email: "empty", name: req.body.name, password: "not empty", passwordConf: "not empty"});
+            res.end();
         }
 
-        if (req.body.name == "")
+        else if (req.body.name == "")
         {
             console.log("please insert your name");
             res.render('pages/register', {username: req.body.username, email: req.body.email, name: "empty", password: "not empty", passwordConf: "not empty"});
+            res.end();
         }
 
-        if (req.body.password == "")
+        else if (req.body.password == "")
         {
             console.log("you must enter a password");
             res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "empty", passwordConf: "not empty"});
+            res.end();
         }
 
-        if (req.body.passwordConf == "")
-        {
-            console.log("please fill in the password confirm field");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "empty"});
-        }
+        // if (req.body.passwordConf == "")
+        // {
+        //     console.log("please fill in the password confirm field");
+        //     res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "empty"});
+        // }
     }
 });
 
