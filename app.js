@@ -9,6 +9,7 @@ import routeToIndex from './src/routes/index';
 import routeToLogin from './src/routes/login';
 import routeToRegister from './src/routes/register';
 import routeToProfile from './src/routes/profile';
+import routeToValidateProfile from './src/api/validateProfile';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/login', routeToLogin);
 app.use('/register', routeToRegister);
 app.use('/profile', routeToProfile);
 app.use('/home', routeToHome);
+app.use('/validateProfile', routeToValidateProfile);
 
 app.get('*', (req, res)=>{
      res.render('pages/index');

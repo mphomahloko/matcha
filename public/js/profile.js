@@ -1,4 +1,8 @@
 // not complete
+const checkResponce = (element) => {
+	console.log(element);
+}
+
 const activateBtn = ({srcElement})=>{
 	let element = document.querySelector("input[name=submit]");
 	if (element.hasAttribute('disabled') && srcElement.value) {
@@ -11,9 +15,26 @@ const activateBtn = ({srcElement})=>{
 			let disabled = document.createAttribute('disabled');
 			element.setAttributeNode(disabled);
 		}
+		const api = 'http://localhost:3000/validateProfile';
+
+		let userInfo = {
+			name: srcElement.name,
+			value: srcElement.value
+		}
+
+		fetch(api, {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify(userInfo)
+		}).then((res) => { return res.json(); })
+          .then(checkResponce)
+          .catch((error) => { console.error('Error', error);});
 
 };
 
+// event listeners
 document.querySelector("input[name='username']").addEventListener('blur', activateBtn);
 document.querySelector("input[name='email']").addEventListener('blur', activateBtn);
 document.querySelector("input[name='name']").addEventListener('blur', activateBtn);
