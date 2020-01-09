@@ -4,9 +4,9 @@ const router = express.Router();
 
 router.get('/', (req, res)=>{
     if (req.session.loggedin) {
-        res.render('pages/index');
+        res.render('pages/home');
     } else {
-        res.render('pages/login');
+        res.render('pages/index');
     }
     res.end();
 });

@@ -13,7 +13,7 @@ router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
 	if (req.session.loggedin) {
-			res.render('pages/index');
+			res.render('pages/home');
 			res.end();
 	}
     if (user && pass) {
@@ -22,7 +22,7 @@ router.post('/', (req, res)=>{
            if (results.length > 0) {
                req.session.loggedin = true;
                req.session.username = user;
-               res.render('pages/index');
+               res.render('pages/home', {username: user});
            } else {
                res.send('Incorrect Details');
            }

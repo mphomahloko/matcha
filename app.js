@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 
 //  routes
+import routeToHome from './src/routes/home';
 import routeToIndex from './src/routes/index';
 import routeToLogin from './src/routes/login';
 import routeToRegister from './src/routes/register';
@@ -29,6 +30,7 @@ app.use('/', routeToIndex);
 app.use('/login', routeToLogin);
 app.use('/register', routeToRegister);
 app.use('/profile', routeToProfile);
+app.use('/home', routeToHome);
 
 app.get('*', (req, res)=>{
      res.render('pages/index');

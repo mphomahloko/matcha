@@ -4,6 +4,14 @@ const activateBtn = ({srcElement})=>{
 	if (element.hasAttribute('disabled') && srcElement.value) {
 		element.removeAttribute('disabled');
 	}
+	if (!document.querySelector("input[name='username']").value &&
+		!document.querySelector("input[name='email']").value &&
+		!document.querySelector("input[name='name']").value &&
+		!document.querySelector("input[name='password']").value) {
+			let disabled = document.createAttribute('disabled');
+			element.setAttributeNode(disabled);
+		}
+
 };
 
 document.querySelector("input[name='username']").addEventListener('blur', activateBtn);
