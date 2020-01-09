@@ -7,5 +7,6 @@ const server = app.listen(port, (err)=>{
         console.log(err);
     } else {
         console.log(`Express is running on port ${server.address().port}`);
+        console.log('visit http://localhost:3000');
     }
 });
