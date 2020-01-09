@@ -1,8 +1,7 @@
 // not complete
-const activateBtn = ()=>{
-
+const activateBtn = ({srcElement})=>{
 	let element = document.querySelector("input[name=submit]");
-	if (element.hasAttribute('disabled')) {
+	if (element.hasAttribute('disabled') && srcElement.value) {
 		element.removeAttribute('disabled');
 	}
 };
