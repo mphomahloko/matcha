@@ -6,7 +6,7 @@ router.get('/', (req, res)=>{
     if (req.session.loggedin) {
 			res.render('pages/messages');
     } else {
-		res.render('pages/index');
+		res.render('pages/login');
     }
 	res.end();
 });

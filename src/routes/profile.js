@@ -25,14 +25,6 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
     console.log(req.body);
-    // if (req.body.username) {
-    //     let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-    //     let user = req.body.username;
-    //     let validate_user = user.match(validUserPattern);
-    //     if (!validate_user) {
-
-    //     }
-    // }
 });
 
 module.exports = router;

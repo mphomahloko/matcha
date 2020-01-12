@@ -16,8 +16,9 @@ router.post('/', (req, res)=>{
             else {
                 res.send({fieldStatus: true});
             }
+        } else {
+            res.send({fieldStatus: "not implemented yet"});
         }
-        res.send({fieldStatus: "not implemented yet"});
     }
     res.end();
 });

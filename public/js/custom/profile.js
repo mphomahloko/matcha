@@ -1,6 +1,6 @@
 // not complete
-const checkResponce = (element) => {
-	console.log(element);
+const checkResponce = ({fieldStatus}) => {
+	console.log(fieldStatus);
 }
 
 const activateBtn = ({srcElement})=>{
@@ -15,7 +15,7 @@ const activateBtn = ({srcElement})=>{
 			let disabled = document.createAttribute('disabled');
 			element.setAttributeNode(disabled);
 		}
-		const api = 'http://localhost:3000/validateProfile';
+		const api = 'http://localhost:3000/validate';
 
 		let userInfo = {
 			name: srcElement.name,

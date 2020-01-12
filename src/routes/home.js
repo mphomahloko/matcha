@@ -4,10 +4,9 @@ const router = express.Router();
 
 router.get('/', (req, res)=>{
     if (req.session.loggedin) {
-        console.log(req.body);
-        res.render('pages/home', {username: req.body.username});
+        res.render('pages/home', {username: req.session.username});
     } else {
-        res.render('pages/index');
+        res.render('pages/login');
     }
     res.end();
 });
