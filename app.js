@@ -25,6 +25,8 @@ app.use(bodyParser.json());
 // Set EJS as a templating engine
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
+
+// static files
 app.use(express.static(__dirname + '/public'));
 
 app.use('/', routeToIndex);
