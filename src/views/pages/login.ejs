@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -6,12 +6,11 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Login</title>
       <%- include('helpers/head'); -%>
-      <link href="/css/login.css" rel="stylesheet" type="text/css">
+      <link href="/css/custom/login.css" rel="stylesheet" type="text/css">
     </head>
-    <body>
-      <header>
-            <%- include('helpers/header'); -%>
-        </header>
+    <body >
+      <!-- header excluded -->
+      <!-- <%- include('helpers/header'); -%> -->
       <div class="login-form">
         <h1>Login</h1>
         <form action="login" method="POST">
@@ -20,8 +19,7 @@
           <input type="submit">
         </form>
       </div> 
-      <footer>
-            <%- include('helpers/footer'); -%>
-        </footer>
+      <!-- footer -->
+      <%- include('helpers/footer'); -%>
     </body>
 </html>

@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../../config/database/database';
+import passConfMatch from 'bcrypt';
 
 const router = express.Router();
 
@@ -17,14 +18,28 @@ router.post('/', (req, res)=>{
 			res.end();
 	}
     if (user && pass) {
-       db.query('SELECT * FROM matcha_users WHERE username = ? AND password = ?',
-       [user, pass],(err, results, fields)=>{
+       db.query('SELECT * FROM matcha_users WHERE username = ?',
+       [user],(err, results, fields)=>{
            if (results.length > 0) {
-               req.session.loggedin = true;
-               req.session.username = user;
-               res.render('pages/home', {username: user});
-           } else {
-               res.send('Incorrect Details');
+                results.forEach(element => {
+                    let hashedPassw = element.password;
+                    passConfMatch.compare(pass, hashedPassw, (err, isMatch) => {
+                        if (err)
+                        {
+                            return err;
+                        }
+                        else if (isMatch) {
+                            req.session.loggedin = true;
+                            req.session.username = user;
+                            console.log(user);
+                            // res.render('pages/home', {username: user});
+                        }
+                        else
+                        {
+                            res.send('Incorrect Details');
+                        }
+                    })
+                })
            }
            res.end();
        });

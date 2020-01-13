@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../../config/database/database';
+import passEncrypt from 'bcrypt';
 
 const router = express.Router();
 
@@ -17,7 +18,25 @@ router.post('/', (req, res)=>{
     let confPass = req.body.passwordConf;
 
     if (user && pass && email && name && confPass)
-    {
+    {   
+
+        passEncrypt.hash(pass, 8, (err, hashedPass) => {
+            if (err)
+            {
+                return err;
+            }
+            // console.log(hashedPass);
+            db.query('INSERT INTO matcha_users (password, username, email) VALUES (?, ?, ?)', [hashedPass, user, email], (err, results, field) => {
+                if (results)
+                {
+                    console.log("yay!");
+                }
+                else{
+                    console.log(err);
+                }
+            });
+        });
+
         let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
         let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
         let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
@@ -96,7 +115,8 @@ router.post('/', (req, res)=>{
             //     });
             // });
 
-            // db.query('INSERT INTO matcha_users (username, password, email) VALUES (?,?,?)', [user, pass, email], (err, results) => {
+            
+            // db.query('INSERT INTO matcha_users (username, password, email, name) VALUES (?,?,?,?)', [user, pass, email, name], (err, results) => {
             //     if (results.affectedRows)
             //     {
             //         console.log("user info succesfully inserted into database");
@@ -113,7 +133,8 @@ router.post('/', (req, res)=>{
     }
     else
     {
-        console.log(req.body)
+        console.log(req.body);
+        console.log(router);
         if (req.body.username == "")
         {
             console.log("please insert username");
@@ -142,11 +163,11 @@ router.post('/', (req, res)=>{
             res.end();
         }
 
-        // if (req.body.passwordConf == "")
-        // {
-        //     console.log("please fill in the password confirm field");
-        //     res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "empty"});
-        // }
+        if (req.body.passwordConf == "")
+        {
+            console.log("please fill in the password confirm field");
+            res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "empty"});
+        }
     }
 });
 
