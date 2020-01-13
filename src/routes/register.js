@@ -25,7 +25,16 @@ router.post('/', (req, res)=>{
             {
                 return err;
             }
-            console.log(hashedPass);
+            // console.log(hashedPass);
+            db.query('INSERT INTO matcha_users (password, username, email) VALUES (?, ?, ?)', [hashedPass, user, email], (err, results, field) => {
+                if (results)
+                {
+                    console.log("yay!");
+                }
+                else{
+                    console.log(err);
+                }
+            });
         });
 
         let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
