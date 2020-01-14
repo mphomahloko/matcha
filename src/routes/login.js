@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../../config/database/database';
+import validate from '../api/validate';
 import passConfMatch from 'bcrypt';
 
 const router = express.Router();
@@ -31,17 +32,16 @@ router.post('/', (req, res)=>{
                         else if (isMatch) {
                             req.session.loggedin = true;
                             req.session.username = user;
-                            console.log(user);
-                            // res.render('pages/home', {username: user});
+                            res.render('pages/home', {username: user});
                         }
                         else
                         {
                             res.send('Incorrect Details');
                         }
-                    })
-                })
+                        res.end();
+                    });
+                });
            }
-           res.end();
        });
     } else {
         res.send('Please enter your details!');

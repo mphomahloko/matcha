@@ -24,6 +24,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "fetch": "^1.1.0",
     "mysql": "^2.17.1"
   },
   "devDependencies": {

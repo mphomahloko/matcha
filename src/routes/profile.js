@@ -24,7 +24,54 @@ router.get('/', (req, res)=>{
 });
 
 router.post('/', (req, res)=>{
-    console.log(req.body);
+    if (!req.session.loggedin)
+    {
+        if (req.body.username) {
+            db.query('UPDATE matcha_users SET username = ?', [req.body.username], (err, results) => {
+                if (err) throw err;
+                else
+                {
+                    console.log("succesfully updated username");
+                }
+            })
+        }
+        if (req.body.email)
+        {
+            db.query('UPDATE matcha_users SET email = ?', [req.body.email], (err, results) => {
+                if (err) throw err;
+                else {
+                    console.log("succesfully updated email");
+                }
+            })
+        }
+        if (req.body.firstname)
+        {
+            db.query('UPDATE matcha_users SET firstname = ?', [req.body.firstname], (err, results) => {
+                if (err) throw err;
+                else {
+                    console.log("succesfully updated firstname");
+                }
+            })
+        }
+        if (req.body.email)
+        {
+            db.query('UPDATE matcha_users SET lastname = ?', [req.body.lastname], (err, results) => {
+                if (err) throw err;
+                else {
+                    console.log("succesfully updated lastname");
+                }
+            })
+        }
+        if (req.body.email)
+        {
+            db.query('UPDATE matcha_users SET password = ?', [req.body.password], (err, results) => {
+                if (err) throw err;
+                else {
+                    console.log("succesfully updated password");
+                }
+            })
+        }
+    }
 });
 
 module.exports = router;

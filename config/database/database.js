@@ -20,7 +20,9 @@ con.connect((err)=>{
         id int(11) NOT NULL AUTO_INCREMENT  PRIMARY KEY,
         username varchar(50) NOT NULL,
         password varchar(255) NOT NULL,
-        email varchar(100) NOT NULL
+        email varchar(100) NOT NULL,
+        firstname varchar(100),
+        lastname varchar(100)
     )`, (err, result) => {
         if (err) throw err;
         console.log("Table created");
