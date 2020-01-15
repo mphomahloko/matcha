@@ -34,19 +34,22 @@ con.connect((err)=>{
     con.query(`CREATE TABLE IF NOT EXISTS interests(
         interests_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         interest1 varchar(50),
-        interest1 varchar(50),
-        interest1 varchar(50),
-        interest1 varchar(50),
-        interest1 varchar(50)
+        interest2 varchar(50),
+        interest3 varchar(50),
+        interest4 varchar(50),
+        interest5 varchar(50)
     )`, (err, results) => {
         if (err) throw err;
-        console.log("interests table created")
+        console.log("interests table created");
     });
     con.query(`CREATE TABLE IF NOT EXISTS pictures(
         picture_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         user_id int(11) NOT NULL,
         profilePic int(2)
-    )`)
+    )`, (err, results) => {
+        if (err) throw err;
+        console.log("pictures table created");
+    })
 });
 
 module.exports = con;
