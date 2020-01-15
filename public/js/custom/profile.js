@@ -10,7 +10,8 @@ const activateBtn = ({srcElement})=>{
 	}
 	if (!document.querySelector("input[name='username']").value &&
 		!document.querySelector("input[name='email']").value &&
-		!document.querySelector("input[name='name']").value &&
+		!document.querySelector("input[name='firstname']").value &&
+		!document.querySelector("input[name='lastname']").value &&
 		!document.querySelector("input[name='password']").value) {
 			let disabled = document.createAttribute('disabled');
 			element.setAttributeNode(disabled);
@@ -37,5 +38,6 @@ const activateBtn = ({srcElement})=>{
 // event listeners
 document.querySelector("input[name='username']").addEventListener('blur', activateBtn);
 document.querySelector("input[name='email']").addEventListener('blur', activateBtn);
-document.querySelector("input[name='name']").addEventListener('blur', activateBtn);
+document.querySelector("input[name='firstname']").addEventListener('blur', activateBtn);
+document.querySelector("input[name='lastname']").addEventListener('blur', activateBtn);
 document.querySelector("input[name='password']").addEventListener('blur', activateBtn);

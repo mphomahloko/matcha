@@ -53,7 +53,7 @@ router.post('/', (req, res)=>{
                 }
             })
         }
-        if (req.body.email)
+        if (req.body.lastname)
         {
             db.query('UPDATE matcha_users SET lastname = ?', [req.body.lastname], (err, results) => {
                 if (err) throw err;
@@ -62,13 +62,37 @@ router.post('/', (req, res)=>{
                 }
             })
         }
-        if (req.body.email)
+        if (req.body.password)
         {
             db.query('UPDATE matcha_users SET password = ?', [req.body.password], (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated password");
                 }
+            })
+        }
+        if (req.body.gender)
+        {
+            db.query('UPDATE matcha_users SET gender = ?', [req.body.gender], (err, results) => {
+                if (err) throw err;
+                else {
+                    console.log("succesfully updated gender")
+                }
+            })
+        }
+        if (req.body.sexualPreference)
+        {
+            db.query('UPDATE matcha_users SET sexualPreference = ?', [req.body.sexualPreference], (err, results) => {
+                if (err) throw err;
+                else {
+                    console.log("succesfully updated sexualPreference")
+                }
+            })
+        }
+        if (req.body.bibliography)
+        {
+            db.query('UPDATE matcha_user SET bibliography = ?', [req.body.bibliography], (err, results) => {
+                if (err) throw err;
             })
         }
     }
