@@ -24,7 +24,7 @@ router.get('/', (req, res)=>{
 });
 
 router.post('/', (req, res)=>{
-    if (!req.session.loggedin)
+    if (req.session.loggedin)
     {
         if (req.body.username) {
             db.query('UPDATE matcha_users SET username = ?', [req.body.username], (err, results) => {
