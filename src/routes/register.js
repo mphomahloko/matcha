@@ -29,7 +29,7 @@ router.post('/', (req, res)=>{
             db.query('INSERT INTO matcha_users (password, username, email) VALUES (?, ?, ?)', [hashedPass, user, email], (err, results, field) => {
                 if (results)
                 {
-                    console.log("yay!");
+                    console.log("succesfully inserted pass, uname and email into the database!");
                 }
                 else{
                     console.log(err);
@@ -133,8 +133,6 @@ router.post('/', (req, res)=>{
     }
     else
     {
-        console.log(req.body);
-        console.log(router);
         if (req.body.username == "")
         {
             console.log("please insert username");

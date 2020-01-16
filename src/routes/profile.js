@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../../config/database/database';
+import passEncrypt from 'bcrypt';
 
 const router = express.Router();
 
@@ -64,12 +65,16 @@ router.post('/', (req, res)=>{
         }
         if (req.body.password)
         {
-            db.query('UPDATE matcha_users SET password = ?', [req.body.password], (err, results) => {
-                if (err) throw err;
-                else {
-                    console.log("succesfully updated password");
-                }
+            passEncrypt.hash(req.body.password, 8, (error, hashedPass) => {
+                if (error) throw err;
+                db.query('UPDATE matcha_users SET password = ?', [hashedPass], (err, results) => {
+                    if (err) throw err;
+                    else {
+                        console.log("succesfully updated password");
+                    }
+                })
             })
+            
         }
         if (req.body.gender)
         {
