@@ -80,7 +80,7 @@ router.post('/', (req, res)=>{
                     }
                 });
             });
-            res.render('pages/home', {username: req.body.username});
+            res.render('pages/login', {username: req.body.username});
 
             // req.render('pages/', "welcome" + user);
 
