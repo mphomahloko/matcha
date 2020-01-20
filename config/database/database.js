@@ -32,12 +32,8 @@ con.connect((err)=>{
         console.log("users Table created");
     });
     con.query(`CREATE TABLE IF NOT EXISTS interests(
-        interests_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        interest1 varchar(50),
-        interest2 varchar(50),
-        interest3 varchar(50),
-        interest4 varchar(50),
-        interest5 varchar(50)
+        interest_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        interestName varchar(50)
     )`, (err, results) => {
         if (err) throw err;
         console.log("interests table created");
