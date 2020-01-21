@@ -31,4 +31,6 @@ const activateBtn = ({srcElement}) => {
           .catch((error) => { console.error('Error', error);});
 };
 
+// event listeners to activate the submit button
 document.querySelector("input[name='username']").addEventListener('blur', activateBtn);
+document.querySelector("input[name='password']").addEventListener('blur', activateBtn);

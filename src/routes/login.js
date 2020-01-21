@@ -25,18 +25,15 @@ router.post('/', (req, res)=>{
                 results.forEach(element => {
                     let hashedPassw = element.password;
                     passConfMatch.compare(pass, hashedPassw, (err, isMatch) => {
-                        if (err)
-                        {
+                        if (err) {
                             return err;
-                        }
-                        else if (isMatch) {
+                        } else if (isMatch) {
                             req.session.loggedin = true;
                             req.session.username = user;
                             res.render('pages/home', {username: user});
-                        }
-                        else
-                        {
+                        } else {
                             res.send('Incorrect Details');
+                            console.log('wrong password');
                         }
                         res.end();
                     });

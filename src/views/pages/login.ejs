@@ -14,8 +14,8 @@
       <div class="login-form">
         <h1>Login</h1>
         <form action="login" method="POST">
-          <input type="text" name="username" placeholder="Username" required>
-          <input type="password" name="password" placeholder="Password" required>
+          <input type="text" name="username" placeholder="Username" required pattern="(?=.*[a-zA-Z]).{2,}" title="min 2 chars and alphabets are a must">
+          <input type="password" name="password" placeholder="Password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="min 8 characters, lower and upper case, number(s), special character(s) atleast">
           <input type="submit" name="submit" disabled>
         </form>
       </div> 

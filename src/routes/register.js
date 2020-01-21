@@ -20,7 +20,7 @@ router.post('/', (req, res)=>{
 
     if (user && pass && email && confPass)
     {
-        let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
+        let validPassPattern = /(?=^.{8,20}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
         let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
         let validNamePattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
 
