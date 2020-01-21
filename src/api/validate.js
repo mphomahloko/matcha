@@ -12,8 +12,17 @@ router.post('/', (req, res)=>{
             let validate_user = user.match(validUserPattern);
             if (!validate_user) {
                 res.send({fieldStatus: false});
+            } else {
+                res.send({fieldStatus: true});
             }
-            else {
+        } else if (req.body.name == 'firstname') {
+            let validFirstNPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
+            let firstname = req.body.value;
+
+            let validate_first_name = firstname.match(validFirstNPattern);
+            if (!validate_first_name) {
+                res.send({fieldStatus: false});
+            } else {
                 res.send({fieldStatus: true});
             }
         } else if (req.body.name == 'email') {
@@ -22,6 +31,16 @@ router.post('/', (req, res)=>{
             
             let validate_email = email.match(validEmailPattern);
             if (!validate_email) {
+                res.send({fieldStatus: false});
+            } else {
+                res.send({fieldStatus: true});
+            }
+        } else if (req.body.name == 'password') {
+            let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
+            let password = req.body.value;
+
+            let validate_pass = password.match(validPassPattern);
+            if (!validate_pass) {
                 res.send({fieldStatus: false});
             } else {
                 res.send({fieldStatus: true});
