@@ -1,4 +1,3 @@
-// not complete
 const checkResponce = ({fieldStatus}) => {
 	console.log(fieldStatus);
 }

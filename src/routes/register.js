@@ -14,42 +14,24 @@ router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
     let email = req.body.email;
-    let name = req.body.name;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
     let confPass = req.body.passwordConf;
 
-    if (user && pass && email && name && confPass)
-    {   
-
-        passEncrypt.hash(pass, 8, (err, hashedPass) => {
-            if (err)
-            {
-                return err;
-            }
-            // console.log(hashedPass);
-            db.query('INSERT INTO matcha_users (password, username, email) VALUES (?, ?, ?)', [hashedPass, user, email], (err, results, field) => {
-                if (results)
-                {
-                    console.log("yay!");
-                }
-                else{
-                    console.log(err);
-                }
-            });
-        });
-
-        let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-        let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
+    if (user && pass && email && confPass)
+    {
+        let validPassPattern = /(?=^.{8,20}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
         let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
         let validNamePattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-        let validPassConfPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
 
-        let validate_user = user.match(validUserPattern);
+        let validate_user = user.match(validNamePattern);
         let validate_pass = pass.match(validPassPattern);
         let validate_email = email.match(validEmailPattern);
-        let validate_name = name.match(validNamePattern);
-        let validate_passConf = name.match(validPassConfPattern);
+        // let validate_firstName = firstName.match(validNamePattern);
+        // let validate_lastName = lastName.match(validNamePattern);
+        let validate_passConf = confPass.match(validPassPattern);
 
-        if (!validate_user || !validate_email || !validate_pass || !validate_name || !validate_passConf)
+        if (!validate_user || !validate_email || !validate_pass || !validate_passConf)
         {
             if (!validate_user)
             {
@@ -62,13 +44,6 @@ router.post('/', (req, res)=>{
             {
                 console.log("your email needs to be in this format: user@mail.domain");
                 res.send("your email needs to be in this format: user@mail.domain");
-                res.end();
-            }
-
-            else if (!validate_name)
-            {
-                console.log("your name need to be 2 - 50 characters long and contain atleast one lower case alphabet");
-                res.send("your name need to be 2 - 50 characters long and contain atleast one lower case alphabet");
                 res.end();
             }
 
@@ -88,7 +63,27 @@ router.post('/', (req, res)=>{
         }
 
         else
-        {
+        {   
+            passEncrypt.hash(pass, 8, (err, hashedPass) => {
+                if (err)
+                {
+                    return err;
+                }
+                // console.log(hashedPass);
+                db.query('INSERT INTO matcha_users (password, username, email, active) VALUES (?, ?, ?, ?)', [hashedPass, user, email, 0], (err, results, field) => {
+                    if (results)
+                    {
+                        console.log("succesfully inserted pass, uname and email into the database!");
+                    }
+                    else{
+                        console.log(err);
+                    }
+                });
+            });
+            res.render('pages/login', {username: req.body.username});
+
+            // req.render('pages/', "welcome" + user);
+
             // db.query('SELECT username FROM matcha_users WHERE username = ?', [user], (err, results, fields) => {
 
             //     results.forEach(element => {
@@ -131,10 +126,9 @@ router.post('/', (req, res)=>{
             // console.log(existingUser)
         }
     }
+
     else
     {
-        console.log(req.body);
-        console.log(router);
         if (req.body.username == "")
         {
             console.log("please insert username");
