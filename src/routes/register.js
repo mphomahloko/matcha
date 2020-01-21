@@ -1,6 +1,6 @@
 import express from 'express';
 import db from '../../config/database/database';
-import passEncrypt from 'bcrypt';
+import passEncrypt from 'bcryptjs';
 
 const router = express.Router();
 

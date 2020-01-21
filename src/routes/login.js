@@ -1,7 +1,7 @@
 import express from 'express';
 import db from '../../config/database/database';
 import validate from '../api/validate';
-import passConfMatch from 'bcrypt';
+import passConfMatch from 'bcryptjs';
 
 const router = express.Router();
 
