@@ -16,6 +16,16 @@ router.post('/', (req, res)=>{
             else {
                 res.send({fieldStatus: true});
             }
+        } else if (req.body.name == 'email') {
+            let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
+            let email = req.body.value;
+            
+            let validate_email = email.match(validEmailPattern);
+            if (!validate_email) {
+                res.send({fieldStatus: false});
+            } else {
+                res.send({fieldStatus: true});
+            }
         } else {
             res.send({fieldStatus: "not implemented yet"});
         }
