@@ -12,6 +12,8 @@ router.post('/', (req, res)=>{
             let validate_user = user.match(validUserPattern);
             if (!validate_user) {
                 res.send({fieldStatus: false});
+                console.log("user invalid");
+                let colour = document.createAttribute("king");
             } else {
                 res.send({fieldStatus: true});
             }
