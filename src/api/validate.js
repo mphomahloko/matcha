@@ -10,10 +10,11 @@ router.post('/', (req, res)=>{
             let user = req.body.value;
 
             let validate_user = user.match(validUserPattern);
+
             if (!validate_user) {
-                res.send({fieldStatus: false});
-                console.log("user invalid");
-                let colour = document.createAttribute("king");
+                // res.send({fieldStatus: false});
+                res.render('pages/login', {username: "well?"});
+                console.log(res.body);
             } else {
                 res.send({fieldStatus: true});
             }
