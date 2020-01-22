@@ -1,6 +1,7 @@
 import express from 'express';
 import db from '../../config/database/database';
-import passConfMatch from 'bcrypt';
+import validate from '../api/validate';
+import passConfMatch from 'bcryptjs';
 
 const router = express.Router();
 
@@ -24,24 +25,20 @@ router.post('/', (req, res)=>{
                 results.forEach(element => {
                     let hashedPassw = element.password;
                     passConfMatch.compare(pass, hashedPassw, (err, isMatch) => {
-                        if (err)
-                        {
+                        if (err) {
                             return err;
-                        }
-                        else if (isMatch) {
+                        } else if (isMatch) {
                             req.session.loggedin = true;
                             req.session.username = user;
-                            console.log(user);
-                            // res.render('pages/home', {username: user});
-                        }
-                        else
-                        {
+                            res.render('pages/home', {username: user});
+                        } else {
                             res.send('Incorrect Details');
+                            console.log('wrong password');
                         }
-                    })
-                })
+                        res.end();
+                    });
+                });
            }
-           res.end();
        });
     } else {
         res.send('Please enter your details!');
