@@ -1,0 +1,55 @@
+$primary: #A00000;
+$primary-overlay: rgba(204, 79, 57, 0.8);
+
+body {
+    margin-top: 105px;
+}
+
+.navbar{
+    box-shadow: 2px 2px 5px $primary;
+    opacity: 0.9;
+    background: #ffffff;
+
+    .nav-item {
+        font-size: 1.4rem;
+        padding-right: 1.4rem;
+
+    }
+}
+
+#showcase {
+    position: relative;
+    background: url('../img/background2.jpeg');
+    min-height: 600px;
+
+    .primary-overlay {
+        background: $primary-overlay;
+        position: absolute; //abosolute covers the inter image behind
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+//making our h tags responsive
+@media(max-width: 768px){
+    //when the device width is less than 768px then the below code to make tags responsive will kick in
+    #showcase {
+        min-height: 500px;
+
+        h5 {
+            font-size: 4rem;
+        }
+    }
+}
+
+#showcase .card-form {
+  opacity: 0.8;
+}
+
+#showcase .card-body {
+    background: #A00000;
+   
+}
