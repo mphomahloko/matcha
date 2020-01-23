@@ -1,6 +1,8 @@
 import express from 'express';
 import db from '../../config/database/database';
 import passEncrypt from 'bcryptjs';
+import nodeMailer from 'nodemailer';
+import { realpath } from 'fs';
 
 const router = express.Router();
 
@@ -64,22 +66,71 @@ router.post('/', (req, res)=>{
 
         else
         {   
-            passEncrypt.hash(pass, 8, (err, hashedPass) => {
-                if (err)
-                {
-                    return err;
-                }
-                // console.log(hashedPass);
-                db.query('INSERT INTO matcha_users (password, username, email, active) VALUES (?, ?, ?, ?)', [hashedPass, user, email, 0], (err, results, field) => {
-                    if (results)
-                    {
-                        console.log("succesfully inserted pass, uname and email into the database!");
+            // passEncrypt.hash(pass, 8, (err, hashedPass) => {
+            //     if (err)
+            //     {
+            //         return err;
+            //     }
+            //     // console.log(hashedPass);
+            //     db.query('INSERT INTO matcha_users (password, username, email, active) VALUES (?, ?, ?, ?)', [hashedPass, user, email, 0], (err, results, field) => {
+            //         if (results)
+            //         {
+            //             console.log("succesfully inserted pass, uname and email into the database!");
+            //         }
+            //         else{
+            //             console.log(err);
+            //         }
+            //     });
+            // });
+
+            // a fake account that is going to be used to send emails
+            // nodeMailer.createTestAccount((err, Acount) => {
+            //     if (!err) {
+            //         console.log(Acount);
+            //         let transporter = nodeMailer.createTransport({
+            //             host: Acount.smtp.host,
+            //             port: Acount.smtp.port,
+            //             secure: Acount.smtp.secure,
+            //             auth: {
+            //                 user: Acount.user,
+            //                 pass: Acount.pass
+            //             }
+            //         });
+            //     }
+            // });
+
+            let mailConfig;
+            if (process.env.NODE_ENV === 'production') {
+                // send the email to the preferred destination
+                mailConfig = {
+                    host: 'smtp.sendgrid.net',
+                    port: 587,
+                    auth: {
+                        user: 'real.user',
+                        pass: 'verysecret'
                     }
-                    else{
-                        console.log(err);
+                };
+            } else {
+                // otherwise send the emails to sender
+                mailConfig = {
+                    host: 'smtp.ethereal.email',
+                    port: 587,
+                    auth: {
+                        user: 'zz3brvmeqw2imaqy@ethereal.email',
+                        pass: 'vACsa3eABMYkkPE2VD'
                     }
-                });
-            });
+                };
+            }
+
+            console.log(mailConfig);
+            let transporter = nodeMailer.createTransport(mailConfig);
+            console.log(transporter);
+            // transporter.sendMail("hey")
+            // .then(info => {
+            //     console.log(info);
+            //     console.log('Preview URL: ' + nodeMailer.getTestMessageUrl(info));
+            // });
+
             res.render('pages/login', {username: req.body.username});
 
             // req.render('pages/', "welcome" + user);

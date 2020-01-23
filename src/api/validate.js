@@ -12,9 +12,7 @@ router.post('/', (req, res)=>{
             let validate_user = user.match(validUserPattern);
 
             if (!validate_user) {
-                // res.send({fieldStatus: false});
-                res.render('pages/login', {username: "well?"});
-                console.log(res.body);
+                res.send({fieldStatus: false});
             } else {
                 res.send({fieldStatus: true});
             }
