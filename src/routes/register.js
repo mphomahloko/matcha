@@ -102,8 +102,8 @@ router.post('/', (req, res)=>{
 
             // for now let's just operate under the assumption that i'm still all over the place here.
 
-            function sendEmail(name, vcode, email) {
-                var text = "Welcome to matcha , we are here to help you connect with your soul mate, please click on the link to activate your account http://localhost:3600/activate?name="+name+","+ vcode;
+            function sendEmail(name, verificationcode, email) {
+                var text = "Welcome to matcha , we are here to help you connect with your soul mate, please click on the link to activate your account http://localhost:3600/activate?name="+name+","+ verificationcode;
                 transporter = nodemailer.createTransport({
                     service: 'something like gmail',
                     auth: {
@@ -112,7 +112,7 @@ router.post('/', (req, res)=>{
                     }
                 });
                 mailOptions = {
-                    from: '"Matcha" <receipient email>',
+                    from: '"Matcha" <sender email>',
                     to: email,
                     subject: 'Matcha registration',
                     text: text,
