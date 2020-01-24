@@ -99,37 +99,32 @@ router.post('/', (req, res)=>{
             //     }
             // });
 
-            let mailConfig;
-            if (process.env.NODE_ENV === 'production') {
-                // send the email to the preferred destination
-                mailConfig = {
-                    host: 'smtp.sendgrid.net',
-                    port: 587,
-                    auth: {
-                        user: 'real.user',
-                        pass: 'verysecret'
-                    }
-                };
-            } else {
-                // otherwise send the emails to sender
-                mailConfig = {
-                    host: 'smtp.ethereal.email',
-                    port: 587,
-                    auth: {
-                        user: 'zz3brvmeqw2imaqy@ethereal.email',
-                        pass: 'vACsa3eABMYkkPE2VD'
-                    }
-                };
-            }
 
-            console.log(mailConfig);
-            let transporter = nodeMailer.createTransport(mailConfig);
-            console.log(transporter);
-            // transporter.sendMail("hey")
-            // .then(info => {
-            //     console.log(info);
-            //     console.log('Preview URL: ' + nodeMailer.getTestMessageUrl(info));
-            // });
+            // for now let's just operate under the assumption that i'm still all over the place here.
+
+            function sendEmail(name, vcode, email) {
+                var text = "Welcome to matcha , we are here to help you connect with your soul mate, please click on the link to activate your account http://localhost:3600/activate?name="+name+","+ vcode;
+                transporter = nodemailer.createTransport({
+                    service: 'something like gmail',
+                    auth: {
+                        user: 'sender email',
+                        pass: 'sender pass'
+                    }
+                });
+                mailOptions = {
+                    from: '"Matcha" <receipient email>',
+                    to: email,
+                    subject: 'Matcha registration',
+                    text: text,
+                    html: '<a>'+text+'</a>'
+                };
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        return console.log(error);
+                    }
+                    console.log('Message sent: ' + info.response);
+                });
+             }
 
             res.render('pages/login', {username: req.body.username});
 
