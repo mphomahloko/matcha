@@ -13,22 +13,34 @@
             <%- include('helpers/header'); -%>
         </header>
         <CENTER>
-        <div class="login-form">
+        <div class="form-group">
             <h1> Profile</h1>
             <form action="profile" method="POST">
             <table class="borderbox"><tr>
-                    <td>username:</td>
-                    <td><input type="text"  name="username" placeholder="<%= username %>"></td><tr></tr>
-                    <td>Email:</td>
-                    <td><input type="email" name="email" id="email" placeholder="<%= email %>"></td><tr></tr>
-                    <td>Name:</td>
-                    <td><input type="text" name="name" id="name"></td><tr></tr>
-                    <td>Password:</td>
-                    <td><input type="password" name="password"></td><tr></tr>
-                    <td><input disabled type="submit" name="submit" value="Update Profile"></td>
+                    <td>
+                        <label class="co-md-4 control-label">Username:</label>
+                    </td>
+                    <td>
+                        <input type="text"  name="username" placeholder="<%= username %>" class="form-control">
+                    </td>
+                    <tr></tr>
+                    <td>
+                        <label class="co-md-4 control-label">Email:</label>
+                    </td>
+                    <td><input type="email" name="email" id="email" placeholder="<%= email %>" class="form-control"></td><tr></tr>
+                    <td>
+                        <label class="co-md-4 control-label">Name:</label>
+                    </td>
+                    <td><input type="text" name="name" id="name" class="form-control"></td><tr></tr>
+                    <td>
+                        <label class="co-md-4 control-label">Password:</label>
+                    </td>
+                    <td><input type="password" name="password" class="form-control"></td><tr></tr>
+                    <td><input disabled type="submit" name="submit" value="Update Profile" class="form-control"></td>
                 </tr>
             </table>
             </form>
+        </div>
         </CENTER>
         <!-- footer -->
             <%- include('helpers/footer'); -%>
