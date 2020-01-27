@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Register</title>
         <%- include('helpers/head'); -%>
-        <link href="/css/custom/register.css" rel="stylesheet" type="text/css">
+        <!-- <link href="/css/custom/register.css" rel="stylesheet" type="text/css"> -->
     </head>
     <body>
         <!-- header excluded -->
@@ -83,3 +83,101 @@
     </body>
 
 </html>
+<header id="landing-page">
+    <div class="dark-overlay">
+      <div class="inner">
+        <div class="row">
+          <div class="col-lg-8 d-none d-lg-block">
+           <h1 class="display-4">Match .
+              <strong>Meet .</strong> 
+              <strong>Chat</strong>
+            </h1>
+            <div class="d-flex">
+              <div class="p-4 align-self-start">
+              </div>
+              <div class="p-4 align-self-end">
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="p-4 align-self-start">
+              </div>
+              <div class="p-4 align-self-end">
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="p-4 align-self-start">
+              </div>
+              <div class="p-4 align-self-end">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card bg-primary text-center card-form">
+              <div class="card-body">
+                <h3>Sign Up Today</h3>
+                <p>Please fill out this form to register</p>
+                <form action="">
+                  <div class="form-group">
+                     <% if (username == 'empty') {%> 
+                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Username">
+                    <p class="alert alert-danger">
+                        Username cannot be empty
+                    </p>
+                    <% } %>
+
+                    <% if (username !== 'empty') {%>
+                        <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" value="<%=username %>">
+                    <% } %>
+                    
+
+                  </div>
+                  <div class="form-group">
+                    <% if (email == 'empty') {%>  
+                    <input type="email" name="email" class="form-control form-control-lg" placeholder="Email">
+                    <p class="alert alert-danger">
+                            Email cannot be empty
+                    </p>
+                    <% } %>
+
+                    <% if (email !== 'empty') {%>
+                    <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" value="<%=email %>">
+                     <% } %>
+                  </div>
+
+                  <div class="form-group">
+                    <% if (firstname == 'empty') { %> 
+                    <input type="text" name="firstname" class="form-control form-control-lg" placeholder="First Name">
+                       <p class="alert alert-danger">
+                            name cannot be empty
+                        </p>
+                    <% } %>
+
+                    <% if (name !== 'empty') { %>
+                        <input type="text" name="firstname" class="form-control form-control-lg" placeholder="First Name" value="<%=firstname %>">
+                    <% } %>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Last Name">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="confirmpassword" class="form-control form-control-lg" placeholder="Confirm password">
+                  </div>
+                  <input type="submit" name="submit" value="Submit" class="btn btn-outline-light btn-block">
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
