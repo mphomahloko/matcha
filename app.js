@@ -41,7 +41,7 @@ app.use('/profile', routeToProfile);
 app.use('/register', routeToRegister);
 app.use('/validate', routeToValidate);
 app.use('/messages', routeToMessages);
-app.use('/messages', routeToNotifications);
+app.use('/notifications', routeToNotifications);
 
 app.get('*', (req, res)=>{
      res.render('pages/index');
