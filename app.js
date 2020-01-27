@@ -12,6 +12,7 @@ import routeToValidate from './src/api/validate';
 import routeToProfile from './src/routes/profile';
 import routeToMessages from './src/routes/messages';
 import routeToRegister from './src/routes/register';
+import routeToNotifications from './src/routes/notifications';
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/profile', routeToProfile);
 app.use('/register', routeToRegister);
 app.use('/validate', routeToValidate);
 app.use('/messages', routeToMessages);
+app.use('/notifications', routeToNotifications);
 
 app.get('*', (req, res)=>{
      res.render('pages/index');

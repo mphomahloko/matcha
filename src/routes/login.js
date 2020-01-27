@@ -15,7 +15,7 @@ router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
 	if (req.session.loggedin) {
-			res.render('pages/home');
+            res.render('pages/home');
 			res.end();
 	}
     if (user && pass) {
@@ -31,6 +31,11 @@ router.post('/', (req, res)=>{
                             req.session.loggedin = true;
                             req.session.username = user;
                             res.render('pages/home', {username: user});
+                            // if (navigator.geolocation) {
+                            //     console.log(true);
+                            //     console.log("you see?");
+                            // }
+                            // console.log(navigator.geolocation);
                         } else {
                             res.send('Incorrect Details');
                             console.log('wrong password');
