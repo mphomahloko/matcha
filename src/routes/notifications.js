@@ -7,7 +7,7 @@ router.get('/', (req, res)=>{
 		res.render('pages/notifications');
 		res.end();
     } else {
-		res.render('pages/index');
+		res.render('pages/login');
 		res.end();
     }
 });
