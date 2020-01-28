@@ -66,22 +66,22 @@ router.post('/', (req, res)=>{
 
         else
         {   
-            // passEncrypt.hash(pass, 8, (err, hashedPass) => {
-            //     if (err)
-            //     {
-            //         return err;
-            //     }
-            //     // console.log(hashedPass);
-            //     db.query('INSERT INTO matcha_users (password, username, email, active) VALUES (?, ?, ?, ?)', [hashedPass, user, email, 0], (err, results, field) => {
-            //         if (results)
-            //         {
-            //             console.log("succesfully inserted pass, uname and email into the database!");
-            //         }
-            //         else{
-            //             console.log(err);
-            //         }
-            //     });
-            // });
+            passEncrypt.hash(pass, 8, (err, hashedPass) => {
+                if (err)
+                {
+                    return err;
+                }
+                // console.log(hashedPass);
+                db.query('INSERT INTO matcha_users (password, username, email, active) VALUES (?, ?, ?, ?)', [hashedPass, user, email, 0], (err, results, field) => {
+                    if (results)
+                    {
+                        console.log("succesfully inserted pass, uname and email into the database!");
+                    }
+                    else{
+                        console.log(err);
+                    }
+                });
+            });
 
             // a fake account that is going to be used to send emails
             // nodeMailer.createTestAccount((err, Acount) => {
