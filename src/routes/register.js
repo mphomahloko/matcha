@@ -8,7 +8,7 @@ const router = express.Router();
 
 // /register routes
 router.get('/', (req, res)=>{
-    res.render('pages/register', {username: "", email: "", firstname: "", password: "", passwordConf: ""});
+    res.render('pages/register', {username: "", email: "", firstname: "", lastname: "", password: "", confirmpassword: ""});
 });
 
 router.post('/', (req, res)=>{
@@ -16,9 +16,9 @@ router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
     let email = req.body.email;
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let confPass = req.body.passwordConf;
+    let firstName = req.body.firstname;
+    let lastName = req.body.lastname;
+    let confPass = req.body.confirmpassword;
 
     if (user && pass && email && confPass)
     {
@@ -29,8 +29,8 @@ router.post('/', (req, res)=>{
         let validate_user = user.match(validNamePattern);
         let validate_pass = pass.match(validPassPattern);
         let validate_email = email.match(validEmailPattern);
-        // let validate_firstName = firstName.match(validNamePattern);
-        // let validate_lastName = lastName.match(validNamePattern);
+        let validate_firstName = firstName.match(validNamePattern);
+        let validate_lastName = lastName.match(validNamePattern);
         let validate_passConf = confPass.match(validPassPattern);
 
         if (!validate_user || !validate_email || !validate_pass || !validate_passConf)
@@ -178,35 +178,42 @@ router.post('/', (req, res)=>{
         if (req.body.username == "")
         {
             console.log("please insert username");
-            res.render('pages/register',{ username: "empty", email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "not empty"});
+            res.render('pages/register',{ username: "empty", email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: "not empty", confirmpassword: "not empty"});
             res.end();
         }
 
         else if (req.body.email == "")
         {
             console.log("please insert email");
-            res.render('pages/register', {username: req.body.username, email: "empty", name: req.body.name, password: "not empty", passwordConf: "not empty"});
+            res.render('pages/register', {username: req.body.username, email: "empty", firstname: req.body.firstname, lastname: req.body.lastname, password: "not empty", confirmpassword: "not empty"});
             res.end();
         }
 
-        else if (req.body.name == "")
+        else if (req.body.firstname == "")
         {
-            console.log("please insert your name");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, name: "empty", password: "not empty", passwordConf: "not empty"});
+            console.log("please insert your firstname");
+            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: "empty", lastname: req.body.lastname, password: "not empty", confirmpassword: "not empty"});
+            res.end();
+        }
+
+        else if (req.body.lastname == "")
+        {
+            console.log("please insert your lastname");
+            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: "empty", password: "not empty", confirmpassword: "not empty"});
             res.end();
         }
 
         else if (req.body.password == "")
         {
             console.log("you must enter a password");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "empty", passwordConf: "not empty"});
+            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: "empty", confirmpassword: "not empty"});
             res.end();
         }
 
-        if (req.body.passwordConf == "")
+        else if (req.body.confirmpassword == "")
         {
             console.log("please fill in the password confirm field");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "empty"});
+            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: "not empty", confirmpassword: "empty"});
         }
     }
 });
