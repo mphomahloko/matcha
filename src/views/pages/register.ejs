@@ -40,14 +40,14 @@
                     <% } %>
 
                     <td>Name:</td>
-                    <% if (name == 'empty') { %>
-                        <td><input type="text" name="name" id="name"></td><tr></tr>
+                    <% if (firstname == 'empty') { %>
+                        <td><input type="text" name="firstname" id="name"></td><tr></tr>
                         <p class="alert alert-danger">
                             name cannot be empty
                         </p>
                     <% } %>
-                    <% if (name !== 'empty') { %>
-                    <td><input type="text" name="name" value="<%=name %>"></td><tr></tr>
+                    <% if (firstname !== 'empty') { %>
+                    <td><input type="text" name="firstname" value="<%=firstname %>"></td><tr></tr>
                     <% } %>
 
                     <td>Password:</td>
@@ -154,7 +154,7 @@
                         </p>
                     <% } %>
 
-                    <% if (name !== 'empty') { %>
+                    <% if (firstname !== 'empty') { %>
                         <input type="text" name="firstname" class="form-control form-control-lg" placeholder="First Name" value="<%=firstname %>">
                     <% } %>
 

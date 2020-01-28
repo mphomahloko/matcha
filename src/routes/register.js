@@ -8,7 +8,7 @@ const router = express.Router();
 
 // /register routes
 router.get('/', (req, res)=>{
-    res.render('pages/register', {username: "", email: "", name: "", password: "", passwordConf: ""});
+    res.render('pages/register', {username: "", email: "", firstname: "", password: "", passwordConf: ""});
 });
 
 router.post('/', (req, res)=>{
