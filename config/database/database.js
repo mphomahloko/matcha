@@ -45,7 +45,15 @@ con.connect((err)=>{
     )`, (err, results) => {
         if (err) throw err;
         console.log("pictures table created");
-    })
+    });
+    con.query(`CREATE TABLE IF NOT EXISTS messages(
+        msg_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        user_id int(11) NOT NULL,
+        msg varchar(255) NOT NULL
+    )`, (err, results) => {
+        if (err) throw err;
+        console.log("messages table created");
+    });
 });
 
 module.exports = con;
