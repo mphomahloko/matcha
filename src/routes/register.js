@@ -72,7 +72,7 @@ router.post('/', (req, res)=>{
                     return err;
                 }
                 // console.log(hashedPass);
-                db.query('INSERT INTO matcha_users (password, username, email, active) VALUES (?, ?, ?, ?)', [hashedPass, user, email, 0], (err, results, field) => {
+                db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)', [hashedPass, user, email, 0, firstName, lastName], (err, results, field) => {
                     if (results)
                     {
                         console.log("succesfully inserted pass, uname and email into the database!");
