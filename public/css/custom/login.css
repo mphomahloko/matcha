@@ -1,51 +1,52 @@
-.login-form {
-    width: 300px;
-    margin: 0 auto;
-    font-family: Tahoma, Geneva, sans-serif;
-}
 
-.login-form h1 {
-    text-align: center;
-    color: #4d4d4d;
-    font-size: 24px;
-    padding: 20px 0 20px 0;
-}
+/* new styling below */
+body {
+  margin-top: 105px; }
 
-.login-form input[type="password"],
-.login-form input[type="text"] {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #dddddd;
-    margin-bottom: 15px;
-    box-sizing:border-box;
-}
+.navbar {
+  box-shadow: 2px 2px 5px #A00000;
+  opacity: 0.9;
+  background: #ffffff; }
+  .navbar .nav-item {
+    font-size: 1.4rem;
+    padding-right: 1.4rem; }
 
-.login-form input[type="email"] {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #dddddd;
-    margin-bottom: 15px;
-    box-sizing:border-box;
-}
-        
-.login-form input[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    background-color: #535b63;
-    border: 0;
-    box-sizing: border-box;
-    cursor: pointer;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.borderbox{
+#showcase {
   position: relative;
-  margin: 0 auto;
-  padding: 20px 20px 20px;
-  width: 310px;
-  background: white;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: url("/img/background2.jpeg");
+  /* background-size: cover; */
+  min-height: 800px; }
+  #showcase .primary-overlay {
+    background: rgba(204, 79, 57, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
+@media (max-width: 768px) {
+  #showcase {
+    min-height: 500px; }
+    #showcase h5 {
+      font-size: 4rem; } }
+#showcase .card-form {
+  opacity: 0.8; }
+
+#showcase .card-body {
+  background-color: #3f0d12;
+  background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+ }
+
+#home-section .fas {
+  color: #a71d31;
+  background: #fff;
+  padding: 5px;
+  border-radius: 5px;
 }
+
+#main-footer .footer-company-name {
+    font-size: medium;
+    font-family: Arial, Helvetica, sans-serif;
+    color: slategray;
+}
+
