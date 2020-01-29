@@ -9,15 +9,43 @@
       <link href="/css/custom/login.css" rel="stylesheet" type="text/css">
     </head>
     <body >
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top py-4" id="main-nav">
+      <div class="container">
+        <a href="login.ejs" class="navbar-brand">
+          <img src="img/logo2.png" width="50" height="50" alt="">
+          <h3 class="d-inline align-middle">Matcha</h3>
+        </a>
+      </div>
+    </nav>
       <!-- header excluded -->
-      <div class="login-form">
-        <h1>Login</h1>
-        <form action="login" method="POST">
-          <input type="text" name="username" placeholder="Username" required>
-          <input type="password" name="password" placeholder="Password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="min 8 characters, lower and upper case, number(s), special character(s) atleast">
-          <input type="submit" name="submit" disabled>
-        </form>
-      </div> 
+  <section id="showcase" class="py-5">
+    <div class="primary-overlay text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 text-center">
+            <h5 class="display-2 mt-5 pt-5">
+              Swipe right. Meet up....
+            </h5>
+            <div class="card bg-primary text-center card-form">
+              <div class="card-body">
+                <h3>Login</h3>
+                <p>have an account? Enter your details to login</p>
+                  <form action="login" method="POST">
+                    <div class="form-group"></div>
+                    <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" required>
+                    <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="min 8 characters, lower and upper case, number(s), special character(s) atleast">
+                    <input type="submit"  name="submit" disabled class="btn btn-outline-light btn-block">
+                    </form>
+                </div>     
+              </div>
+            </div>
+          <div class="col-lg-6">
+            <img src="/img/background.jpeg" alt="" class="img-fluid d-none d-lg-block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
       <!-- footer -->
       <%- include('helpers/footer'); -%>
       <script src="/js/custom/login.js"></script>
