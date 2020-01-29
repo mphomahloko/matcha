@@ -6,8 +6,9 @@ const port = 3000;
 
 app.post('/messages', (req, res)=>{
 	// insert msg into database accordingly
-	console.log(req.body);
-	io.emit('message', req.body);
+    console.log(req.body);
+    // send msg to specific user
+	io.emit(req.session.username, req.body);
 	res.status(200).send({success: true});
 });
 

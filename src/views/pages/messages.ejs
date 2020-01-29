@@ -80,6 +80,7 @@
                   </div>
                 </div>
               </div></div>
+              <input type="text" hidden class="_" value="<%=user%>" />
 
       <!-- footer -->
             <%- include('helpers/footer'); -%>
@@ -88,8 +89,8 @@
       <script src="/socket.io/socket.io.js"></script>
       <script>
         let socket = io();
-        socket.on('message', addMessages);
+        socket.on(document.querySelector('._').value, addMessages);
       </script>
-
+      <!-- html %> -->
     </body>
 </html>

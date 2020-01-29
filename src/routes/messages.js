@@ -1,8 +1,6 @@
 import express from 'express';
 import db from '../../config/database/database';
 
-// const http = require('http').Server(express());
-// const io = require('socket.io')(http);
 const router = express.Router();
 // /message routes
 
@@ -11,7 +9,7 @@ router.get('/', (req, res)=>{
 		db.query('SELECT * FROM messages', (err, results, fields)=>{
            if (results.length > 0) {
                 results.forEach(element => {
-					res.render('pages/messages', {msg: element.msg});
+					res.render('pages/messages', {msg: element.msg, user: req.session.username});
 					res.end();
                 });
 			}
