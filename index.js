@@ -1,8 +1,21 @@
 import app from './app';
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const port = 3000;
 
-const server = app.listen(port, (err)=>{
+app.post('/messages', (req, res)=>{
+	// insert msg into database accordingly
+	console.log(req.body);
+	io.emit('message', req.body);
+	res.status(200).send({success: true});
+});
+
+io.on('connection', () =>{
+	console.log('a user is connected');
+});
+
+const server = http.listen(port, (err)=>{
     if (err){
         console.log(err);
     } else {

@@ -1,5 +1,10 @@
+"use strict";
 const checkResponce = (data) => {
 	console.log(data);
+};
+
+const addMessages =  (data) => {
+	console.log(data.message + " from front-end");
 };
 
 const sendMsg = () => {
@@ -14,9 +19,15 @@ const sendMsg = () => {
 			},
 			body: JSON.stringify({message: msg.trim()})
 		}).then((res) => { return res.json(); })
-          .then(checkResponce)
-          .catch((error) => { console.error('Error', error);});
+          .then()
+		  .catch((error) => { console.error('Error', error);});
+		  
+		//   fetch(api).then((res) => { return res.json(); })
+        //   .then(checkResponce)
+        //   .catch((error) => { console.error('Error', error);});
 	}
 	document.querySelector(".write_msg").value =  "";
+
 };
+
 document.querySelector(".msg_send_btn").addEventListener('click', sendMsg);
