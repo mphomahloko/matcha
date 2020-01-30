@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 
     if (validators.validateUsername(user) && validators.validatePassword(pass) &&
         validators.validateEmail(email) && validators.validateConfPassword(pass, confPass) &&
-        validators.validateName(firstName) && validators.validateName(lastName)) {
+        validators.validateLastName(firstName) && validators.validateFirstName(lastName)) {
  
             passEncrypt.hash(pass, 8, (err, hashedPass) => {
                 if (err) {
@@ -46,19 +46,18 @@ router.post('/', (req, res) => {
                                 // ready for insert statement
                                 db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)', [hashedPass, user, email, 0, firstName, lastName], (err, results, field) => {
                                     if (results) {
-                                        console.log(results);
-                                        console.log("succesfully inserted pass, uname and email into the database!");
+                                        console.log("succesfully inserted pass, uname, fullnames and email into the database!");
                                     }
                                     else{
                                         console.log(err);
                                     }
                                 });
                             } else {
-                              console.log("email exists ");  
+                              console.log("email already exists ");  
                             }
                         });      
                     } else {
-                        console.log("user exists");
+                        console.log("user already exists");
                     }
                 });
             });
@@ -106,7 +105,7 @@ router.post('/', (req, res) => {
                 });
              }
 
-            res.render('pages/login', {username: req.body.username});
+            res.render('pages/index');
 
             // req.render('pages/', "welcome" + user);
 
@@ -157,28 +156,28 @@ router.post('/', (req, res) => {
 
                     // considering how this should be changed!!!
                     
-            if (!validate_user)
+            if (!validators.validateUsername(user))
             {
                 console.log("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
                 res.send("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
                 res.end();
             }
 
-            else if (!validate_email)
+            else if (!validators.validateEmail(email))
             {
                 console.log("your email needs to be in this format: user@mail.domain");
                 res.send("your email needs to be in this format: user@mail.domain");
                 res.end();
             }
 
-            else if (!validate_pass)
+            else if (!validators.validatePassword(pass))
             {
                 console.log("a password must contain lower and upper case characters, digit(s), and special character(s)");
                 res.send("a password must contain lower and upper case characters, digit(s), and special character(s)");
                 res.end();
             }
 
-            else if (!validate_passConf)
+            else if (!validators.validateConfPassword(pass, confPass))
             {
                 console.log("your confirm password must match your password above");
                 res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "match"});

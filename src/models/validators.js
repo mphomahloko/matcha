@@ -24,7 +24,7 @@ const validateEmail = (email) => {
 };
 
 const validatePassword = (password) => {
-	let validPassPattern = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
+	let validPassPattern = /(?=^.{6,100}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?\/&gt;.&lt;,])(?!.*\s).*$/;
 	
 	let validate_pass = password.match(validPassPattern);
 	if (!validate_pass) {
