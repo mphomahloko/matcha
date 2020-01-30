@@ -1,17 +1,23 @@
 import express from 'express';
 import db from '../../config/database/database';
 import passEncrypt from 'bcryptjs';
+import validators from '../models/validators';
 import nodeMailer from 'nodemailer';
 import { realpath } from 'fs';
 
 const router = express.Router();
 
 // /register routes
-router.get('/', (req, res)=>{
-    res.render('pages/register', {username: "", email: "", firstname: "", lastname: "", password: "", confirmpassword: ""});
+router.get('/', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('pages/home', {username: req.session.username});
+    } else {
+        res.render('pages/register', {username: "", email: "", firstname: "", lastname: "", password: "", confirmpassword: ""});
+    }
+    res.end();
 });
 
-router.post('/', (req, res)=>{
+router.post('/', (req, res) => {
 
     let user = req.body.username;
     let pass = req.body.password;
@@ -20,65 +26,39 @@ router.post('/', (req, res)=>{
     let lastName = req.body.lastname;
     let confPass = req.body.confirmpassword;
 
-    if (user && pass && email && confPass)
-    {
-        let validPassPattern = /(?=^.{8,20}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
-        let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
-        let validNamePattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-
-        let validate_user = user.match(validNamePattern);
-        let validate_pass = pass.match(validPassPattern);
-        let validate_email = email.match(validEmailPattern);
-        let validate_firstName = firstName.match(validNamePattern);
-        let validate_lastName = lastName.match(validNamePattern);
-        let validate_passConf = confPass.match(validPassPattern);
-
-        if (!validate_user || !validate_email || !validate_pass || !validate_passConf)
-        {
-            if (!validate_user)
-            {
-                console.log("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
-                res.send("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
-                res.end();
-            }
-
-            else if (!validate_email)
-            {
-                console.log("your email needs to be in this format: user@mail.domain");
-                res.send("your email needs to be in this format: user@mail.domain");
-                res.end();
-            }
-
-            else if (!validate_pass)
-            {
-                console.log("a password must contain lower and upper case characters, digit(s), and special character(s)");
-                res.send("a password must contain lower and upper case characters, digit(s), and special character(s)");
-                res.end();
-            }
-
-            else if (!validate_passConf)
-            {
-                console.log("your confirm password must match your password above");
-                res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "match"});
-                res.end();
-            }
-        }
-
-        else
-        {   
+    if (validators.validateUsername(user) && validators.validatePassword(pass) &&
+        validators.validateEmail(email) && validators.validateConfPassword(pass, confPass) &&
+        validators.validateName(firstName) && validators.validateName(lastName)) {
+ 
             passEncrypt.hash(pass, 8, (err, hashedPass) => {
-                if (err)
-                {
+                if (err) {
                     return err;
                 }
-                // console.log(hashedPass);
-                db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)', [hashedPass, user, email, 0, firstName, lastName], (err, results, field) => {
-                    if (results)
-                    {
-                        console.log("succesfully inserted pass, uname and email into the database!");
-                    }
-                    else{
-                        console.log(err);
+                db.query('SELECT username FROM matcha_users WHERE username=?', // unique username
+                [user], (err, results, field) => {
+                    if (err) return err;
+
+                    if (results.length == 0) {
+                        db.query('SELECT email FROM matcha_users WHERE email=?', // unique email
+                        [email], (err, results, field) => {
+                            if (err) return err;
+                            if (results.length == 0) {
+                                // ready for insert statement
+                                db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)', [hashedPass, user, email, 0, firstName, lastName], (err, results, field) => {
+                                    if (results) {
+                                        console.log(results);
+                                        console.log("succesfully inserted pass, uname and email into the database!");
+                                    }
+                                    else{
+                                        console.log(err);
+                                    }
+                                });
+                            } else {
+                              console.log("email exists ");  
+                            }
+                        });      
+                    } else {
+                        console.log("user exists");
                     }
                 });
             });
@@ -170,11 +150,41 @@ router.post('/', (req, res)=>{
             //     }
             // });
             // console.log(existingUser)
-        }
-    }
+    } else if (!validators.validateUsername(user) || !validators.validatePassword(pass) ||
+                !validators.validateEmail(email) || !validators.validateConfPassword(pass, confPass) ||
+                !validators.validateName(firstName) || !validators.validateName(lastName)) {
 
-    else
-    {
+
+                    // considering how this should be changed!!!
+                    
+            if (!validate_user)
+            {
+                console.log("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
+                res.send("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
+                res.end();
+            }
+
+            else if (!validate_email)
+            {
+                console.log("your email needs to be in this format: user@mail.domain");
+                res.send("your email needs to be in this format: user@mail.domain");
+                res.end();
+            }
+
+            else if (!validate_pass)
+            {
+                console.log("a password must contain lower and upper case characters, digit(s), and special character(s)");
+                res.send("a password must contain lower and upper case characters, digit(s), and special character(s)");
+                res.end();
+            }
+
+            else if (!validate_passConf)
+            {
+                console.log("your confirm password must match your password above");
+                res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "match"});
+                res.end();
+            }
+        } else {
         if (req.body.username == "")
         {
             console.log("please insert username");

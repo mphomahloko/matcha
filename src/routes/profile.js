@@ -34,14 +34,15 @@ router.post('/', (req, res)=>{
         // since you are now using a different username, it struggles to match your username in the database with that in session.
 
 
-        // if (req.body.username) {
-        //     db.query('UPDATE matcha_users SET username = ? WHERE username = ?', [req.body.username, user], (err, results) => {
-        //         if (err) throw err;
-        //         else {
-        //             console.log("succesfully updated username");
-        //         }
-        //     })
-        // }
+        if (req.body.username) {
+            db.query('UPDATE matcha_users SET username = ? WHERE username = ?', [req.body.username, user], (err, results) => {
+                if (err) throw err;
+                else {
+                    req.session.username = user;
+                    console.log("succesfully updated username");
+                }
+            })
+        }
         if (req.body.email)
         {
             db.query('UPDATE matcha_users SET email = ? WHERE username = ?', [req.body.email, user], (err, results) => {
