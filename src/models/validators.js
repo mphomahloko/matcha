@@ -43,9 +43,22 @@ const validateConfPassword = (pass, confirmPass) => {
 };
 
 // firstname or lastname
-const validateName = (name) => {
+const validateFirstName = (name) => {
 	// Joe change the regex
-	let validNamePattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
+	let validNamePattern = /(?=^.{2,50}$)^[A-Za-z]+$/;
+
+    let validate_name = name.match(validNamePattern);
+
+    if (!validate_name) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+const validateLastName = (name) => {
+	// Joe change the regex
+	let validNamePattern = /(?=^.{2,50}$)^[A-Za-z]+$/;
 
     let validate_name = name.match(validNamePattern);
 
@@ -57,7 +70,8 @@ const validateName = (name) => {
 };
 
 module.exports = {
-	validateName,
+	validateFirstName,
+	validateLastName,
 	validateEmail,
 	validateUsername,
 	validatePassword,

@@ -9,11 +9,93 @@
       <link href="/css/custom/index.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark bg-dark">
+        <div class="container">
+          <a href="login.ejs" class="navbar-brand">
+            <img src="img/logo2.png" width="50" height="50" alt="">
+            <h3 class="d-inline align-middle">Matcha</h3>
+          </a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a href="register.ejs" class="nav-link">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a href="login.ejs" class="nav-link">Login</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </nav>
+
+      <section id="showcase">
+        <div id="mycarousel"  class="carousel slide" data-ride="carousel" >
+          <ol class="carousel-indicators">
+            <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#mycarousel" data-slide-to="1" class="active"></li>
+            <li data-target="#mycarousel" data-slide-to="2" class="active"></li> 
+          </ol>
+          <div class="carousel inner">
+            <div class="carousel-item carousel-image-1 active">
+              <div class="container">
+                <div class="carousel-caption d-none d-sm-block text-right mb-5">
+                  <h5 class="display-3">Find Your Mate</h5>
+                  <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita sit hic illo, enim dolores id maxime libero eum. Cumque ratione ipsam quae, similique quibusdam error illo ipsa voluptates possimus quasi!</p>
+                  <a href="" class="btn- btn-danger btn-lg">Sign UP Now</a>
+                </div>
+                  <a href="#mycarousel" data-slide="prev" class="carousel-control-prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </a>
+
+                  <a href="#mycarousel" data-slide="next" class="carousel-control-next">
+                    <span class="carousel-control-next-icon"></span>
+                  </a>
+                </div>
+              </div>
+            <div class="carousel-item carousel-image-2">
+              <div class="container">
+                <div class="carousel-caption d-none d-sm-block  mb-5">
+                  <h5 class="display-3">Hook Up</h5>
+                  <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita sit hic illo, enim dolores id maxime libero eum. Cumque ratione ipsam quae, similique quibusdam error illo ipsa voluptates possimus quasi!</p>
+                  <a href="" class="btn- btn-primary btn-lg">Login</a>
+                </div>
+                  <a href="#mycarousel" data-slide="prev" class="carousel-control-prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </a>
+
+                  <a href="#mycarousel" data-slide="next" class="carousel-control-next">
+                    <span class="carousel-control-next-icon"></span>
+                  </a>
+                </div>
+            </div>
+            <div class="carousel-item carousel-image-3">
+              <div class="container">
+                <div class="carousel-caption d-none d-sm-block text-right mb-5">
+                  <h5 class="display-3">Meet Up</h5>
+                  <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita sit hic illo, enim dolores id maxime libero eum. Cumque ratione ipsam quae, similique quibusdam error illo ipsa voluptates possimus quasi!</p>
+                  <a href="" class="btn- btn-danger btn-lg">Learn More</a>
+                </div>
+                 <a href="#mycarousel" data-slide="prev" class="carousel-control-prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+
+            <a href="#mycarousel" data-slide="next" class="carousel-control-next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
         
 
       <h1>Welcome To Matcha</h1>
       
       <!-- footer -->
-            <%- include('helpers/footer'); -%>
+          <%- include('helpers/footer'); -%>
+      <script src=""></script>
     </body>
 </html>

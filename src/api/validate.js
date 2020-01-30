@@ -12,24 +12,16 @@ router.post('/', (req, res) => {
             res.status(200).send({fieldStatus: false});
         }
     } else if (req.body.name == 'firstname') {
-        let validFirstNPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-        let firstname = req.body.value;
-
-        let validate_first_name = firstname.match(validFirstNPattern);
-        if (!validate_first_name) {
-            res.status(200).send({fieldStatus: false});
-        } else {
+        if (validators.validateFirstName(req.body.value)) {
             res.status(200).send({fieldStatus: true});
+        } else {
+            res.status(200).send({fieldStatus: false});
         }
     } else if (req.body.name == 'lastname') {
-        let validLastNPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-        let lastname = req.body.value;
-
-        let validate_last_name = lastname.match(validLastNPattern);
-        if (!validate_last_name) {
-            res.status(200).send({fieldStatus: false});
-        } else {
+        if (validators.validateLastName(req.body.value)) {
             res.status(200).send({fieldStatus: true});
+        } else {
+            res.status(200).send({fieldStatus: false});
         }
     } else if (req.body.name == 'email') {
         if (validators.validateEmail(req.body.value)) {
