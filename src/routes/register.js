@@ -46,19 +46,18 @@ router.post('/', (req, res) => {
                                 // ready for insert statement
                                 db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)', [hashedPass, user, email, 0, firstName, lastName], (err, results, field) => {
                                     if (results) {
-                                        console.log(results);
-                                        console.log("succesfully inserted pass, uname and email into the database!");
+                                        console.log("succesfully inserted pass, uname, fullnames and email into the database!");
                                     }
                                     else{
                                         console.log(err);
                                     }
                                 });
                             } else {
-                              console.log("email exists ");  
+                              console.log("email already exists ");  
                             }
                         });      
                     } else {
-                        console.log("user exists");
+                        console.log("user already exists");
                     }
                 });
             });
