@@ -27,27 +27,34 @@ router.get('/', (req, res)=>{
 router.post('/', (req, res)=>{
     if (req.session.loggedin)
     {
-        if (req.body.username) {
-            db.query('UPDATE matcha_users SET username = ?', [req.body.username], (err, results) => {
-                if (err) throw err;
-                else
-                {
-                    console.log("succesfully updated username");
-                }
-            })
-        }
+        let user = req.session.username;
+
+        // NB!! when you update the username. it will give you some problems because the user that is in session is the one with the previous username.
+        // especially when trying to work with the profile page
+        // since you are now using a different username, it struggles to match your username in the database with that in session.
+
+
+        // if (req.body.username) {
+        //     db.query('UPDATE matcha_users SET username = ? WHERE username = ?', [req.body.username, user], (err, results) => {
+        //         if (err) throw err;
+        //         else {
+        //             console.log("succesfully updated username");
+        //         }
+        //     })
+        // }
         if (req.body.email)
         {
-            db.query('UPDATE matcha_users SET email = ?', [req.body.email], (err, results) => {
+            db.query('UPDATE matcha_users SET email = ? WHERE username = ?', [req.body.email, user], (err, results) => {
                 if (err) throw err;
                 else {
+                    console.log(results);
                     console.log("succesfully updated email");
                 }
             })
         }
         if (req.body.firstname)
         {
-            db.query('UPDATE matcha_users SET firstname = ?', [req.body.firstname], (err, results) => {
+            db.query('UPDATE matcha_users SET firstname = ? WHERE username = ?', [req.body.firstname, user], (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated firstname");
@@ -56,7 +63,7 @@ router.post('/', (req, res)=>{
         }
         if (req.body.lastname)
         {
-            db.query('UPDATE matcha_users SET lastname = ?', [req.body.lastname], (err, results) => {
+            db.query('UPDATE matcha_users SET lastname = ? WHERE username = ?', [req.body.lastname, user], (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated lastname");
@@ -67,7 +74,7 @@ router.post('/', (req, res)=>{
         {
             passEncrypt.hash(req.body.password, 8, (error, hashedPass) => {
                 if (error) throw err;
-                db.query('UPDATE matcha_users SET password = ?', [hashedPass], (err, results) => {
+                db.query('UPDATE matcha_users SET password = ? WHERE username = ?', [hashedPass, user], (err, results) => {
                     if (err) throw err;
                     else {
                         console.log("succesfully updated password");
@@ -100,6 +107,7 @@ router.post('/', (req, res)=>{
                 if (err) throw err;
             })
         }
+        res.render('pages/home', {username: req.body.username});
     }
 });
 
