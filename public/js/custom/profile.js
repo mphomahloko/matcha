@@ -1,6 +1,7 @@
 // not complete
-const checkResponce = ({fieldStatus}) => {
-	console.log(fieldStatus);
+const checkResponce = (data) => {
+	console.log(data);
+	// $('#firstname').attr('style', "border-radius: 5px; border:green 1px solid;");
 }
 
 const activateBtn = ({srcElement})=>{
