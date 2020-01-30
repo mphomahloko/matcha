@@ -38,7 +38,7 @@ router.post('/', (req, res)=>{
             db.query('UPDATE matcha_users SET username = ? WHERE username = ?', [req.body.username, user], (err, results) => {
                 if (err) throw err;
                 else {
-                    req.session.username = user;
+                    req.session.username = req.body.username;
                     console.log("succesfully updated username");
                 }
             })

@@ -1,7 +1,10 @@
 // not complete
 const checkResponce = (data) => {
-	console.log(data);
-	// $('#firstname').attr('style', "border-radius: 5px; border:green 1px solid;");
+	console.log('#' + data.field);
+	if (data.success == true)
+		$('#' + data.field).attr('style', "border-radius: 5px; border:green 1px solid;");
+	else
+		$('#' + data.field).attr('style', "border-radius: 5px; border:red 1px solid;");
 }
 
 const activateBtn = ({srcElement})=>{
