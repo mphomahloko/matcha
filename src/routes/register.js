@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 
     if (validators.validateUsername(user) && validators.validatePassword(pass) &&
         validators.validateEmail(email) && validators.validateConfPassword(pass, confPass) &&
-        validators.validateName(firstName) && validators.validateName(lastName)) {
+        validators.validateLastName(firstName) && validators.validateFirstName(lastName)) {
  
             passEncrypt.hash(pass, 8, (err, hashedPass) => {
                 if (err) {
