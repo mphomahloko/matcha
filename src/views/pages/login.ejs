@@ -26,16 +26,26 @@
             <h5 class="display-2 mt-5 pt-5">
               Swipe right. Meet up....
             </h5>
+            <% if (success) {%>
+              <div class="alert alert-info" role="alert">
+                <%=message%>
+              </div>
+              <% } %>
+              <% if (!success) {%>
+                <div class="alert alert-warning" role="alert">
+                  <%=message%>
+                </div>
+              <% } %>
             <div class="card bg-primary text-center card-form">
               <div class="card-body">
                 <h3>Login</h3>
-                <p>have an account? Enter your details to login</p>
                   <form action="login" method="POST">
-                    <div class="form-group"></div>
-                    <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" required>
-                    <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="min 8 characters, lower and upper case, number(s), special character(s) atleast">
-                    <input type="submit"  name="submit" disabled class="btn btn-outline-light btn-block">
-                    </form>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" required>
+                      <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="min 8 characters, lower and upper case, number(s), special character(s) atleast">
+                      <input type="submit"  name="submit" disabled class="btn btn-outline-light btn-block">
+                    </div>
+                  </form>
                 </div>     
               </div>
             </div>

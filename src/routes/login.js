@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         res.render('pages/home', {username: req.session.username});
         res.end();
     } else {
-        res.render('pages/login');
+        res.render('pages/login', {success: true, message: "have an account? Enter your details to login"});
     }
 });
 
@@ -34,18 +34,18 @@ router.post('/', (req, res)=>{
                             res.render('pages/home', {username: user});
                             res.end();
                         } else {
-                            res.status(401).send({success: false, message: "Incorrect password"});
+                            res.status(401).render('pages/login', {success: false, message: "Incorrect password"});
                             res.end();
                         }
                     });
                 });
             } else {
-                res.status(401).send({success: false, message: "Incorrect username"});
+                res.status(401).render('pages/login', {success: false, message: "Incorrect username"});
                 res.end();
             }
        });
     } else {
-        res.status(401).send({success: false, message: "username or password incorrect."});
+        res.status(401).render('pages/login', {success: false, message: "username or password incorrect."});
         res.end();
     }
 });

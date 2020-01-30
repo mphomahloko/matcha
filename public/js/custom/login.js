@@ -1,6 +1,6 @@
 // console.log(document.querySelector("input[name='username']"));
-const checkResponce = ({fieldStatus})=> {
-    console.log(fieldStatus);
+const checkResponce = ({success, message})=> {
+    console.log(success);
 }
 
 const activateBtn = ({srcElement}) => {
