@@ -1,4 +1,4 @@
-import express from 'express';
+ import express from 'express';
 import db from '../../config/database/database';
 import passEncrypt from 'bcryptjs';
 
@@ -6,7 +6,7 @@ const router = express.Router();
 
 // /profile routes
 
-router.get('/', (req, res)=>{
+router.get('/', (req, res) => {
     // get loggedin user from database
     if (req.session.loggedin) {
         let user = req.session.username;
@@ -19,21 +19,15 @@ router.get('/', (req, res)=>{
             res.end();
         });
     } else {
-        res.render('pages/login');
+        res.render('pages/login', {success: true, message: "have an account? Enter your details to login"});
         res.end();
     }
 });
 
-router.post('/', (req, res)=>{
+router.post('/', (req, res) => {
     if (req.session.loggedin)
     {
         let user = req.session.username;
-
-        // NB!! when you update the username. it will give you some problems because the user that is in session is the one with the previous username.
-        // especially when trying to work with the profile page
-        // since you are now using a different username, it struggles to match your username in the database with that in session.
-
-
         if (req.body.username) {
             db.query('UPDATE matcha_users SET username = ? WHERE username = ?', [req.body.username, user], (err, results) => {
                 if (err) throw err;
@@ -48,7 +42,6 @@ router.post('/', (req, res)=>{
             db.query('UPDATE matcha_users SET email = ? WHERE username = ?', [req.body.email, user], (err, results) => {
                 if (err) throw err;
                 else {
-                    console.log(results);
                     console.log("succesfully updated email");
                 }
             })
