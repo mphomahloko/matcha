@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
+    console.log(user + " " + pass);
     if (validators.validateUsername(user) && validators.validatePassword(pass)) {
        db.query('SELECT * FROM matcha_users WHERE username = ?',
        [user],(err, results, fields) => {

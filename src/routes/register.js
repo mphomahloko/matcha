@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     if (req.session.loggedin) {
         res.render('pages/home', {username: req.session.username});
     } else {
-        res.render('pages/register', {username: "", email: "", firstname: "", lastname: "", password: "", confirmpassword: ""});
+        res.render('pages/register', {success: true, message: "Complete form to register"});
     }
     res.end();
 });
@@ -46,18 +46,21 @@ router.post('/', (req, res) => {
                                 // ready for insert statement
                                 db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)', [hashedPass, user, email, 0, firstName, lastName], (err, results, field) => {
                                     if (results) {
-                                        console.log("succesfully inserted pass, uname, fullnames and email into the database!");
+                                        res.status(200).render('pages/login', {success: true, message: "succesfully registerd, please click on the link in your email to activate your account"});
+                                        res.end();
                                     }
-                                    else{
+                                    else {
+                                        res.status(401).render('pages/register', {success: false, message: "failed to register you for some reason. please try registering again"});
+                                        res.end();
                                         console.log(err);
                                     }
                                 });
                             } else {
-                              console.log("email already exists ");  
+                                res.status(401).render('pages/register', {success: false, message: "email already exists"});
                             }
                         });      
                     } else {
-                        console.log("user already exists");
+                        res.status(401).render('pages/register', {success: false, message: "user already exists"});
                     }
                 });
             });
@@ -105,126 +108,31 @@ router.post('/', (req, res) => {
                 });
              }
 
-            res.render('pages/index');
+            // res.render('pages/index');
 
-            // req.render('pages/', "welcome" + user);
-
-            // db.query('SELECT username FROM matcha_users WHERE username = ?', [user], (err, results, fields) => {
-
-            //     results.forEach(element => {
-            //         let existingUserName = element.username;
-            //         if (user === existingUserName)
-            //         {
-                        
-            //             console.log("that username already exists");
-            //             // res.send("that username already exists");
-            //             // res.end();
-            //         }
-            //     });
-            // });
-
-            // db.query('SELECT email FROM matcha_users WHERE email = ?', [email], (err, results, fields) => {
-            //     results.forEach(element => {
-            //         let existingUserEmail = element.email;
-            //         if (email === existingUserEmail)
-            //         {
-            //             console.log("that email matches that of an existing user");
-            //             // res.send("that email matches that of an existing user");
-            //             // res.end();
-            //         }
-            //     });
-            // });
-
-            
-            // db.query('INSERT INTO matcha_users (username, password, email, name) VALUES (?,?,?,?)', [user, pass, email, name], (err, results) => {
-            //     if (results.affectedRows)
-            //     {
-            //         console.log("user info succesfully inserted into database");
-            //         res.send("user info successfully inserted into database");
-            //     }
-            //     else if (err)
-            //     {
-            //         console.log("failed to insert into database");
-            //         res.send("failed to insert into database");
-            //     }
-            // });
-            // console.log(existingUser)
-    } else if (!validators.validateUsername(user) || !validators.validatePassword(pass) ||
-                !validators.validateEmail(email) || !validators.validateConfPassword(pass, confPass) ||
-                !validators.validateName(firstName) || !validators.validateName(lastName)) {
-
-
-                    // considering how this should be changed!!!
-                    
+    } else {
             if (!validators.validateUsername(user))
             {
-                console.log("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
-                res.send("your username need to be 2 - 50 characters long and contain atleast one lower case alphabet");
+                res.status(401).render('pages/register',{success: false, message: "your username need to be 2 - 50 characters long and contain atleast one lower case alphabet"});
                 res.end();
             }
-
             else if (!validators.validateEmail(email))
             {
-                console.log("your email needs to be in this format: user@mail.domain");
-                res.send("your email needs to be in this format: user@mail.domain");
+                res.status(401).render('pages/register', {success: false, message: "your email needs to be in this format: user@mail.domain"});
                 res.end();
             }
-
             else if (!validators.validatePassword(pass))
             {
                 console.log("a password must contain lower and upper case characters, digit(s), and special character(s)");
-                res.send("a password must contain lower and upper case characters, digit(s), and special character(s)");
+                res.status(401).render('pages/register', {success: false, message: "a password must contain lower and upper case characters, digit(s), and special character(s)"});
                 res.end();
             }
-
             else if (!validators.validateConfPassword(pass, confPass))
             {
-                console.log("your confirm password must match your password above");
-                res.render('pages/register', {username: req.body.username, email: req.body.email, name: req.body.name, password: "not empty", passwordConf: "match"});
+                res.status(401).render('pages/register', {success: false, message: "your confirm password must match your password"});
                 res.end();
             }
-        } else {
-        if (req.body.username == "")
-        {
-            console.log("please insert username");
-            res.render('pages/register',{ username: "empty", email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: "not empty", confirmpassword: "not empty"});
-            res.end();
         }
-
-        else if (req.body.email == "")
-        {
-            console.log("please insert email");
-            res.render('pages/register', {username: req.body.username, email: "empty", firstname: req.body.firstname, lastname: req.body.lastname, password: "not empty", confirmpassword: "not empty"});
-            res.end();
-        }
-
-        else if (req.body.firstname == "")
-        {
-            console.log("please insert your firstname");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: "empty", lastname: req.body.lastname, password: "not empty", confirmpassword: "not empty"});
-            res.end();
-        }
-
-        else if (req.body.lastname == "")
-        {
-            console.log("please insert your lastname");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: "empty", password: "not empty", confirmpassword: "not empty"});
-            res.end();
-        }
-
-        else if (req.body.password == "")
-        {
-            console.log("you must enter a password");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: "empty", confirmpassword: "not empty"});
-            res.end();
-        }
-
-        else if (req.body.confirmpassword == "")
-        {
-            console.log("please fill in the password confirm field");
-            res.render('pages/register', {username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: "not empty", confirmpassword: "empty"});
-        }
-    }
 });
 
 module.exports = router;
