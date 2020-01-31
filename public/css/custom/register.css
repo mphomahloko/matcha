@@ -1,4 +1,4 @@
-.login-form {
+/* .login-form {
     width: 300px;
     margin: 0 auto;
     font-family: Tahoma, Geneva, sans-serif;
@@ -48,4 +48,49 @@
   border-radius: 3px;
   -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+} */
+
+body {
+  margin-top: 105px; }
+
+.navbar {
+  box-shadow: 2px 2px 5px #A00000;
+  opacity: 0.9;
+  background: #ffffff; }
+  .navbar .nav-item {
+    font-size: 1.4rem;
+    padding-right: 1.4rem; }
+
+#showcase {
+  position: relative;
+  background: url("/img/girl.jpeg");
+  /* height: fit-content; */
+  /* width: auto; */
+  min-height: 900px;
+  min-width: initial;
+ }
+  #showcase .primary-overlay {
+    background: rgba(139, 132, 130, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
+@media (max-width: 768px) {
+  #showcase {
+    min-height: 500px; }
+    #showcase h5 {
+      font-size: 4rem; } }
+#showcase .card-form {
+  opacity: 0.8; }
+
+#showcase .card-body {
+  background: #A00000; }
+
+#home-section .fas {
+  color: #008ed6;
+  background: #fff;
+  padding: 5px;
+  border-radius: 5px;
 }
