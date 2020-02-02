@@ -9,10 +9,10 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 	if (req.session.loggedin) {
-        res.render('pages/home', {username: req.session.username});
+        res.status(200).render('pages/home', {username: req.session.username});
         res.end();
     } else {
-        res.render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+        res.status(200).render('pages/login', {success: true, message: "have an account? Enter your details to login"});
     }
 });
 
@@ -31,7 +31,7 @@ router.post('/', (req, res)=>{
                         } else if (isMatch) {
                             req.session.loggedin = true;
                             req.session.username = user;
-                            res.render('pages/home', {username: user});
+                            res.status(200).render('pages/home', {username: user});
                             res.end();
                         } else {
                             res.status(401).render('pages/login', {success: false, message: "Incorrect password"});

@@ -9,15 +9,17 @@ router.get('/', (req, res)=>{
 		db.query('SELECT * FROM messages', (err, results, fields)=>{
            if (results.length > 0) {
              results.forEach(element => {
-               res.render('pages/messages', {msg: element.msg, user: req.session.username});
+               res.status(200).render('pages/messages', {msg: element.msg, user: req.session.username});
                res.end();
               });
             } else {
-              res.render('pages/messages', {msg: "", user: req.session.username});
+              res.status(200).render('pages/messages', {msg: "", user: req.session.username});
+              res.end();
             }
        });
     } else {
-		res.render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+      res.status(401).render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+      res.end();
     }
 });
 
