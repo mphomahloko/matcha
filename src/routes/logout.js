@@ -7,11 +7,11 @@ router.get('/', (req, res)=>{
         req.session.destroy((err)=>{
 			// cannot access session here
 			if (err) console.log(err);
-			res.render('pages/index');
+			res.status(200).render('pages/index');
 			res.end();
-		  })
+		  });
     } else {
-		res.render('pages/index');
+		res.status(200).render('pages/index');
 		res.end();
     }
 });

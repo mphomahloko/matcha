@@ -10,16 +10,15 @@ router.get('/', (req, res) => {
     // get loggedin user from database
     if (req.session.loggedin) {
         let user = req.session.username;
-
         db.query('SELECT * from matcha_users WHERE username=?', [user], (err, results)=>{
             if (err) throw err;
             results.forEach(element => {
-                res.render('pages/profile', element);
+                res.status(200).render('pages/profile', element);
+                res.end();
             });
-            res.end();
         });
     } else {
-        res.render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+        res.status(401).render('pages/login', {success: true, message: "have an account? Enter your details to login"});
         res.end();
     }
 });
@@ -35,7 +34,7 @@ router.post('/', (req, res) => {
                     req.session.username = req.body.username;
                     console.log("succesfully updated username");
                 }
-            })
+            });
         }
         if (req.body.email)
         {
@@ -44,7 +43,7 @@ router.post('/', (req, res) => {
                 else {
                     console.log("succesfully updated email");
                 }
-            })
+            });
         }
         if (req.body.firstname)
         {
@@ -53,7 +52,7 @@ router.post('/', (req, res) => {
                 else {
                     console.log("succesfully updated firstname");
                 }
-            })
+            });
         }
         if (req.body.lastname)
         {
@@ -62,7 +61,7 @@ router.post('/', (req, res) => {
                 else {
                     console.log("succesfully updated lastname");
                 }
-            })
+            });
         }
         if (req.body.password)
         {
@@ -73,9 +72,8 @@ router.post('/', (req, res) => {
                     else {
                         console.log("succesfully updated password");
                     }
-                })
-            })
-            
+                });
+            });
         }
         if (req.body.gender)
         {
@@ -84,14 +82,14 @@ router.post('/', (req, res) => {
                 else {
                     console.log("succesfully updated gender")
                 }
-            })
+            });
         }
         if (req.body.sexualPreference)
         {
             db.query('UPDATE matcha_users SET sexualPreference = ?', [req.body.sexualPreference], (err, results) => {
                 if (err) throw err;
                 else {
-                    console.log("succesfully updated sexualPreference")
+                    console.log("succesfully updated sexualPreference");
                 }
             })
         }
