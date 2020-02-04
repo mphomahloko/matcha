@@ -46,10 +46,21 @@ con.connect((err)=>{
         if (err) throw err;
         console.log("pictures table created");
     });
+    con.query(`CREATE TABLE IF NOT EXISTS rooms(
+        room_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        participant_1 int(11) NOT NULL,
+        participant_2 int(11) NOT NULL
+    )`, (err, results) => {
+        if (err) throw err;
+        console.log("rooms table created");
+    });
+    
     con.query(`CREATE TABLE IF NOT EXISTS messages(
         msg_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        user_id int(11) NOT NULL,
-        msg varchar(255) NOT NULL
+        room_id int(11) NOT NULL,
+        from_participant int(11) NOT NULL,
+        to_participant int(11) NOT NULL,
+        msg varchar(255)
     )`, (err, results) => {
         if (err) throw err;
         console.log("messages table created");
