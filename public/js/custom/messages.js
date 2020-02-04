@@ -30,10 +30,6 @@ const sendMsg = () => {
 		}).then((res) => { return res.json(); })
           .then()
 		  .catch((error) => { console.error('Error', error);});
-		  
-		//   fetch(api).then((res) => { return res.json(); })
-        //   .then(checkResponce)
-        //   .catch((error) => { console.error('Error', error);});
 	}
 	document.querySelector(".write_msg").value =  "";
 
