@@ -12,10 +12,7 @@ body {
 #showcase {
   position: relative;
   background: url("/img/girl.jpeg");
-  /* height: fit-content; */
-  /* width: auto; */
   min-height: 900px;
-  min-width: initial;
  }
   #showcase .primary-overlay {
     background: rgba(139, 132, 130, 0.8);
