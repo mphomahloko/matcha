@@ -35,6 +35,8 @@ body {
 #showcase .card-body {
   background-color: #3f0d12;
   background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+  color: slategray;
+  
  }
 
 #home-section .fas {
@@ -50,3 +52,9 @@ body {
     color: slategray;
 }
 
+a {
+    color: pink;
+}
+a:hover {
+  color: grey;
+}
