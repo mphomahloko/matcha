@@ -8,7 +8,7 @@ app.post('/messages', (req, res)=>{
 	// insert msg into database accordingly
     console.log(req.body);
     // send msg to specific user
-	io.emit(req.body.to, req.body);
+	// io.emit(req.body.to, req.body);
 	res.status(200).send({success: true});
 });
 

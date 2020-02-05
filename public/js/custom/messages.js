@@ -25,6 +25,7 @@ const sendMsg = () => {
 			},
 			body: JSON.stringify({
 				message: msg.trim(),
+				from: sender,
 				to: reciever
 			})
 		}).then((res) => { return res.json(); })
@@ -32,7 +33,6 @@ const sendMsg = () => {
 		  .catch((error) => { console.error('Error', error);});
 	}
 	document.querySelector(".write_msg").value =  "";
-
 };
 
 document.querySelector(".msg_send_btn").addEventListener('click', sendMsg);

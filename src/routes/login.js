@@ -31,6 +31,7 @@ router.post('/', (req, res)=>{
                         } else if (isMatch) {
                             req.session.loggedin = true;
                             req.session.username = user;
+                            req.session.user_id = element.user_id;
                             res.status(200).render('pages/home', {username: user});
                             res.end();
                         } else {

@@ -6,14 +6,13 @@ const router = express.Router();
 
 router.get('/', (req, res)=>{
     if (req.session.loggedin) {
-		db.query('SELECT * FROM messages', (err, results, fields)=>{
+      let id = req.session.user_id;
+		  db.query('SELECT * FROM rooms WHERE participant_1=? OR participant_2=?',[id, id], (err, results, fields) => {
            if (results.length > 0) {
-             results.forEach(element => {
-               res.status(200).render('pages/messages', {msg: element.msg, user: req.session.username});
-               res.end();
-              });
+            res.status(200).render('pages/messages', {rooms: results, user: req.session.username});
+            res.end();
             } else {
-              res.status(200).render('pages/messages', {msg: "", user: req.session.username});
+              res.status(200).render('pages/messages', {rooms: [], user: req.session.username});
               res.end();
             }
        });
