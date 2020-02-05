@@ -39,3 +39,10 @@ body {
   padding: 5px;
   border-radius: 5px;
 }
+
+a {
+    color: pink;
+}
+a:hover {
+  color: grey;
+}
