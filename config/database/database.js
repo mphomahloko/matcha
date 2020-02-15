@@ -31,6 +31,7 @@ con.connect((err)=>{
         if (err) throw err;
         console.log("users Table created");
     });
+    
     con.query(`CREATE TABLE IF NOT EXISTS interests(
         interest_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         interestName varchar(50)
@@ -38,6 +39,7 @@ con.connect((err)=>{
         if (err) throw err;
         console.log("interests table created");
     });
+
     con.query(`CREATE TABLE IF NOT EXISTS pictures(
         picture_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         user_id int(11) NOT NULL,
@@ -46,10 +48,14 @@ con.connect((err)=>{
         if (err) throw err;
         console.log("pictures table created");
     });
+
+    // add user image url links
     con.query(`CREATE TABLE IF NOT EXISTS rooms(
         room_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        participant_1 int(11) NOT NULL,
-        participant_2 int(11) NOT NULL
+        participant_1 varchar(50) NOT NULL,
+        participant_2 varchar(50) NOT NULL,
+        msg varchar(255),
+        date_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`, (err, results) => {
         if (err) throw err;
         console.log("rooms table created");
@@ -58,8 +64,8 @@ con.connect((err)=>{
     con.query(`CREATE TABLE IF NOT EXISTS messages(
         msg_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         room_id int(11) NOT NULL,
-        from_participant int(11) NOT NULL,
-        to_participant int(11) NOT NULL,
+        from_participant varchar(50) NOT NULL,
+        to_participant varchar(50) NOT NULL,
         msg varchar(255)
     )`, (err, results) => {
         if (err) throw err;
