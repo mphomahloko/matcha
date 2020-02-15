@@ -9,34 +9,15 @@
         <link href="/css/custom/profile.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <!-- PROFILE NAV BAR -->
-        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="home">
-                <span class="feather-16" data-feather="heart"></span>
-                <span class="feather-16" data-feather="activity"></span>
-                Matcha
-                <span class="feather-16" data-feather="activity"></span>
-                <span class="feather-16" data-feather="heart"></span>
-            </a>
-        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
-            <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="logout">
-                    <!-- Sign out -->
-                    Logout
-                    <span class="feather-16" data-feather="log-out"></span>
-                </a>
-            </li>
-            </ul>
-        </nav>
+      
         <!-- EDIT PROFILE -->
+        <header>
+           <%- include('helpers/header'); -%>
+       </header>
         <section id="actions" class="py-4 mb-4 bg-light">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
-                         <header>
-                            <%- include('helpers/header'); -%>
-                        </header>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="col-md-8">
