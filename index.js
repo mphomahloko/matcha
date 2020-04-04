@@ -4,7 +4,7 @@ const io = require('socket.io')(http);
 
 const port = 3000;
 
-app.post('/messages', (req, res)=>{
+app.post('/messages', (req, res) => {
 	// insert msg into database accordingly
     console.log(req.body);
     // send msg to specific user
@@ -16,7 +16,7 @@ io.on('connection', () =>{
 	console.log('a user is connected');
 });
 
-const server = http.listen(port, (err)=>{
+const server = http.listen(port, (err) => {
     if (err) {
         console.log(err);
     } else {

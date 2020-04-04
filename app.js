@@ -43,7 +43,7 @@ app.use('/validate', routeToValidate);
 app.use('/messages', routeToMessages);
 app.use('/notifications', routeToNotifications);
 
-app.get('*', (req, res)=>{
+app.get('*', (req, res) => {
      res.render('pages/index');
   //  res.send("404 Page Not Found");
 });
