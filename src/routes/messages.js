@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     if (req.session.loggedin) {
       let user =  req.session.username;
-		  db.query('SELECT * FROM rooms WHERE participant_1=? OR participant_2=?',
+		  db.query('SELECT * FROM matcha.rooms WHERE participant_1=? OR participant_2=?',
 				  [user, user], (err, results, fields) => {
            if (results.length > 0) {
               res.status(200).render('pages/messages', {rooms: results, user: req.session.username});

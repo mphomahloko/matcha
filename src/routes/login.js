@@ -20,7 +20,7 @@ router.post('/', (req, res)=>{
     let user = req.body.username;
     let pass = req.body.password;
     if (validators.validateUsername(user) && validators.validatePassword(pass)) {
-       db.query('SELECT * FROM matcha_users WHERE username = ?',
+       db.query('SELECT * FROM matcha.matcha_users WHERE username = ?',
        [user],(err, results, fields) => {
            if (results.length > 0) {
                 results.forEach(element => {
