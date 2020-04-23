@@ -1,79 +1,38 @@
-'use strict';
-
 const validateUsername = (username) => {
-    let validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
-
-    let validate_user = username.match(validUserPattern);
-
-    if (!validate_user) {
-        return false;
-    } else {
-        return true;
-    }
+  const validUserPattern = /(?=^.{2,50}$)(?=.*[a-z]).*$/;
+  return username.match(validUserPattern);
 };
 
 const validateEmail = (email) => {
-	let validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
-
-	let validate_email = email.match(validEmailPattern);
-	if (!validate_email) {
-		return false;
-	} else {
-		return true;
-	}
+  const validEmailPattern = /[\w-]+@([\w-]+\.)+[\w-]+/;
+  return email.match(validEmailPattern);
 };
 
-const validatePassword = (password) => {
-	let validPassPattern = /(?=^.{6,100}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?\/&gt;.&lt;,])(?!.*\s).*$/;
-	
-	let validate_pass = password.match(validPassPattern);
-	if (!validate_pass) {
-		return false;
-	} else {
-		return true;
-	}
+const validatePass = (password) => {
+  const validPassPattern = /(?=^.{6,100}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
+  return password.match(validPassPattern);
 };
 
-const validateConfPassword = (pass, confirmPass) => {
-	if (validatePassword(confirmPass) && pass === confirmPass) {
-		return true;
-	} else {
-		return false;
-	}
-};
+const validateConfPass = (pass, confirmPass) => (validatePass(confirmPass) && pass === confirmPass);
 
 // firstname or lastname
 const validateFirstName = (name) => {
-	// Joe change the regex
-	let validNamePattern = /(?=^.{2,50}$)^[A-Za-z]+$/;
-
-    let validate_name = name.match(validNamePattern);
-
-    if (!validate_name) {
-        return false;
-    } else {
-        return true;
-    }
+  // Joe change the regex
+  const validNamePattern = /(?=^.{2,50}$)^[A-Za-z]+$/;
+  return name.match(validNamePattern);
 };
 
 const validateLastName = (name) => {
-	// Joe change the regex
-	let validNamePattern = /(?=^.{2,50}$)^[A-Za-z]+$/;
-
-    let validate_name = name.match(validNamePattern);
-
-    if (!validate_name) {
-        return false;
-    } else {
-        return true;
-    }
+  // Joe change the regex
+  const validNamePattern = /(?=^.{2,50}$)^[A-Za-z]+$/;
+  return name.match(validNamePattern);
 };
 
 module.exports = {
-	validateFirstName,
-	validateLastName,
-	validateEmail,
-	validateUsername,
-	validatePassword,
-	validateConfPassword
+  validateFirstName,
+  validateLastName,
+  validateEmail,
+  validateUsername,
+  validatePass,
+  validateConfPass
 };

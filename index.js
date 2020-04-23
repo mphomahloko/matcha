@@ -1,4 +1,5 @@
 import app from './app';
+
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
@@ -9,7 +10,7 @@ app.post('/messages', (req, res) => {
   console.log(req.body);
   // send msg to specific user
   // io.emit(req.body.to, req.body);
-  res.status(200).send({ success: true });
+  res.status(200).json({ success: true });
 });
 
 io.on('connection', () => {

@@ -1,19 +1,18 @@
-'use strict';
-const checkResponce = (data) => {
-  console.log(data);
-};
+// const checkResponce = ({ success }) => {
+//   console.log(success);
+// };
 
-const addMessages = (data) => {
-  console.log(`${data.message} from front-end`);
-};
+// const addMessages = (data) => {
+//   console.log(`${data.message} from front-end`);
+// };
 
 const sendMsg = () => {
-  let msg = document.querySelector('.write_msg').value;
+  const msg = document.querySelector('.write_msg').value;
   if (msg.trim()) {
     const api = 'http://localhost:4000/messages';
     const sender = document.querySelector('._').value;
     let reciever = '';
-    if (sender == 'santa') {
+    if (sender === 'santa') {
       reciever = 'test';
     } else {
       reciever = 'santa';
@@ -28,8 +27,8 @@ const sendMsg = () => {
         from: sender,
         to: reciever
       })
-    }).then((res) => { return res.json(); })
-      .then()
+    }).then((res) => { res.json(); })
+      .then((res) => console.log(res))
       .catch((error) => { console.error('Error', error); });
   }
   document.querySelector('.write_msg').value = '';

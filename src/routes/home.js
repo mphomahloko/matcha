@@ -1,14 +1,18 @@
 import express from 'express';
 
-const router = express.Router();
+const homeRouter = express.Router();
 
-router.get('/', (req, res)=>{
+homeRouter.route('/')
+  .get((req, res) => {
     if (req.session.loggedin) {
-        res.status(200).render('pages/home', {username: req.session.username});
-    } else {
-        res.status(401).render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+      return res.status(200).render('pages/home', {
+        username: req.session.username
+      });
     }
-    res.end();
-});
+    return res.status(401).render('pages/login', {
+      success: true,
+      message: 'have an account? Enter your details to login'
+    });
+  });
 
-module.exports = router;
+module.exports = homeRouter;
