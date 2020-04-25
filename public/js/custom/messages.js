@@ -11,6 +11,7 @@ const sendMsg = () => {
   if (msg.trim()) {
     const api = 'http://localhost:4000/messages';
     const sender = document.querySelector('._').value;
+    const room = parseInt(document.querySelector('.__').value);
     let reciever = '';
     if (sender === 'santa') {
       reciever = 'test';
@@ -23,9 +24,10 @@ const sendMsg = () => {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        message: msg.trim(),
+        msg: msg.trim(),
         from: sender,
-        to: reciever
+        to: reciever,
+        room: room
       })
     }).then((res) => { res.json(); })
       .then((res) => console.log(res))

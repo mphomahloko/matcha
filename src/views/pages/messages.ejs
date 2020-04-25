@@ -41,9 +41,10 @@
                           <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="some pic"></div>
                           <div class="chat_ib">
                             <!-- To modify date format on view -->
-                            <h5><%=element.participant_2 == user ?element.participant_1 : element.participant_2 %><span class="chat_date"><%=element.date_time.toLocaleString()%></span></h5>
+                            <h5><%=element.participant_2 === user ? element.participant_1 : element.participant_2 %><span class="chat_date"><%=element.date_time.toLocaleString()%></span></h5>
                             <!-- Link with notifications page -->
                             <p><%=element.msg%></p>
+                            <input type="text" hidden class="__" value="<%=element.room_id%>" />
                           </div>
                         </div>
                         </div>
@@ -54,7 +55,7 @@
                   </div>
                   <div class="mesgs">
                     <div class="msg_history">
-                      
+
                       <!-- <div clas s="incoming_msg">
                         <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                         <div class="received_msg">
