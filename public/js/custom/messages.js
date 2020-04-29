@@ -1,11 +1,3 @@
-// const checkResponce = ({ success }) => {
-//   console.log(success);
-// };
-
-// const addMessages = (data) => {
-//   console.log(`${data.message} from front-end`);
-// };
-
 const sendMsg = () => {
   const msg = document.querySelector('.write_msg').value;
   if (msg.trim()) {
@@ -29,8 +21,8 @@ const sendMsg = () => {
         to: reciever,
         room: room
       })
-    }).then((res) => { res.json(); })
-      .then((res) => console.log(res))
+    }).then((res) =>  res.json())
+      .then(data => console.log(data))
       .catch((error) => { console.error('Error', error); });
   }
   document.querySelector('.write_msg').value = '';

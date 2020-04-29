@@ -1,14 +1,1 @@
-import express from 'express';
-
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  if (req.session.loggedin) {
-    res.render('pages/home');
-  } else {
-    res.render('pages/index');
-  }
-  res.end();
-});
-
-module.exports = router;
+import express from 'express';const indexRoute = express.Router();indexRoute.route('/')  .get((req, res) => {    if (req.session.loggedin) {      res.status(200).render('pages/home');    } else {      res.status(200).render('pages/index');    }});module.exports = indexRoute;

@@ -1,10 +1,11 @@
 import express from 'express';
 
-const router = express.Router();
+const logoutRoute = express.Router();
 
-router.get('/', (req, res)=>{
+logoutRoute.route('/')
+	.get((req, res)=>{
     if (req.session.loggedin) {
-        req.session.destroy((err)=>{
+        req.session.destroy((err) => {
 			// cannot access session here
 			if (err) console.log(err);
 			res.status(200).render('pages/index');
@@ -14,6 +15,6 @@ router.get('/', (req, res)=>{
 		res.status(200).render('pages/index');
 		res.end();
     }
-});
+	});
 
-module.exports = router;
+module.exports = logoutRoute;

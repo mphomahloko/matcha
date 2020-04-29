@@ -7,7 +7,10 @@ router.get('/', (req, res)=>{
 		res.status(200).render('pages/notifications');
 		res.end();
     } else {
-		res.status(401).render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+		res.status(401).render('pages/login', {
+			success: true,
+			message: "have an account? Enter your details to login"
+		});
 		res.end();
     }
 });

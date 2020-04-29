@@ -13,17 +13,16 @@ app.post('/messages', (req, res) => {
   db.query('INSERT INTO messages (room_id, from_participant, to_participant, msg) VALUES (?, ?, ?, ?)',
     [req.body.room, req.body.from, req.body.to, req.body.msg],
     (err, results, field) => {
-    console.log(err);
     if (results) {
+      // send msg to specific user
+      // io.emit(req.body.to, req.body.msg);
       res.status(200).json({ success: true, message: "message successfully sent." });
     }
     else {
-      res.status(424).json({ success: false, message: "failed to send message." });
+      res.status(400).json({ success: false, message: "failed to send message." });
       console.log(err);
     }
   });
-  // send msg to specific user
-  // io.emit(req.body.to, req.body);
 });
 
 io.on('connection', () => {

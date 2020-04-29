@@ -2,11 +2,12 @@
 import db from '../../config/database/database';
 import passEncrypt from 'bcryptjs';
 
-const router = express.Router();
+const profileRoute = express.Router();
 
 // /profile routes
 
-router.get('/', (req, res) => {
+ profileRoute.route('/')
+   .get((req, res) => {
     // get loggedin user from database
     if (req.session.loggedin) {
         let user = req.session.username;
@@ -18,17 +19,20 @@ router.get('/', (req, res) => {
             });
         });
     } else {
-        res.status(401).render('pages/login', {success: true, message: "have an account? Enter your details to login"});
+        res.status(401).render('pages/login', {
+            success: true,
+            message: "have an account? Enter your details to login"
+        });
         res.end();
     }
-});
-
-router.post('/', (req, res) => {
-    if (req.session.loggedin)
-    {
+   })
+   .post((req, res) => {
+    if (req.session.loggedin) {
         let user = req.session.username;
         if (req.body.username) {
-            db.query('UPDATE matcha_users SET username = ? WHERE username = ?', [req.body.username, user], (err, results) => {
+            db.query('UPDATE matcha_users SET username = ? WHERE username = ?',
+              [req.body.username, user],
+              (err, results) => {
                 if (err) throw err;
                 else {
                     req.session.username = req.body.username;
@@ -36,38 +40,42 @@ router.post('/', (req, res) => {
                 }
             });
         }
-        if (req.body.email)
-        {
-            db.query('UPDATE matcha_users SET email = ? WHERE username = ?', [req.body.email, user], (err, results) => {
+        if (req.body.email) {
+            db.query('UPDATE matcha_users SET email = ? WHERE username = ?',
+              [req.body.email, user],
+              (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated email");
                 }
             });
         }
-        if (req.body.firstname)
-        {
-            db.query('UPDATE matcha_users SET firstname = ? WHERE username = ?', [req.body.firstname, user], (err, results) => {
+        if (req.body.firstname) {
+            db.query('UPDATE matcha_users SET firstname = ? WHERE username = ?',
+              [req.body.firstname, user],
+              (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated firstname");
                 }
             });
         }
-        if (req.body.lastname)
-        {
-            db.query('UPDATE matcha_users SET lastname = ? WHERE username = ?', [req.body.lastname, user], (err, results) => {
+        if (req.body.lastname) {
+            db.query('UPDATE matcha_users SET lastname = ? WHERE username = ?',
+              [req.body.lastname, user],
+              (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated lastname");
                 }
             });
         }
-        if (req.body.password)
-        {
+        if (req.body.password) {
             passEncrypt.hash(req.body.password, 8, (error, hashedPass) => {
                 if (error) throw err;
-                db.query('UPDATE matcha_users SET password = ? WHERE username = ?', [hashedPass, user], (err, results) => {
+                db.query('UPDATE matcha_users SET password = ? WHERE username = ?',
+                  [hashedPass, user],
+                  (err, results) => {
                     if (err) throw err;
                     else {
                         console.log("succesfully updated password");
@@ -75,27 +83,30 @@ router.post('/', (req, res) => {
                 });
             });
         }
-        if (req.body.gender)
-        {
-            db.query('UPDATE matcha_users SET gender = ?', [req.body.gender], (err, results) => {
+        if (req.body.gender) {
+            db.query('UPDATE matcha_users SET gender = ?',
+              [req.body.gender],
+              (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated gender")
                 }
             });
         }
-        if (req.body.sexualPreference)
-        {
-            db.query('UPDATE matcha_users SET sexualPreference = ?', [req.body.sexualPreference], (err, results) => {
+        if (req.body.sexualPreference) {
+            db.query('UPDATE matcha_users SET sexualPreference = ?',
+              [req.body.sexualPreference],
+              (err, results) => {
                 if (err) throw err;
                 else {
                     console.log("succesfully updated sexualPreference");
                 }
             })
         }
-        if (req.body.bibliography)
-        {
-            db.query('UPDATE matcha_user SET bibliography = ?', [req.body.bibliography], (err, results) => {
+        if (req.body.bibliography) {
+            db.query('UPDATE matcha_user SET bibliography = ?',
+              [req.body.bibliography],
+              (err, results) => {
                 if (err) throw err;
             })
         }
@@ -103,4 +114,4 @@ router.post('/', (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = profileRoute;

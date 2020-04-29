@@ -1,16 +1,7 @@
 const mysql = require('mysql');
 require('dotenv').config();
 
-const con = mysql.createConnection(
-  {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    socketPath: process.env.DB_SOCKETPATH,
-    multipleStatements: true
-  }
-);
-
+/*                                        Queries                                                 */
 const dbSql = 'CREATE DATABASE IF NOT EXISTS matcha';
 const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   user_id int(11) NOT NULL AUTO_INCREMENT  PRIMARY KEY,
@@ -47,6 +38,19 @@ const messagesSql = `CREATE TABLE IF NOT EXISTS matcha.messages(
   to_participant varchar(50) NOT NULL,
   msg varchar(255)
 )`;
+
+/*                                        End of Queries                                          */
+
+
+const con = mysql.createConnection(
+  {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    socketPath: process.env.DB_SOCKETPATH,
+    multipleStatements: true
+  }
+);
 
 con.connect((connectErr) => {
   if (connectErr) throw connectErr;
