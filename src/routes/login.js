@@ -10,7 +10,8 @@ loginRoute.route('/')
   .get((req, res) => {
     if (req.session.loggedin) {
       res.status(200).render('pages/home', {
-        username: req.session.username
+        username: req.session.username,
+        users: []
       });
     }
     else {
@@ -35,7 +36,10 @@ loginRoute.route('/')
                   req.session.loggedin = true;
                   req.session.username = user;
                   req.session.user_id = element.user_id;
-                  res.status(200).render('pages/home', { username: user });
+                  res.status(200).render('pages/home', {
+                    username: user,
+                    users: []
+                   });
                 }
                 else res.status(401).render('pages/login', { success: false, message: 'Incorrect password' });
               });
