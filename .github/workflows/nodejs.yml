@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - './**'
-    branches: [ master, develop/*, feature/* ]
+    branches: [ master, develop, feature/** ]
   pull_request:
     branches: [ master, develop ]
 
