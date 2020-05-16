@@ -53,7 +53,10 @@ const con = mysql.createConnection(
 );
 
 con.connect((connectErr) => {
-  if (connectErr) throw connectErr;
+  if (connectErr) {
+    console.log(`${connectErr} `)
+    throw connectErr;
+  }
 
   con.query(dbSql, (dbMatchaErr) => {
     if (dbMatchaErr) throw dbMatchaErr;
