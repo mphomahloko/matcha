@@ -1,4 +1,4 @@
-name: Node.js CI
+name: matcha CI
 
 on:
   push:
@@ -28,9 +28,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
       - run: npm install
         working-directory: ${{ env.working-directory }}
-      # - run: npm run lint
-      #   working-directory: ${{ env.working-directory }}
-      # - run: npm run build --if-present
-      #   working-directory: ${{ env.working-directory }}
-      # - run: npm test
-      #   working-directory: ${{ env.working-directory }}
+      - run: npm run build --if-present
+        working-directory: ${{ env.working-directory }}
+      - run: npm test
+        working-directory: ${{ env.working-directory }}
