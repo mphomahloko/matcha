@@ -1,34 +1,27 @@
-name: matcha CI
+
+name: Node.js CI
 
 on:
   push:
-    paths:
-      - './**'
-    branches: [ master, develop/*, feature/* ]
+    branches: [ master, develop, feature/* ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ master, develop, feature/* ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [10.x, 12.x]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }} running on ${{ env.working-directory }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-        working-directory: ${{ env.working-directory }}
-      - run: npm install
-        working-directory: ${{ env.working-directory }}
-      - run: npm run build --if-present
-        working-directory: ${{ env.working-directory }}
-      - run: npm test
-        working-directory: ${{ env.working-directory }}
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
