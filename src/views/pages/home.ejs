@@ -12,18 +12,27 @@
       <!-- header -->
         <%- include('helpers/header'); -%>
 
-        Hi <%= username %> You have succesfully loggedin
-
-        <!-- User card -->
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="/assets/imagecap.svg" alt="Card image cap">
-          <div class="card-body">
-            <p class="card-text">
-              <span class="like" data-feather="check-circle"></span>
-              <span class="dislike" data-feather="x-circle"></span>
-            </p>
-          </div>
-        </div>
+        Hi <%= username %>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Handle</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%users.forEach(user => {%>
+            <tr>
+              <td><%=user.username%></td>
+              <td><%=user.lastname%></td>
+              <td><%=user.firstname%></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
 
         <!-- footer -->
         <%- include('helpers/footer'); -%>
