@@ -41,7 +41,6 @@ const messagesSql = `CREATE TABLE IF NOT EXISTS matcha.messages(
 
 /*                                        End of Queries                                          */
 
-
 const con = mysql.createConnection(
   {
     host: process.env.DB_HOST,
