@@ -10,7 +10,7 @@
     </head>
     <body>
       <!-- header -->
-        <%- include('helpers/header'); -%>
+      <%- include('helpers/header'); -%>
 
         Hi <%= username %>
       <div class="table-responsive">
@@ -24,17 +24,17 @@
           </thead>
           <tbody>
             <%users.forEach(user => {%>
-            <tr>
-              <td><%=user.username%></td>
-              <td><%=user.lastname%></td>
-              <td><%=user.firstname%></td>
+            <tr onclick="window.location='/details?user=<%=user.username%>';">
+                <td><%=user.username%></td>
+                <td><%=user.lastname%></td>
+                <td><%=user.firstname%></td>
             </tr>
             <%})%>
           </tbody>
         </table>
       </div>
 
-        <!-- footer -->
-        <%- include('helpers/footer'); -%>
+      <!-- footer -->
+      <%- include('helpers/footer'); -%>
     </body>
 </html>

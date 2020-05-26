@@ -9,6 +9,7 @@ import routeToIndex from './src/routes/index';
 import routeToLogin from './src/routes/login';
 import routeToLogout from './src/routes/logout';
 import routeToValidate from './src/api/validate';
+import routeToDetails from './src/routes/details';
 import routeToProfile from './src/routes/profile';
 import routeToMessages from './src/routes/messages';
 import routeToRegister from './src/routes/register';
@@ -38,6 +39,7 @@ app.use('/home', routeToHome);
 app.use('/login', routeToLogin);
 app.use('/logout', routeToLogout);
 app.use('/profile', routeToProfile);
+app.use('/details', routeToDetails);
 app.use('/register', routeToRegister);
 app.use('/validate', routeToValidate);
 app.use('/messages', routeToMessages);
@@ -45,7 +47,6 @@ app.use('/notifications', routeToNotifications);
 
 app.get('*', (req, res) => {
   res.render('pages/index');
-  //  res.send("404 Page Not Found");
 });
 
 module.exports = app;

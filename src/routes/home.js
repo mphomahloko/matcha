@@ -27,7 +27,7 @@ homeRouter.route('/')
     } else {
       res.status(401).render('pages/login', {
         success: true,
-        message: 'have an account? Enter your details to login'
+        message: 'have an account?... Enter your details to login'
       });
     }
   });
