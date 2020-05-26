@@ -15,9 +15,9 @@ detailsRouter.route('/')
                             users: results
                         });
                     } else {
-                        res.status(200).render('pages/details', {
-                            username: req.session.username,
-                            users: []
+                        res.status(401).render('pages/login', {
+                            success: true,
+                            message: 'to login to continue...'
                         });
                     }
                 });

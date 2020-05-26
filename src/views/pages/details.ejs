@@ -12,8 +12,14 @@
         <!-- header -->
         <%- include('helpers/header'); -%>
         <%users.forEach(user => {%>
-            <%=user.username%>
+            <input class="form-control" name="username" placeholder="<%=user.username%>" readonly>
+            <%=user.lastname%><br/>
+            <%=user.firstname%><br/>
         <%})%>
+        <button type="button" dis-like class="btn btn-primary btn-block">Like</button>
+        <button type="button" name="un-block" class="btn btn-danger btn-block">Block</button>
+        <input type="text" hidden class="_" value="<%=username%>" />
+        <script src="/js/custom/dis-like.js" rel="text/js"></script>
         <!-- footer -->
         <%- include('helpers/footer'); -%>
     </body>
