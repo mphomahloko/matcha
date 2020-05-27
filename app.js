@@ -8,12 +8,15 @@ import routeToHome from './src/routes/home';
 import routeToIndex from './src/routes/index';
 import routeToLogin from './src/routes/login';
 import routeToLogout from './src/routes/logout';
-import routeToValidate from './src/api/validate';
 import routeToDetails from './src/routes/details';
 import routeToProfile from './src/routes/profile';
 import routeToMessages from './src/routes/messages';
 import routeToRegister from './src/routes/register';
 import routeToNotifications from './src/routes/notifications';
+
+// api's
+import routeToDisLike from './src/api/dis-like';
+import routeToValidate from './src/api/validate';
 
 const app = express();
 
@@ -41,9 +44,12 @@ app.use('/logout', routeToLogout);
 app.use('/profile', routeToProfile);
 app.use('/details', routeToDetails);
 app.use('/register', routeToRegister);
-app.use('/validate', routeToValidate);
 app.use('/messages', routeToMessages);
 app.use('/notifications', routeToNotifications);
+
+// defined api's
+app.use('/dis-like', routeToDisLike);
+app.use('/validate', routeToValidate);
 
 app.get('*', (req, res) => {
   res.render('pages/index');

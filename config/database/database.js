@@ -38,7 +38,11 @@ const messagesSql = `CREATE TABLE IF NOT EXISTS matcha.messages(
   to_participant varchar(50) NOT NULL,
   msg varchar(255)
 )`;
-
+const likeSql = `CREATE TABLE IF NOT EXISTS matcha.likes(
+  like_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  participant varchar(50) NOT NULL,
+  liked_participant varchar(50) NOT NULL
+)`;
 /*                                        End of Queries                                          */
 
 const con = mysql.createConnection(
@@ -69,7 +73,8 @@ con.connect((connectErr) => {
       ${interestsSql};
       ${picturesSql};
       ${roomsSql};
-      ${messagesSql}`,
+      ${messagesSql};
+      ${likeSql}`,
       (matchaUsersErr) => {
         if (matchaUsersErr) throw matchaUsersErr;
         console.info('Tables created');
