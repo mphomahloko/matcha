@@ -1,7 +1,6 @@
 
-const checkResponce = ({success, message})=> {
-    console.log(success);
-    console.log(message);
+const checkResponce = ({success, message}) => {
+    console.log(success, message);
 }
 
 const dis_like = () => {
