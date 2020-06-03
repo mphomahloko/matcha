@@ -1,10 +1,11 @@
+'use strict';
 
 const checkResponce = ({success, message}) => {
     console.log(success, message);
 }
 
 const dis_like = () => {
-    const api = 'http://localhost:4000/dis-like';
+    const api = 'http://localhost:4000/api/dis-like';
     const participant = document.querySelector('._').value;
     const liked_participant = document.querySelector("input[name='username']").placeholder;
     const Info = {
