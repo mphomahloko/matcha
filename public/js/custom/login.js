@@ -1,4 +1,6 @@
 // console.log(document.querySelector("input[name='username']"));
+'use strict';
+
 const checkResponce = ({success, message})=> {
     console.log(success);
     console.log(message);
@@ -14,7 +16,7 @@ const activateBtn = ({srcElement}) => {
             let disabled = document.createAttribute('disabled');
             element.setAttributeNode(disabled);
         }
-        const api = 'http://localhost:4000/validate';
+        const api = 'http://localhost:4000/api/validate';
 
         const userInfo = {
             name: srcElement.name,

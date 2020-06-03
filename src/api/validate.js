@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
       res.status(200).send({ success: false, field: req.body.name });
     }
   } else if (req.body.name === 'password') {
-    if (validators.validatePassword(req.body.value)) {
+    if (validators.validatePass(req.body.value)) {
       res.status(200).send({ success: true, field: req.body.name });
     } else {
       res.status(200).send({ success: false, field: req.body.name });

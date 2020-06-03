@@ -15,12 +15,13 @@ import routeToRegister from './src/routes/register';
 import routeToNotifications from './src/routes/notifications';
 
 // api's
-import routeToDisLike from './src/api/dis-like';
-import routeToValidate from './src/api/validate';
+import disLikeAPI from './src/api/dis-like';
+import validationAPI from './src/api/validate';
+import messagesAPI from './src/api/messages';
 
 const app = express();
 
-// letting express know the packages being used
+// Middleware
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -48,9 +49,11 @@ app.use('/messages', routeToMessages);
 app.use('/notifications', routeToNotifications);
 
 // defined api's
-app.use('/dis-like', routeToDisLike);
-app.use('/validate', routeToValidate);
+app.use('/api/dis-like', disLikeAPI);
+app.use('/api/validate', validationAPI);
+app.use('/api/messages', messagesAPI);
 
+// error route
 app.get('*', (req, res) => {
   res.render('pages/index');
 });

@@ -1,3 +1,5 @@
+'use strict';
+
 const checkResponce = ({fieldStatus}) => {
 	console.log(fieldStatus);
 }
@@ -15,7 +17,7 @@ const activateBtn = ({srcElement})=>{
 			let disabled = document.createAttribute('disabled');
 			element.setAttributeNode(disabled);
 		}
-		const api = 'http://localhost:3000/validate';
+		const api = 'http://localhost:4000/api/validate';
 
 		let userInfo = {
 			name: srcElement.name,

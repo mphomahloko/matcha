@@ -35,20 +35,22 @@
                       <!-- rooms -->
                       <!-- <div class="chat_list active_chat"> -->
                       <% rooms.forEach(element => {%>
-                      <!-- <a href=""> -->
-                        <div class="chat_list">
-                        <div class="chat_people">
-                          <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="some pic"></div>
-                          <div class="chat_ib">
-                            <!-- To modify date format on view -->
-                            <h5><%=element.participant_2 === user ? element.participant_1 : element.participant_2 %><span class="chat_date"><%=element.date_time.toLocaleString()%></span></h5>
-                            <!-- Link with notifications page -->
-                            <p><%=element.msg%></p>
-                            <input type="text" hidden class="__" value="<%=element.room_id%>" />
-                          </div>
-                        </div>
-                        </div>
-                      <!-- </a> -->
+                            <div class="chat_list" onclick="getMessages('<%=element.room_id%>', '<%=element.participant_2 === user ? element.participant_1 : element.participant_2%>')">
+                              <div class="chat_people">
+                                <div class="chat_img">
+                                  <img src="https://ptetutorials.com/images/user-profile.png" alt="some pic">
+                                </div>
+                                <div class="chat_ib">
+                                  <!-- To modify date format on view -->
+                                  <h5>
+                                    <%=element.participant_2 === user ? element.participant_1 : element.participant_2 %>
+                                    <span class="chat_date"><%=element.date_time.toLocaleString()%></span>
+                                  </h5>
+                                  <!-- Link with notifications page -->
+                                  <p><%=element.msg%></p>
+                                </div>
+                              </div>
+                            </div>
                       <%})%>
 
                     </div>
@@ -56,26 +58,13 @@
                   <div class="mesgs">
                     <div class="msg_history">
 
-                      <!-- <div clas s="incoming_msg">
-                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="received_msg">
-                          <div class="received_withd_msg">
-                            <p>Test which is a new approach to have all solutions</p>
-                            <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                        </div>
-                      </div>
-                      <div class="outgoing_msg">
-                        <div class="sent_msg">
-                          <p>message sent by the user</p>
-                          <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                      </div>-->
-
                     </div>
-
                     <div class="type_msg">
                       <div class="input_msg_write">
                         <input type="text" class="write_msg" placeholder="Type a message" />
-                        <button class="msg_send_btn" type="button"><span class="feather-16" data-feather="send"></span></button>
+                        <button class="msg_send_btn" type="button">
+                          <span class="feather-16" data-feather="send"></span>
+                        </button>
                       </div>
                     </div>
 
@@ -93,6 +82,5 @@
         let socket = io();
         socket.on(document.querySelector('._').value, addMessages);
       </script>
-      <!-- html %> -->
     </body>
 </html>
