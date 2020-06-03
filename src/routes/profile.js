@@ -11,7 +11,7 @@ const profileRoute = express.Router();
     // get loggedin user from database
     if (req.session.loggedin) {
         let user = req.session.username;
-        db.query('SELECT * from matcha_users WHERE username=?', [user], (err, results)=>{
+        db.query('SELECT * from matcha_users WHERE username=?', [user], (err, results) => {
             if (err) throw err;
             results.forEach(element => {
                 res.status(200).render('pages/profile', element);
@@ -21,7 +21,7 @@ const profileRoute = express.Router();
     } else {
         res.status(401).render('pages/login', {
             success: true,
-            message: "have an account? Enter your details to login"
+            message: "have an account?... Enter your details to login"
         });
         res.end();
     }

@@ -14,9 +14,9 @@ const activateBtn = ({srcElement}) => {
             let disabled = document.createAttribute('disabled');
             element.setAttributeNode(disabled);
         }
-        const api = 'http://localhost:3000/validate';
+        const api = 'http://localhost:4000/validate';
 
-        let userInfo = {
+        const userInfo = {
             name: srcElement.name,
             value: srcElement.value
         }
