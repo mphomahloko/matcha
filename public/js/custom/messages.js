@@ -90,6 +90,5 @@ const addMessages = (msg) => {
                         </div>
                       </div>`;
 }
-
 // find a solution for sending a msg
 document.querySelector('.msg_send_btn').addEventListener('click', sendMsg);
