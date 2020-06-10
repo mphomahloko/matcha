@@ -86,7 +86,7 @@ router.post('/',  (req, res) => {
             });
             res.end();
         }
-        else if (!validators.validatePassword(pass)) {
+        else if (!validators.validatePass(pass)) {
             console.log("a password must contain lower and upper case characters, digit(s), and special character(s)");
             res.status(401).render('pages/register', {
                 success: false,
