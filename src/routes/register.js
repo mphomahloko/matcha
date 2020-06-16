@@ -2,6 +2,8 @@ import express from 'express';
 import db from '../../config/database/database';
 import passEncrypt from 'bcryptjs';
 import validators from '../models/validators';
+import { sendEmail } from '../functions/email';
+import { regToken } from '../functions/registrationToken';
 
 const router = express.Router();
 
@@ -26,12 +28,14 @@ router.post('/',  (req, res) => {
 
     if (validators.validateUsername(user) && validators.validatePass(pass) &&
         validators.validateEmail(email) && validators.validateConfPass(pass, confPass) &&
-        validators.validateLastName(firstName) && validators.validateFirstName(lastName)) {
+        validators.validateLastName(lastName) && validators.validateFirstName(firstName)) {
 
         passEncrypt.hash(pass, 8, (err, hashedPass) => {
             if (err) {
                 return err;
             }
+            // just so it will allow me to recycle one user during testing
+            // db.query('DELETE FROM matcha_users WHERE email=?', [email], (erRor, reSults) => {if (erRor) console.log(erRor); else console.log("success")});
             db.query('SELECT username FROM matcha_users WHERE username=?', // unique username
                 [user], (err, results, field) => {
                     if (err) return err;
@@ -42,11 +46,13 @@ router.post('/',  (req, res) => {
                                 if (err) return err;
                                 if (results.length == 0) {
                                     // ready for insert statement
-                                    db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname) VALUES (?, ?, ?, ?, ?, ?)',
-                                        [hashedPass, user, email, 0, firstName, lastName],
+                                    let token = regToken(20);
+                                    db.query('INSERT INTO matcha_users (password, username, email, active, firstname, lastname, token) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                        [hashedPass, user, email, 0, firstName, lastName, token],
                                         async (err, results, field) => {
                                         if (results) {
 
+                                            sendEmail(user, email, token);
                                             res.status(200).render('pages/login', {
                                                 success: true,
                                                 message: "successfully registered, please click on the link in your email to activate your account"
