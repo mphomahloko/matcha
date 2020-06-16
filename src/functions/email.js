@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import db from '../../config/database/database';
 require('dotenv').config();
 
 export function sendEmail(user, receiver, token) {
@@ -23,6 +24,13 @@ export function sendEmail(user, receiver, token) {
     transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
             console.log(err);
+            db.query('DELETE FROM matcha_users WHERE email=?', [receiver], (erRor, reSults) => {
+                if (erRor) {
+                    console.log(erRor);
+                 } else {
+                     console.log("user info has been removed from database")
+            }
+        });
         } else {
             console.log('Email sent to: ' + receiver);
         }

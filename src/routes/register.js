@@ -35,7 +35,7 @@ router.post('/',  (req, res) => {
                 return err;
             }
             // just so it will allow me to recycle one user during testing
-            // db.query('DELETE FROM matcha_users WHERE email=?', [email], (erRor, reSults) => {if (erRor) console.log(erRor); else console.log("success")});
+            // db.query('DELETE FROM matcha_users WHERE email=?', [email], (erRor, reSults) => {if (erRor) console.log(erRor); else console.log("user info has been removed from database")});
             db.query('SELECT username FROM matcha_users WHERE username=?', // unique username
                 [user], (err, results, field) => {
                     if (err) return err;
@@ -55,7 +55,7 @@ router.post('/',  (req, res) => {
                                             sendEmail(user, email, token);
                                             res.status(200).render('pages/login', {
                                                 success: true,
-                                                message: "successfully registered, please click on the link in your email to activate your account"
+                                                message: "successfully registered, please click on the link in your email to activate your account. Otherwise try registering again if you cannot find the link"
                                             });
                                             res.end();
                                         }
