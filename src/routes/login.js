@@ -1,7 +1,7 @@
 import express from 'express';
 import passConfMatch from 'bcryptjs';
 import db from '../../config/database/database';
-import validators from '../models/validators';
+import validators from '../utils/validators';
 
 const loginRoute = express.Router();
 
@@ -28,7 +28,7 @@ loginRoute.route('/')
           } else {
             const dbToken = REs[0].token;
             if (linkToken === dbToken) {
-              db.query('UPDATE matcha_users SET active=? WHERE username=?', [1, linkName], (erR, resU) => {
+              db.query('UPDATE matcha_users SET active=?, token=? WHERE username=?', [1, '', linkName], (erR) => {
                 if (erR) {
                   console.log(erR);
                   res.status(401).render('pages/login', {
@@ -41,8 +41,8 @@ loginRoute.route('/')
                     success: true,
                     message: 'have an account? Enter your details to login'
                   });
-              }
-            });
+                }
+              });
             } else {
               res.status(401).render('pages/login', {
                 success: false,
@@ -81,17 +81,29 @@ loginRoute.route('/')
                       users: []
                     });
                   }
-                  else res.status(401).render('pages/login', { success: false, message: 'Incorrect password' });
+                  else res.status(401).render('pages/login', {
+                    success: false,
+                    message: 'Incorrect password'
+                  });
                 });
               } else {
-                res.status(401).render('pages/login', { success: false, message: 'Please activate your account by clicking on the link in your email' });
+                res.status(401).render('pages/login', {
+                  success: false,
+                  message: 'Please activate your account by clicking on the link in your email'
+                });
               }
             });
           }
-          else res.status(401).render('pages/login', { success: false, message: 'Incorrect username' });
+          else res.status(401).render('pages/login', {
+            success: false,
+            message: 'Incorrect username'
+          });
         });
     }
-    else res.status(401).render('pages/login', { success: false, message: 'username or password incorrect.' });
+    else res.status(401).render('pages/login', {
+      success: false,
+      message: 'username or password incorrect.'
+    });
   });
 
 module.exports = loginRoute;

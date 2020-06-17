@@ -1,3 +1,4 @@
+
 export function regToken(length) {
     let text = '';
     let allowedChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
