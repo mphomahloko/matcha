@@ -1,5 +1,5 @@
 import express from 'express';
-import validators from '../models/validators';
+import validators from '../utils/validators';
 
 const router = express.Router();
 

@@ -13,7 +13,8 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   gender varchar(10),
   sexualPreference varchar(10),
   bibliography varchar(250),
-  active int(2) NOT NULL
+  active int(2) NOT NULL,
+  token varchar(200) NOT NULL
 )`;
 const interestsSql = `CREATE TABLE IF NOT EXISTS matcha.interests(
   interest_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
