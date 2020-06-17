@@ -2,8 +2,9 @@ import express from 'express';
 import db from '../../config/database/database';
 import passEncrypt from 'bcryptjs';
 import validators from '../utils/validators';
-import { sendEmail } from '../utils/email';
 import { regToken } from '../utils/registrationToken';
+import nodemailer from 'nodemailer';
+require('dotenv').config();
 
 const router = express.Router();
 
@@ -55,23 +56,51 @@ router.post('/', (req, res) => {
                                     [hashedPass, user, email, 0, firstName, lastName, token],
                                     async (err, results) => {
                                     if (results) {
-                                        try {
-                                            await sendEmail(user, email, token);
-                                            res.status(200).render('pages/login', {
-                                                success: true,
-                                                message: 'successfully registered, please click on the link in your email to activate your account.'
+                                        let transporter = nodemailer.createTransport({
+                                            service: 'gmail',
+                                            auth: {
+                                                user: process.env.MATCHA_EMAIL,
+                                                pass: process.env.EMAIL_PASS
+                                            },
+                                            tls: {
+                                                rejectUnauthorized: false
+                                            }
+                                        });
+                                        
+                                        let mailOptions = {
+                                            from: process.env.MATCHA_EMAIL,
+                                            to: email,
+                                            subject: 'Welcome to Matcha',
+                                            html: `<p>Congradulations, you have started on the right journey to find your true love with online dating</p>
+                                                   <p>Please click on this <a href="http://localhost:4000/login?user=${user}&token=${token}">link</a>
+                                                   to activate your account</p>`
+                                        };
+                                        
+                                        transporter.sendMail(mailOptions, (err) => {
+                                            if (err) {
+                                                res.status(401).render('pages/register', {
+                                                    success: false,
+                                                    message: 'failed to register you for some reason. please try registering again'
+                                                });
+                                                res.end();
+                                                console.log(err);
+                                                db.query('DELETE FROM matcha_users WHERE email=?', [email], (erRor) => {
+                                                if (erRor) {
+                                                    console.log("failed to remove user from database");
+                                                } else {
+                                                    console.log("user removed from database");
+                                                }
                                             });
-                                            res.end();
-                                        } catch (e) {
-                                            console.log(e.message);
-                                            res.status(401).render('pages/register', {
-                                                success: false,
-                                                message: 'failed to register you for some reason. please try registering again'
-                                            });
-                                            res.end();
-                                        }
-                                    }
-                                    else {
+                                            } else {
+                                                console.log(`Email sent to: ${email}`);
+                                                res.status(200).render('pages/login', {
+                                                    success: true,
+                                                    message: 'successfully registered, please click on the link in your email to activate your account.'
+                                                });
+                                                res.end();
+                                            }
+                                        });
+                                    } else {
                                         res.status(401).render('pages/register', {
                                             success: false,
                                             message: 'failed to register you for some reason. please try registering again'
