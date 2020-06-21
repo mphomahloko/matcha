@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "nodemon --exec babel-node index.js",
+    "db": "babel-node config/setup/setup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

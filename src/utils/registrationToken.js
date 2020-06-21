@@ -1,5 +1,5 @@
 
-export function regToken(length) {
+export const regToken = (length) => {
     let text = '';
     let allowedChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     for (let i = 0; i < length; i++) {

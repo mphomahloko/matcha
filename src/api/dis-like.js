@@ -17,11 +17,17 @@ router.route('/')
                                 AND participant LIKE ?;`,
                     [req.body.participant, req.body.liked_participant],
                     (err, results, field) => {
-                    res.status(200).json({ success: true, message: "like successful..." });
+                    res.status(200).json({
+                      success: true,
+                      message: "like successful..."
+                    });
                 });
             }
             else {
-                res.status(400).json({ success: false, message: "failed to like..." });
+                res.status(400).json({
+                  success: false,
+                  message: "failed to like..."
+                });
                 console.log(err);
             }
         });
