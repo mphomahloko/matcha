@@ -1,10 +1,10 @@
 'use strict'
-import nodemailer from "nodemailer";
+import mailer from "nodemailer";
 import 'dotenv/config'
 
-export const mail = async (account, message) => {
+export const mail = async (account,subject, message) => {
 
-    let transporter = nodemailer.createTransport({
+    let transporter = mailer.createTransport({
         service: 'gmail',
         auth: {
             user: process.env.MATCHA_EMAIL,
@@ -18,7 +18,7 @@ export const mail = async (account, message) => {
     let info = await transporter.sendMail({
         from: process.env.MATCHA_EMAIL,
         to: account.email,
-        subject: 'Welcome to Matcha',
+        subject: subject,
         html: message
     });
 

@@ -20,8 +20,11 @@ export default class Auth {
     }
 
     async activateAccount(userModel) {
-        let user = await userModel.verifyUser();
-        console.log(user);
+        try {
+            await userModel.verifyUser();
+        } catch (e) {
+            throw new Error('An error occurred verifying your account, please try again...')
+        }
     }
 
     async register(userModel) {
@@ -37,11 +40,13 @@ export default class Auth {
         }
 
         let account = await new Account(userModel);
+        const message = `<p>Congradulations, you have started on the right journey to find your true love with online dating</p>
+               <p>Please click on this <a href="http://localhost:4000/login?user=${account.username}&token=${account.token}">link</a>
+               to activate your account</p>`;
+        const subject = 'Welcome to Matcha';
         try {
             await account.save();
-            await mail(account, `<p>Congradulations, you have started on the right journey to find your true love with online dating</p>
-               <p>Please click on this <a href="http://localhost:4000/login?user=${account.username}&token=${account.token}">link</a>
-               to activate your account</p>`);
+            await mail(account, subject, message);
         } catch (e) {
             await account.remove();
             throw new Error('could not create account, please try again later.');

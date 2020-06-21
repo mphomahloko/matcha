@@ -27,7 +27,7 @@ export default class User {
     findByUsername() {
         return new Promise((resolve, reject) => {
             db.query(
-                `SELECT * FROM matcha.matcha_users WHERE username = ?`,
+                `SELECT * FROM matcha.matcha_users WHERE username=?`,
                 [this.username],
                 (error, result) => {
                     if (error) {
@@ -42,7 +42,7 @@ export default class User {
     findByEmail() {
         return new Promise((resolve, reject) => {
             db.query(
-                `SELECT * FROM matcha.matcha_users WHERE email = ?`,
+                `SELECT * FROM matcha.matcha_users WHERE email=?`,
                 [this.email],
                 (error, result) => {
                     if (error) {
@@ -57,7 +57,7 @@ export default class User {
     verifyUser() {
         return new Promise((resolve, reject) => {
             db.query(
-                'UPDATE matcha_users SET active=?, token=? WHERE username = ? AND token = ?',
+                'UPDATE matcha.matcha_users SET active=?, token=? WHERE username=? AND token=?',
                 [1, '', this.username, this.token],
                 (error, result) => {
                 if (error) {
