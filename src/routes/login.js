@@ -37,6 +37,11 @@ loginRoute.route('/')
             message: e.message
           });
         }
+      } else {
+        res.status(200).render('pages/login', {
+          success: true,
+          message: 'have an account? Enter your details to login'
+        });
       }
     }
 
