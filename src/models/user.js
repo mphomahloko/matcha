@@ -24,6 +24,10 @@ export default class User {
         this.token = user.token;
     }
 
+    forgotPassword(email) {
+        this.email = email;
+    }
+
     findByUsername() {
         return new Promise((resolve, reject) => {
             db.query(
