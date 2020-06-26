@@ -27,7 +27,7 @@ forgotPasswordRoute.post('/', async (req, res) => {
             let user = new User();
             const auth = new Auth;
             user.forgotPassword(email);
-            auth.forgotPassword(user);
+            await auth.forgotPassword(user);
             res.status(200).render('pages/login', {
                 success: true,
                 message: 'check your email'
