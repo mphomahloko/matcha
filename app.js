@@ -14,6 +14,7 @@ import routeToMessages from './src/routes/messages';
 import routeToRegister from './src/routes/register';
 import routeToNotifications from './src/routes/notifications';
 import routeToForgotPassword from './src/routes/forgotpassword';
+import routeToResetPassword from './src/routes/resetpassword';
 
 // api's
 import disLikeAPI from './src/api/dis-like';
@@ -49,6 +50,7 @@ app.use('/register', routeToRegister);
 app.use('/messages', routeToMessages);
 app.use('/notifications', routeToNotifications);
 app.use('/forgotpassword', routeToForgotPassword);
+app.use('/resetpass', routeToResetPassword);
 
 // defined api's
 app.use('/api/dis-like', disLikeAPI);

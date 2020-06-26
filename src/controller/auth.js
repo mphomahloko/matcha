@@ -61,7 +61,7 @@ export default class Auth {
         }
 
         let account = new Account(user);
-        const message = `<p>Please click on this <a href="http://localhost:4000/resetpass?user=${user.username}&token=${user.token}">link</a> to reset your password.</p>
+        const message = `<p>Please click on this <a href="http://localhost:4000/resetpass?user=${account.username}&token=${account.token}">link</a> to reset your password.</p>
                 <p>If you did not initiate the process then your account is under cyber attack.</p>`;
         const subject = 'Password reset.';
         try {

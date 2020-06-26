@@ -7,16 +7,10 @@ import Auth from '../controller/auth';
 const forgotPasswordRoute = express.Router();
 
 forgotPasswordRoute.get('/', async (req, res) => {
-    if (req.session.loggedin) {
-        res.status(200).render('pages/profile', {
-            username: req.session.username
-        });
-    } else {
-        res.status(200).render('pages/forgotpassword', {
-            success: true,
-            message: 'Please insert your email address'
-        });
-    }
+    res.status(200).render('pages/forgotpassword', {
+        success: true,
+        message: 'Please insert your email address'
+    });
     res.end();
 });
 
@@ -33,10 +27,9 @@ forgotPasswordRoute.post('/', async (req, res) => {
                 message: 'check your email'
             });
         } catch (err) {
-            console.log('there was an issue when trying to find user, make sure that everything is up and running');
             res.status(401).render('pages/login', {
                 success: false,
-                message: 'we are experiencing technical difficulties at this time, please try again later'
+                message: 'check your email'
             });
         }
     } else {
