@@ -83,6 +83,8 @@ export default class Auth {
                 } catch (err) {
                     throw new Error('could not change password');
                 }
+            } else {
+                throw new Error('the token is not valid');
             }
         }
     }

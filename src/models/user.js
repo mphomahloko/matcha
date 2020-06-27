@@ -22,6 +22,7 @@ export default class User {
     activateUser(user) {
         this.username = user.username;
         this.token = user.token;
+        this.newToken = regToken(20);
     }
 
     forgotPassword(email) {
@@ -69,7 +70,7 @@ export default class User {
         return new Promise((resolve, reject) => {
             db.query(
                 'UPDATE matcha.matcha_users SET active=?, token=? WHERE username=? AND token=?',
-                [1, '', this.username, this.token],
+                [1, this.newToken, this.username, this.token],
                 (error, result) => {
                 if (error) {
                     return reject(error);
