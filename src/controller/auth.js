@@ -58,16 +58,32 @@ export default class Auth {
 
         if (!user) {
             throw new Error('non existant user');
+        } else {
+            let account = new Account(user);
+            const message = `<p>Please click on this <a href="http://localhost:4000/resetpass?user=${account.username}&token=${account.token}">link</a> to reset your password.</p>
+                    <p>If you did not initiate the process then your account is under cyber attack.</p>`;
+            const subject = 'Password reset.';
+            try {
+                await mail(account, subject, message);
+            } catch (err) {
+                throw new Error('Could not send email for some reason.');
+            }
         }
+    }
 
-        let account = new Account(user);
-        const message = `<p>Please click on this <a href="http://localhost:4000/resetpass?user=${account.username}&token=${account.token}">link</a> to reset your password.</p>
-                <p>If you did not initiate the process then your account is under cyber attack.</p>`;
-        const subject = 'Password reset.';
-        try {
-            await mail(account, subject, message);
-        } catch (err) {
-            throw new Error('Could not send email for some reason.');
+    async resetPassword(userModel) {
+        let user = await userModel.findByUsername();
+
+        if (!user) {
+            throw new Error('non existant user')
+        } else {
+            if (user.token === userModel.token) {
+                try {
+                    await userModel.changePassword();
+                } catch (err) {
+                    throw new Error('could not change password');
+                }
+            }
         }
     }
 }
