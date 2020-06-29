@@ -22,6 +22,18 @@ export default class User {
     activateUser(user) {
         this.username = user.username;
         this.token = user.token;
+        this.newToken = regToken(20);
+    }
+
+    forgotPassword(email) {
+        this.email = email;
+    }
+
+    async resetPassword(user) {
+        this.username = user.username;
+        this.token = user.token;
+        this.newToken = regToken(20);
+        this.newPass = await passEncrypt.hash(user.password, 10);
     }
 
     findByUsername() {
@@ -58,7 +70,7 @@ export default class User {
         return new Promise((resolve, reject) => {
             db.query(
                 'UPDATE matcha.matcha_users SET active=?, token=? WHERE username=? AND token=?',
-                [1, '', this.username, this.token],
+                [1, this.newToken, this.username, this.token],
                 (error, result) => {
                 if (error) {
                     return reject(error);
@@ -67,5 +79,20 @@ export default class User {
             });
         })
 
+    }
+
+    changePassword() {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'UPDATE matcha.matcha_users SET password=?, token=? WHERE username=? AND token=?',
+                [this.newPass, this.newToken, this.username, this.token],
+                (err, res) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(res[0]);
+                }
+            );
+        });
     }
 }
