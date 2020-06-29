@@ -30,6 +30,7 @@ resetPasswordRoute.post('/', async (req, res) => {
     const linkToken = req.query.token;
     if (validators.validatePass(password) && validators.validateConfPass(password, confPass)) {
         try {
+            console.log(password + ' ' + confPass)
             const user = new User();
             const auth = new Auth();
             await user.resetPassword({
