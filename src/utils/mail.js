@@ -24,3 +24,4 @@ export const mail = async (account,subject, message) => {
 
     console.log("Message sent: %s", info.messageId);
 }
+
