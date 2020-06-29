@@ -84,8 +84,8 @@ export default class User {
     changePassword() {
         return new Promise((resolve, reject) => {
             db.query(
-                'UPDATE matcha.matcha_users SET password=?, token=? WHERE username=? AND token=?',
-                [this.newPass, this.newToken, this.username, this.token],
+                'UPDATE matcha.matcha_users SET password=?, token=?, active=? WHERE username=? AND token=?',
+                [this.newPass, this.newToken, 1, this.username, this.token],
                 (err, res) => {
                     if (err) {
                         return reject(err);
