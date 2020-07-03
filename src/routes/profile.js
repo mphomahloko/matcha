@@ -11,7 +11,7 @@ const profileRoute = express.Router();
     // get loggedin user from database
     if (req.session.loggedin) {
         let user = req.session.username;
-        db.query('SELECT * from matcha_users WHERE username=?', [user], (err, results) => {
+        db.query('SELECT * from matcha.matcha_users WHERE username=?', [user], (err, results) => {
             if (err) throw err;
             results.forEach(element => {
                 res.status(200).render('pages/profile', element);
@@ -30,7 +30,7 @@ const profileRoute = express.Router();
     if (req.session.loggedin) {
         let user = req.session.username;
         if (req.body.username) {
-            db.query('UPDATE matcha_users SET username = ? WHERE username = ?',
+            db.query('UPDATE matcha.matcha_users SET username = ? WHERE username = ?',
               [req.body.username, user],
               (err, results) => {
                 if (err) throw err;
@@ -41,7 +41,7 @@ const profileRoute = express.Router();
             });
         }
         if (req.body.email) {
-            db.query('UPDATE matcha_users SET email = ? WHERE username = ?',
+            db.query('UPDATE matcha.matcha_users SET email = ? WHERE username = ?',
               [req.body.email, user],
               (err, results) => {
                 if (err) throw err;
@@ -51,7 +51,7 @@ const profileRoute = express.Router();
             });
         }
         if (req.body.firstname) {
-            db.query('UPDATE matcha_users SET firstname = ? WHERE username = ?',
+            db.query('UPDATE matcha.matcha_users SET firstname = ? WHERE username = ?',
               [req.body.firstname, user],
               (err, results) => {
                 if (err) throw err;
@@ -61,7 +61,7 @@ const profileRoute = express.Router();
             });
         }
         if (req.body.lastname) {
-            db.query('UPDATE matcha_users SET lastname = ? WHERE username = ?',
+            db.query('UPDATE matcha.matcha_users SET lastname = ? WHERE username = ?',
               [req.body.lastname, user],
               (err, results) => {
                 if (err) throw err;
@@ -73,7 +73,7 @@ const profileRoute = express.Router();
         if (req.body.password) {
             passEncrypt.hash(req.body.password, 8, (error, hashedPass) => {
                 if (error) throw err;
-                db.query('UPDATE matcha_users SET password = ? WHERE username = ?',
+                db.query('UPDATE matcha.matcha_users SET password = ? WHERE username = ?',
                   [hashedPass, user],
                   (err, results) => {
                     if (err) throw err;
@@ -84,7 +84,7 @@ const profileRoute = express.Router();
             });
         }
         if (req.body.gender) {
-            db.query('UPDATE matcha_users SET gender = ?',
+            db.query('UPDATE matcha.matcha_users SET gender = ?',
               [req.body.gender],
               (err, results) => {
                 if (err) throw err;
@@ -94,7 +94,7 @@ const profileRoute = express.Router();
             });
         }
         if (req.body.sexualPreference) {
-            db.query('UPDATE matcha_users SET sexualPreference = ?',
+            db.query('UPDATE matcha.matcha_users SET sexualPreference = ?',
               [req.body.sexualPreference],
               (err, results) => {
                 if (err) throw err;
@@ -104,7 +104,7 @@ const profileRoute = express.Router();
             })
         }
         if (req.body.bibliography) {
-            db.query('UPDATE matcha_user SET bibliography = ?',
+            db.query('UPDATE matcha.matcha_user SET bibliography = ?',
               [req.body.bibliography],
               (err, results) => {
                 if (err) throw err;
