@@ -64,22 +64,28 @@
                         </div>
                       <% } %>
                   <div class="form-group">
-                      <input type="text" name="username" class="form-control form-control-lg" placeholder="Username">
+                      <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" required
+                      pattern="(?=.*[a-zA-Z]).{2,20}" title="2-20 characters and atleast one alphabetic character">
                   </div>
                   <div class="form-group">
-                      <input type="email" name="email" class="form-control form-control-lg" placeholder="Email">
+                      <input type="email" name="email" class="form-control form-control-lg" placeholder="Email"
+                      required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Something like 'user@mail.domain'. small caps only">
                     </div>
                   <div class="form-group">
-                        <input type="text" name="firstname" class="form-control form-control-lg" placeholder="First Name">
+                        <input type="text" name="firstname" class="form-control form-control-lg" placeholder="First Name" required
+                        pattern="[A-Za-z -]" title="only alphabet characters are allowed for firstname">
                   </div>
                   <div class="form-group">
-                      <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Last Name">
+                      <input type="text" name="lastname" class="form-control form-control-lg" placeholder="Last Name" required
+                      pattern="[A-Za-z -]" title="only alphabet characters are allowed for lastname">
                   </div>
                   <div class="form-group">
-                      <input type="password" name="password" class="form-control form-control-lg" placeholder="Password">
+                      <input type="password" name="password" class="form-control form-control-lg" placeholder="Password"
+                      required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}" title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
                   </div>
                   <div class="form-group">
-                      <input type="password" name="confirmpassword" class="form-control form-control-lg" placeholder="Confirm password">
+                      <input type="password" name="confirmpassword" class="form-control form-control-lg" placeholder="Confirm password"
+                      required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}" title="confirm password must match password above">
                   </div>
                   <input type="submit" name="submit" value="Submit" class="btn btn-outline-light btn-block">
                   

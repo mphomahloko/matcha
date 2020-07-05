@@ -47,15 +47,21 @@
                                                 <form action="profile" method="POST">
                                                     <div class="form-group">
                                                         <label>Username:</label>
-                                                        <input type="text"  name="username" id="username" placeholder="<%= username %>" class="form-control">
+                                                        <input type="text"  name="username" id="username" placeholder="<%= username %>" class="form-control"
+                                                        pattern="(?=.*[a-zA-Z]).{2,20}" title="2-20 characters and atleast one alphabetic character">
                                                         <label >Firstname:</label>
-                                                        <input type="text" name="firstname" id="firstname" placeholder="<%= firstname %>" class="form-control">
+                                                        <input type="text" name="firstname" id="firstname" placeholder="<%= firstname %>" class="form-control" required
+                                                        pattern="[A-Za-z -]" title="only alphabet characters are allowed for firstname">
                                                         <label>Lastname:</label>
-                                                        <input type="text" name="lastname" id="lastname" placeholder="<%= lastname %>" class="form-control">
+                                                        <input type="text" name="lastname" id="lastname" placeholder="<%= lastname %>" class="form-control" required
+                                                        pattern="[A-Za-z -]" title="only alphabet characters are allowed for lastname">
                                                         <label >Email:</label>
-                                                        <input type="email" name="email" id="email" placeholder="<%= email %>" class="form-control">
+                                                        <input type="email" name="email" id="email" placeholder="<%= email %>" class="form-control" required
+                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Something like 'user@mail.domain'. small caps only">
                                                         <label>Password:</label>
-                                                        <input type="password" name="password" id="password" placeholder="change password" class="form-control">
+                                                        <input type="password" name="password" id="password" placeholder="change password" class="form-control"
+                                                        required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                                                        title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
                                                         <label>Gender:</label>
                                                         <div class="radio radio-inline">
                                                             <label><input type="radio" name="optradio" >Male</label>
