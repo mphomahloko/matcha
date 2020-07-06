@@ -50,13 +50,13 @@
                                                         <input type="text"  name="username" id="username" placeholder="<%= username %>" class="form-control"
                                                         pattern="(?=.*[a-zA-Z]).{2,20}" title="2-20 characters and atleast one alphabetic character">
                                                         <label >Firstname:</label>
-                                                        <input type="text" name="firstname" id="firstname" placeholder="<%= firstname %>" class="form-control" required
-                                                        pattern="[A-Za-z -]" title="only alphabet characters are allowed for firstname">
+                                                        <input type="text" name="firstname" id="firstname" placeholder="<%= firstname %>" class="form-control"
+                                                        pattern="[A-Za-z -].{2,20}" title="2-20 characters, only alphabet characters are allowed for firstname">
                                                         <label>Lastname:</label>
-                                                        <input type="text" name="lastname" id="lastname" placeholder="<%= lastname %>" class="form-control" required
-                                                        pattern="[A-Za-z -]" title="only alphabet characters are allowed for lastname">
+                                                        <input type="text" name="lastname" id="lastname" placeholder="<%= lastname %>" class="form-control"
+                                                        pattern="[A-Za-z -].{2,20}" title="2-20 characters, only alphabet characters are allowed for lastname">
                                                         <label >Email:</label>
-                                                        <input type="email" name="email" id="email" placeholder="<%= email %>" class="form-control" required
+                                                        <input type="email" name="email" id="email" placeholder="<%= email %>" class="form-control"
                                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Something like 'user@mail.domain'. small caps only">
                                                         <label>Password:</label>
                                                         <input type="password" name="password" id="password" placeholder="change password" class="form-control"
