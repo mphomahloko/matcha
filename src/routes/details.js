@@ -29,4 +29,9 @@ detailsRouter.route('/')
         }
     });
 
+detailsRouter.post('/', async (req, res) => {
+    document.getElementById('un-block').addEventListener('click', async() => {
+        console.log(req);
+    })
+})
 module.exports = detailsRouter;

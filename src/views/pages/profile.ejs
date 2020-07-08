@@ -41,7 +41,7 @@
                                                autocomplete="name"
                                                placeholder="<%= firstname %>"
                                                class="form-control"
-                                               pattern="[A-Za-z -].{2,20}"
+                                               pattern="[A-Za-z -].{1,20}"
                                                title="2-20 characters, only alphabet characters are allowed for firstname">
                                         <label>Lastname:</label>
                                         <input type="text"
@@ -50,7 +50,7 @@
                                                id="lastname"
                                                placeholder="<%= lastname %>"
                                                class="form-control"
-                                               pattern="[A-Za-z -].{2,20}"
+                                               pattern="[A-Za-z -].{1,20}"
                                                title="2-20 characters, only alphabet characters are allowed for lastname">
                                         <label >Email:</label>
                                         <input type="email"
@@ -68,7 +68,7 @@
                                                id="password"
                                                placeholder="change password"
                                                class="form-control"
-                                               required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                                               pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
                                                title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
                                         <label>Confirm Password:</label>
                                         <input type="password"
@@ -77,7 +77,7 @@
                                                id="confirm-password"
                                                placeholder="confirm password"
                                                class="form-control"
-                                               required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                                               pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
                                                title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
                                         <label>Gender:</label>
                                         <div class="radio radio-inline">
@@ -132,6 +132,17 @@
                                             <input class="btn btn-info" type="button" value="#gym">
                                             <input class="btn btn-info" type="button" value="#book club">
                                             <input class="btn btn-info" type="button" value="#music">
+                                        </div>
+                                        <label>Location:</label>
+                                        <div>
+                                            <p>To better match you, we need your location to match you with partners in your area</p>
+                                            <p>Do you want us to find you a partner based on your location?</p>
+                                            <input class="btn btn-success" type="button" value="YES">
+                                            <input class="btn btn-danger" type="button" value="NO">
+                                        </div>
+                                        <label>Image upload:</label>
+                                        <div>
+                                            <input type="file" id="img" name="img">
                                         </div>
                                         <label>Location:</label>
                                         <div>
