@@ -11,6 +11,9 @@
     <body>
         <!-- header -->
         <%- include('helpers/header'); -%>
+        <div class="alert alert-info alert-dismissible fade" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+          </div>
         <%users.forEach(user => {%>
             <input class="form-control" name="username" placeholder="<%=user.username%>" readonly>
             <%=user.lastname%><br/>
@@ -19,11 +22,12 @@
             <%=user.bibliography%><br/>
         <%})%>
         <form action="" method="POST">
-            <button type="button" dis-like class="btn btn-primary btn-block">Like</button>
+            <button type="button" dis-like class="btn btn-primary btn-block"></button>
             <button type="button" name="un-block" id="un-block" class="btn btn-danger btn-block">Block</button>
         </form>
         <input type="text" hidden class="_" value="<%=username%>" />
         <script src="/js/custom/dis-like.js" rel="text/js"></script>
+        <script src="/js/custom/details.js" rel="text/js"></script>
         <!-- footer -->
         <%- include('helpers/footer'); -%>
     </body>

@@ -1,9 +1,16 @@
 .container {
-    max-width: 1200px;
     margin: 0 auto;
     float: right;
 }
 
 #profile {
     margin-bottom: 40px;
+}
+
+.col-md-6 {
+    padding-bottom: 60px;
+}
+
+.card {
+    margin-left: 10px;
 }
