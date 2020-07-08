@@ -41,9 +41,17 @@
                 <h3>Login</h3>
                   <form action="login" method="POST">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" autocomplete="username" required
+                      <input type="text"
+                             class="form-control form-control-lg"
+                             name="username"
+                             placeholder="Username"
+                             autocomplete="username" required
                       pattern="(?=.*[a-zA-Z]).{2,20}" title="2-20 characters and atleast one alphabetic character">
-                      <input type="password" class="form-control form-control-lg" name="password" placeholder="Password"
+                      <input type="password"
+                             class="form-control form-control-lg"
+                             name="password"
+                             autocomplete="current-password"
+                             placeholder="Password"
                              required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
                              title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
                       <input type="submit"  name="submit" disabled class="btn btn-outline-light btn-block">

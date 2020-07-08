@@ -14,112 +14,150 @@
         <header>
            <%- include('helpers/header'); -%>
        </header>
-                        <section id="profile">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h4> Edit Profile</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <form action="profile" method="POST">
-                                                    <div class="form-group">
-                                                        <label>Username:</label>
-                                                        <input type="text"  name="username" id="username" placeholder="<%= username %>" class="form-control"
-                                                        pattern="(?=.*[a-zA-Z]).{2,20}" title="2-20 characters and atleast one alphabetic character">
-                                                        <label >Firstname:</label>
-                                                        <input type="text" name="firstname" id="firstname" placeholder="<%= firstname %>" class="form-control"
-                                                        pattern="[A-Za-z -].{2,20}" title="2-20 characters, only alphabet characters are allowed for firstname">
-                                                        <label>Lastname:</label>
-                                                        <input type="text" name="lastname" id="lastname" placeholder="<%= lastname %>" class="form-control"
-                                                        pattern="[A-Za-z -].{2,20}" title="2-20 characters, only alphabet characters are allowed for lastname">
-                                                        <label >Email:</label>
-                                                        <input type="email" name="email" id="email" placeholder="<%= email %>" class="form-control"
-                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Something like 'user@mail.domain'. small caps only">
-                                                        <label>Password:</label>
-                                                        <input type="password" name="password" id="password" placeholder="change password" class="form-control"
-                                                        required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
-                                                        title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
-                                                        <label>Gender:</label>
-                                                        <div class="radio radio-inline">
-                                                            <label><input type="radio" name="optradio" >Male</label>
-                                                            <label><input type="radio" name="optradio">Female</label>
-                                                            <label><input type="radio" name="optradio">LGBTQ+</label>
-                                                        </div>
-                                                        <label>Ethnicity:</label>
-                                                        <div class="radio radio-inline">
-                                                            <label><input type="radio" name="optradio" >Black</label>
-                                                            <label><input type="radio" name="optradio">Coloured</label>
-                                                            <label><input type="radio" name="optradio">Indian</label>
-                                                            <label><input type="radio" name="optradio">White</label>
-                                                            <label><input type="radio" name="optradio">Other...</label>
-                                                        </div>
-                                                        <label>If other ___:</label>
-                                                        <input type="text" name="other" id="other" placeholder="???" class="form-control">
-                                                        <label>Age:</label>
-                                                        <input type="text" name="age" id="age" placeholder="age" class="form-control">
-                                                        <div class="form-group">
-                                                            <label>Bio</label>
-                                                            <textarea class="form-control" name="editor1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci earum itaque atque, rerum nesciunt officiis inventore dolore corporis possimus. Voluptatum, placeat architecto corporis iste ab illum distinctio vitae. Eveniet harum eaque tempora, totam ipsum voluptates eum magnam maiores earum explicabo?</textarea>
-                                                        </div>
-                                                        <label>Sexual Partner Gender Preference:</label>
-                                                        <div class="radio radio-inline">
-                                                            <label><input type="radio" name="optradio" >Male</label>
-                                                            <label><input type="radio" name="optradio">Female</label>
-                                                            <label><input type="radio" name="optradio">LGBTQ+</label>
-                                                        </div>
-                                                        <label>Sexual Partner Ethnicity Preference:</label>
-                                                        <div class="radio radio-inline">
-                                                            <label><input type="radio" name="optradio" >Black</label>
-                                                            <label><input type="radio" name="optradio">Coloured</label>
-                                                            <label><input type="radio" name="optradio">Indian</label>
-                                                            <label><input type="radio" name="optradio">White</label>
-                                                            <label><input type="radio" name="optradio">Other</label>
-                                                        </div>
-                                                        <label>If other ___:</label>
-                                                        <input type="text" name="other" id="other" placeholder="???" class="form-control">
-                                                        <label>Interests:</label>
-                                                        <div class="interests">
-                                                            <input class="btn btn-info" type="button" value="#bondage">
-                                                            <input class="btn btn-info" type="button" value="#bike riding">
-                                                            <input class="btn btn-info" type="button" value="#canoing">
-                                                            <input class="btn btn-info" type="button" value="#skiing">
-                                                            <input class="btn btn-info" type="button" value="#hiking">
-                                                            <input class="btn btn-info" type="button" value="#rock climbing">
-                                                            <input class="btn btn-info" type="button" value="#club hopping">
-                                                            <input class="btn btn-info" type="button" value="#picnics">
-                                                            <input class="btn btn-info" type="button" value="#gaming">
-                                                            <input class="btn btn-info" type="button" value="#car yacking">
-                                                            <input class="btn btn-info" type="button" value="#gym">
-                                                            <input class="btn btn-info" type="button" value="#book club">
-                                                            <input class="btn btn-info" type="button" value="#music">
-                                                        </div>
-                                                        <label>Location:</label>
-                                                        <div>
-                                                            <p>To better match you, we need your location to match you with partners in your area</p>
-                                                            <p>Do you want us to find you a partner based on your location?</p>
-                                                            <input class="btn btn-success" type="button" value="YES">
-                                                            <input class="btn btn-danger" type="button" value="NO">
-                                                        </div>
-                                                        <label>Image upload:</label>
-                                                        <div>
-                                                            <input type="file" id="img" name="img">
-                                                        </div>
-                                                        <input disabled type="submit" name="submit" value="Update Profile" class="form-control">
-                                                    </div>
-                                                </form>
-                                            </div>
+        <section id="profile">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4> Edit Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="profile" method="POST">
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <input type="text"
+                                               name="username"
+                                               id="username"
+                                               autocomplete="username"
+                                               placeholder="<%= username %>"
+                                               class="form-control"
+                                               pattern="(?=.*[a-zA-Z]).{2,20}"
+                                               title="2-20 characters and atleast one alphabetic character">
+                                        <label >Firstname:</label>
+                                        <input type="text"
+                                               name="firstname"
+                                               id="firstname"
+                                               autocomplete="name"
+                                               placeholder="<%= firstname %>"
+                                               class="form-control"
+                                               pattern="[A-Za-z -].{2,20}"
+                                               title="2-20 characters, only alphabet characters are allowed for firstname">
+                                        <label>Lastname:</label>
+                                        <input type="text"
+                                               name="lastname"
+                                               autocomplete="family-name"
+                                               id="lastname"
+                                               placeholder="<%= lastname %>"
+                                               class="form-control"
+                                               pattern="[A-Za-z -].{2,20}"
+                                               title="2-20 characters, only alphabet characters are allowed for lastname">
+                                        <label >Email:</label>
+                                        <input type="email"
+                                               name="email"
+                                               autocomplete="email"
+                                               id="email"
+                                               placeholder="<%=email%>"
+                                               class="form-control"
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                               title="Something like 'user@mail.domain'. small caps only">
+                                        <label>Password:</label>
+                                        <input type="password"
+                                               name="password"
+                                               autocomplete="new-password"
+                                               id="password"
+                                               placeholder="change password"
+                                               class="form-control"
+                                               required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                                               title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
+                                        <label>Confirm Password:</label>
+                                        <input type="password"
+                                               name="confirm-password"
+                                               autocomplete="new-password"
+                                               id="confirm-password"
+                                               placeholder="confirm password"
+                                               class="form-control"
+                                               required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                                               title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
+                                        <label>Gender:</label>
+                                        <div class="radio radio-inline">
+                                            <label><input type="radio" name="optradio" >Male</label>
+                                            <label><input type="radio" name="optradio">Female</label>
+                                            <label><input type="radio" name="optradio">LGBTQ+</label>
                                         </div>
-                                    </div> 
-                                    <div class="col-md-6">
-                                        <h3>Your Avator</h3>
-                                        <img src="/img/beads.jpeg" alt="" class="d-block img-fluid mb-6">
-                                        <button class="btn btn-primary btn-block">Edit Image</button>
-                                        <button class="btn btn-danger btn-block">Delete Image</button>
+                                        <label>Ethnicity:</label>
+                                        <div class="radio radio-inline">
+                                            <label><input type="radio" name="optradio" >Black</label>
+                                            <label><input type="radio" name="optradio">Coloured</label>
+                                            <label><input type="radio" name="optradio">Indian</label>
+                                            <label><input type="radio" name="optradio">White</label>
+                                            <label><input type="radio" name="optradio">Other...</label>
+                                        </div>
+                                        <label>If other ___:</label>
+                                        <input type="text" name="other" id="other-ethnicity" placeholder="???" class="form-control">
+                                        <label>Age:</label>
+                                        <input type="text" name="age" id="age" placeholder="age" class="form-control">
+                                        <div class="form-group">
+                                            <label>Bio</label>
+                                            <textarea class="form-control" name="editor1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci earum itaque atque, rerum nesciunt officiis inventore dolore corporis possimus. Voluptatum, placeat architecto corporis iste ab illum distinctio vitae. Eveniet harum eaque tempora, totam ipsum voluptates eum magnam maiores earum explicabo?</textarea>
+                                        </div>
+                                        <label>Sexual Partner Gender Preference:</label>
+                                        <div class="radio radio-inline">
+                                            <label><input type="radio" name="optradio" >Male</label>
+                                            <label><input type="radio" name="optradio">Female</label>
+                                            <label><input type="radio" name="optradio">LGBTQ+</label>
+                                        </div>
+                                        <label>Sexual Partner Ethnicity Preference:</label>
+                                        <div class="radio radio-inline">
+                                            <label><input type="radio" name="optradio" >Black</label>
+                                            <label><input type="radio" name="optradio">Coloured</label>
+                                            <label><input type="radio" name="optradio">Indian</label>
+                                            <label><input type="radio" name="optradio">White</label>
+                                            <label><input type="radio" name="optradio">Other</label>
+                                        </div>
+                                        <label>If other ___:</label>
+                                        <input type="text" name="other" id="other" placeholder="???" class="form-control">
+                                        <label>Interests:</label>
+                                        <div class="interests">
+                                            <input class="btn btn-info" type="button" value="#bondage">
+                                            <input class="btn btn-info" type="button" value="#bike riding">
+                                            <input class="btn btn-info" type="button" value="#canoing">
+                                            <input class="btn btn-info" type="button" value="#skiing">
+                                            <input class="btn btn-info" type="button" value="#hiking">
+                                            <input class="btn btn-info" type="button" value="#rock climbing">
+                                            <input class="btn btn-info" type="button" value="#club hopping">
+                                            <input class="btn btn-info" type="button" value="#picnics">
+                                            <input class="btn btn-info" type="button" value="#gaming">
+                                            <input class="btn btn-info" type="button" value="#car yacking">
+                                            <input class="btn btn-info" type="button" value="#gym">
+                                            <input class="btn btn-info" type="button" value="#book club">
+                                            <input class="btn btn-info" type="button" value="#music">
+                                        </div>
+                                        <label>Location:</label>
+                                        <div>
+                                            <p>To better match you, we need your location to match you with partners in your area</p>
+                                            <p>Do you want us to find you a partner based on your location?</p>
+                                            <input class="btn btn-success" type="button" value="YES">
+                                            <input class="btn btn-danger" type="button" value="NO">
+                                        </div>
+                                        <label>Image upload:</label>
+                                        <div>
+                                            <input type="file" id="img" name="img">
+                                        </div>
+                                        <input disabled type="submit" name="submit" value="Update Profile" class="form-control">
                                     </div>
-                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Your Avator</h3>
+                        <img src="/img/beads.jpeg" alt="" class="d-block img-fluid mb-6">
+                        <button class="btn btn-primary btn-block">Edit Image</button>
+                        <button class="btn btn-danger btn-block">Delete Image</button>
+                    </div>
                 </div>
+            </div>
         </section>
             </div>
         </body> 
