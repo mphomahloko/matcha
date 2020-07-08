@@ -16,7 +16,7 @@ export const mail = async (account,subject, message) => {
     });
 
     let info = await transporter.sendMail({
-        from: process.env.MATCHA_EMAIL,
+        from: `Matcha <noreply@matcha.com>`,
         to: account.email,
         subject: subject,
         html: message
