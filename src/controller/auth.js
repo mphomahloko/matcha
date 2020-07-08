@@ -88,4 +88,12 @@ export default class Auth {
             }
         }
     }
+
+    async reportUser(userModel) {
+        try {
+            await userModel.blockUser();
+        } catch (err) {
+            throw new Error('Could not block user for some reason');
+        }
+    }
 }

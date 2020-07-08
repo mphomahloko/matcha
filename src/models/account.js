@@ -10,14 +10,15 @@ export default class Account {
         this.password = user.password;
         this.active = user.active;
         this.token = user.token;
+        this.reported = user.reported;
 
     }
 
     save() {
         return new Promise((resolve, reject) => {
             db.query(
-                'INSERT INTO matcha.matcha_users (password, username, email, active, firstname, lastname, token) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                [this.password, this.username, this.email, this.active, this.firstName, this.lastName, this.token],
+                'INSERT INTO matcha.matcha_users (password, username, email, active, firstname, lastname, token, reported) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                [this.password, this.username, this.email, this.active, this.firstName, this.lastName, this.token, this.reported],
                 (error, result) => {
                 if (error) {
                     return  reject('Failed to create an account, Please try again later.');

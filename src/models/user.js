@@ -12,6 +12,7 @@ export default class User {
         this.token = regToken(20);
         this.active = 0;
         this.password = await passEncrypt.hash(user.password, 10);
+        this.reported = 0;
     }
 
     login(user) {
@@ -34,6 +35,11 @@ export default class User {
         this.token = user.token;
         this.newToken = regToken(20);
         this.newPass = await passEncrypt.hash(user.password, 10);
+    }
+
+    reportUser(user) {
+        this.reporter = user.reporter;
+        this.reportedUser = user.reportedUser;
     }
 
     findByUsername() {
@@ -93,6 +99,19 @@ export default class User {
                     return resolve(res[0]);
                 }
             );
+        });
+    }
+
+    blockUser() {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'UPDATE matcha.matcha_users SET reported = ?, reportedBy = ? WHERE username = ?',
+                [1, this.reporter, this.reportedUser], (err, res) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(`${this.reportedUser} is reported by ${this.reporter} and is now blocked`);
+            });
         });
     }
 }
