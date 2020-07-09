@@ -93,6 +93,19 @@ matchaQueries.saveMessages = (data) => {
 	})
 }
 
+matchaQueries.getUserRooms = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * FROM matcha.rooms WHERE participant_1=? OR participant_2=?',
+			[username, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result);
+			})
+	})
+}
+
 /**
  * DETAILS SECTION
  */
