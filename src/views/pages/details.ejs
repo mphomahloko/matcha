@@ -12,38 +12,56 @@
         <!-- header -->
         <%- include('helpers/header'); -%>
         <div class="alert alert-info alert-dismissible fade" role="alert">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-          </div>
+        </div>
         <%users.forEach(user => {%>
-            <input class="form-control" name="username" placeholder="<%=user.username%>" readonly>
-            <label for="">Profile picture:</label>
-            <br>
-            <label for="">Last Seen:</label>
-            <br>
-            <label for="">Last name:</label>
-            <%=user.lastname%><br/>
-            <label for="">First name:</label>
-            <%=user.firstname%><br/>
-            <label for="">Gender:</label>
-            <%=user.gender%><br/>
-            <label for="">Age:</label>
-            <br>
-            <label for="">Bibliography:</label>
-            <%=user.bibliography%><br/>
-            <label for="">Sexual Preference:</label>
-            <br>
-            <label for="">Interests:</label>
-            <br>
-            <label for="">Fame rating:</label>
-            <br>
-            <label for="">Other pictures:</label>
+            <p>
+                <label for="username">Username: </label>
+                <span id="username"><%=user.username%></span>
+            </p>
+            <p>
+                <label for="">Profile picture:</label>
+            </p>
+            <p>
+                <label for="">Last Seen:</label>
+                <%=user.lastSeen.toLocaleString()%>
+            </p>
+            <p>
+                <label for="">Last name:</label>
+                <%=user.lastname%>
+            </p>
+            <p>
+                <label for="">First name:</label>
+                <%=user.firstname%>
+            </p>
+            <p>
+                <label for="">Gender:</label>
+                <%=user.gender%>
+            </p>
+            <p>
+                <label for="">Age:</label>
+            </p>
+            <p>
+                <label for="">Bibliography:</label>
+                <%=user.bibliography%>
+            </p>
+            <p>
+                <label for="">Sexual Preference:</label>
+            </p>
+            <p>
+                <label for="">Interests:</label>
+            </p>
+            <p>
+                <label for="">Fame rating:</label>
+            </p>
+            <p>
+                <label for="">Other pictures:</label>
+            </p>
         <%})%>
         <form action="" method="POST">
             <button type="button" dis-like class="btn btn-primary btn-block"></button>
             <button type="button" name="un-block" id="un-block" class="btn btn-danger btn-block">Block</button>
         </form>
         <input type="text" hidden class="_" value="<%=username%>" />
-        <script src="/js/custom/dis-like.js" rel="text/js"></script>
         <script src="/js/custom/details.js" rel="text/js"></script>
         <!-- footer -->
         <%- include('helpers/footer'); -%>

@@ -1,7 +1,6 @@
 import express from 'express';
 
-import query from '../utils/dbqueries'
-import db from '../../config/database/connection';
+import query from '../utils/dbqueries';
 
 const messageRoute = express.Router();
 // /message routes

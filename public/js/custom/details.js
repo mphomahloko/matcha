@@ -6,7 +6,8 @@ const decision = (res) => {
 
 (() => {
 	const participant = document.querySelector('._').value;
-	const liked_participant = document.querySelector("input[name='username']").placeholder;
+	const liked_participant = document.querySelector("#username").textContent.trim();
+	console.log(liked_participant);
 	const api = `http://localhost:4000/api/dis-like?participant=${participant}&liked_participant=${liked_participant}`;
 	fetch(api).then((res) => { return res.json(); })
 			.then(decision)
@@ -29,7 +30,7 @@ const checkResponce = (res) => {
 const dis_like = () => {
 	const api = `http://localhost:4000/api/dis-like/${document.querySelector('button[dis-like]').textContent}`;
 	const participant = document.querySelector('._').value;
-	const liked_participant = document.querySelector("input[name='username']").placeholder;
+	const liked_participant = document.querySelector("#username").textContent.trim();
 	const Info = {
 			participant: participant,
 			liked_participant: liked_participant
