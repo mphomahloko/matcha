@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.post('/messages', (req, res) => {
   // insert msg into database accordingly
   console.log(req.body);
-  db.query('INSERT INTO messages (room_id, from_participant, to_participant, msg) VALUES (?, ?, ?, ?)',
+  db.query('INSERT INTO matcha.messages (room_id, from_participant, to_participant, msg) VALUES (?, ?, ?, ?)',
     [req.body.room, req.body.from, req.body.to, req.body.msg],
     (err, results, field) => {
     if (results) {

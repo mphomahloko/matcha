@@ -5,12 +5,10 @@ const router = express.Router();
 
 router.route('/')
     .post((req, res) => {
-        // console.log(req.body.from); use to protect route
-        db.query('SELECT  * FROM matcha.messages WHERE messages.room_id = ?',
+        db.query('SELECT * FROM matcha.messages WHERE messages.room_id = ?',
         [req.query.id],
         (err, results, field) => {
             if (results) {
-                // check to see if users liked each other
                 res.status(200).json({
                     success: true,
                     data: results

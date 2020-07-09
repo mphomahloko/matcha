@@ -4,7 +4,8 @@ body {
 	min-height: 100%;
 	/* Margin bottom by footer height */
 	margin-bottom: 60px;
-}  
+}
+
 footer {
 	position: fixed;
 	bottom: 0px;

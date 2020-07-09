@@ -39,7 +39,7 @@ router.route('/like')
                 (err, results) => {
                 res.status(200).json({
                   success: true,
-                  message: "like successful..."
+                  message: "like successful ..."
                 });
             });
         }
@@ -66,7 +66,7 @@ router.route('/dislike')
             } else {
                 res.status(200).json({
                     success: true,
-                    message: "disliked user successfully..."
+                    message: "disliked user successfully ..."
                 });
             }
         })
