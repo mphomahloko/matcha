@@ -93,4 +93,21 @@ matchaQueries.saveMessages = (data) => {
 	})
 }
 
+/**
+ * DETAILS SECTION
+ */
+
+matchaQueries.getUserDetails = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * FROM matcha.matcha_users WHERE username=?',
+			[username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result);
+			})
+	})
+}
+
 module.exports = matchaQueries;
