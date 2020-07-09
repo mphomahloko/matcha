@@ -16,10 +16,27 @@
           </div>
         <%users.forEach(user => {%>
             <input class="form-control" name="username" placeholder="<%=user.username%>" readonly>
+            <label for="">Profile picture:</label>
+            <br>
+            <label for="">Last Seen:</label>
+            <br>
+            <label for="">Last name:</label>
             <%=user.lastname%><br/>
+            <label for="">First name:</label>
             <%=user.firstname%><br/>
+            <label for="">Gender:</label>
             <%=user.gender%><br/>
+            <label for="">Age:</label>
+            <br>
+            <label for="">Bibliography:</label>
             <%=user.bibliography%><br/>
+            <label for="">Sexual Preference:</label>
+            <br>
+            <label for="">Interests:</label>
+            <br>
+            <label for="">Fame rating:</label>
+            <br>
+            <label for="">Other pictures:</label>
         <%})%>
         <form action="" method="POST">
             <button type="button" dis-like class="btn btn-primary btn-block"></button>

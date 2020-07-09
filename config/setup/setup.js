@@ -16,7 +16,9 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   token varchar(200) NOT NULL,
   lastSeen datetime,
   reported int(2) NOT NULL,
-  reportedBy varchar(50)
+  reportedBy varchar(50),
+  profileCompleted int(2),
+  fameRating int(2)
 )`;
 const interestsSql = `CREATE TABLE IF NOT EXISTS matcha.interests(
   interest_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
