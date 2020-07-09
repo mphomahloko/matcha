@@ -72,15 +72,16 @@ loginRoute.route('/')
         let suggestedUsers = await query.getSuggestedUsers();
         user.login({ username: username, password: pass })
         user = await auth.login(user);
+        // await query.lastSeen(username);
         req.session.loggedin = true;
         req.session.username = user.username;
         req.session.user_id = user.user_id;
 
         if (suggestedUsers.length > 0) {
           res.status(200).render('pages/home', {
-            username: user.username,
+            username: username,
             users: _.filter(suggestedUsers, (suggestedUser => {
-              return suggestedUser.username.localeCompare(user.username);
+              return suggestedUser.username.localeCompare(username);
             }))
           })
         } else {

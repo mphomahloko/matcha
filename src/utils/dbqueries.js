@@ -110,7 +110,6 @@ matchaQueries.getUserDetails = (username) => {
 	})
 }
 
-
 matchaQueries.getSuggestedUsers = () => {
 	return new Promise((resolve, reject) => {
 		dbc.query('SELECT * FROM matcha.matcha_users',
@@ -119,6 +118,23 @@ matchaQueries.getSuggestedUsers = () => {
 					return reject(error);
 				}
 				return resolve(result);
+			})
+	})
+}
+
+/**
+ * LOGOUT/LOGIN SECTION
+ */
+
+matchaQueries.lastSeen = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET lastseen=? WHERE username=?',
+		[new Date(), username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
 			})
 	})
 }
