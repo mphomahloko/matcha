@@ -1,4 +1,4 @@
-import db from '../../config/database/database'
+import db from '../../config/database/connection'
 import passEncrypt from 'bcryptjs';
 import { regToken } from '../utils/registrationToken';
 

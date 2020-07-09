@@ -1,5 +1,5 @@
 import app from './app';
-import db from './config/database/database';
+import db from './config/database/connection';
 
 const http = require('http')
   .Server(app);

@@ -1,6 +1,6 @@
 import express from 'express';
 import _ from 'lodash';
-import db from '../../config/database/database';
+import db from '../../config/database/connection';
 
 const homeRouter = express.Router();
 

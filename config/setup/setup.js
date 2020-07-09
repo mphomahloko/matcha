@@ -1,4 +1,4 @@
-import con from '../database/database'
+import con from '../database/connection'
 
 /*                                        Queries                                                 */
 const dbSql = 'CREATE DATABASE IF NOT EXISTS matcha';
@@ -14,6 +14,7 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   bibliography varchar(250),
   active int(2) NOT NULL,
   token varchar(200) NOT NULL,
+  lastSeen datetime,
   reported int(2) NOT NULL,
   reportedBy varchar(50)
 )`;
@@ -40,6 +41,13 @@ const messagesSql = `CREATE TABLE IF NOT EXISTS matcha.messages(
   to_participant varchar(50) NOT NULL,
   msg varchar(255)
 )`;
+
+const blockedSql = `CREATE TABLE IF NOT EXISTS matcha.blocked(
+  blocked_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  participant varchar(50) NOT NULL,
+  blocked_participant varchar(50) NOT NULL
+)`;
+
 const likeSql = `CREATE TABLE IF NOT EXISTS matcha.likes(
   like_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   participant varchar(50) NOT NULL,
@@ -66,7 +74,8 @@ con.connect((connectErr) => {
       ${picturesSql};
       ${roomsSql};
       ${messagesSql};
-      ${likeSql}`,
+      ${likeSql};
+      ${blockedSql}`,
             (matchaUsersErr) => {
                 if (matchaUsersErr) throw matchaUsersErr;
                 console.info('Tables created');

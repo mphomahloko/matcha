@@ -1,5 +1,5 @@
  import express from 'express';
-import db from '../../config/database/database';
+import db from '../../config/database/connection';
 import passEncrypt from 'bcryptjs';
 
 const profileRoute = express.Router();

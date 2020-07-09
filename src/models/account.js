@@ -1,4 +1,4 @@
-import db from "../../config/database/database";
+import db from "../../config/database/connection";
 
 export default class Account {
 
