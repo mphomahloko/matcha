@@ -2,6 +2,10 @@ import dbc from '../../config/database/connection';
 
 let matchaQueries = {};
 
+/**
+ * LIKE OR DISLIKE SECTION
+ */
+
 matchaQueries.isUserLiked = (participant, liked_participant) => {
 	return new Promise((resolve, reject) => {
 		dbc.query('SELECT * FROM matcha.likes WHERE participant=? AND liked_participant=?',
@@ -49,13 +53,43 @@ matchaQueries.userLikedBack = (participant, liked_participant) => {
 matchaQueries.disLike = (participant, liked_participant) => {
 	return new Promise((resolve, reject) => {
 		dbc.query('DELETE FROM matcha.likes WHERE participant=? AND liked_participant=?',
-      [participant, liked_participant],
-      (error, result) => {
+			[participant, liked_participant],
+			(error, result) => {
+				db.query('INSERT INTO matcha.messages (room_id, from_participant, to_participant, msg) VALUES (?, ?, ?, ?)',
+					[req.body.room, req.body.from, req.body.to, req.body.msg],
+					(err, results, field) => {
+					})
+			})
+	})
+}
+
+/**
+ * MESSAGE SECTION
+ */
+
+matchaQueries.getUserMessages = (id) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * FROM matcha.messages WHERE messages.room_id = ?',
+			[id],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result);
+			})
+	})
+}
+
+matchaQueries.saveMessages = (data) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('INSERT INTO matcha.messages (room_id, from_participant, to_participant, msg) VALUES (?, ?, ?, ?)',
+			[data.room, data.from, data.to, data.msg],
+			(error, result) => {
 				if (error) {
 					return reject(error);
 				}
 				return resolve(result[0]);
-			})
+			});
 	})
 }
 
