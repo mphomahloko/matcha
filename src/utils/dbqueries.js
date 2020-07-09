@@ -55,10 +55,10 @@ matchaQueries.disLike = (participant, liked_participant) => {
 		dbc.query('DELETE FROM matcha.likes WHERE participant=? AND liked_participant=?',
 			[participant, liked_participant],
 			(error, result) => {
-				db.query('INSERT INTO matcha.messages (room_id, from_participant, to_participant, msg) VALUES (?, ?, ?, ?)',
-					[req.body.room, req.body.from, req.body.to, req.body.msg],
-					(err, results, field) => {
-					})
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
 			})
 	})
 }
