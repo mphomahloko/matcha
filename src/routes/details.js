@@ -1,5 +1,4 @@
 import express from 'express';
-import db from '../../config/database/connection';
 import query from '../utils/dbqueries';
 
 const detailsRouter = express.Router();

@@ -110,4 +110,17 @@ matchaQueries.getUserDetails = (username) => {
 	})
 }
 
+
+matchaQueries.getSuggestedUsers = () => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * FROM matcha.matcha_users',
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result);
+			})
+	})
+}
+
 module.exports = matchaQueries;

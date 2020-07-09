@@ -1,29 +1,32 @@
 import express from 'express';
 import _ from 'lodash';
-import db from '../../config/database/connection';
+import query from '../utils/dbqueries'
 
 const homeRouter = express.Router();
 
 homeRouter.route('/')
-  .get((req, res) => {
+  .get(async (req, res) => {
     if (req.session.loggedin) {
-      let user = req.session.username;
-      db.query('SELECT * FROM matcha.matcha_users',
-      (err, results) => {
-        if (results.length > 0) {
+      try {
+        let user = req.session.username;
+        let suggestedUsers = await query.getSuggestedUsers();
+        if (suggestedUsers.length > 0) {
           res.status(200).render('pages/home', {
             username: user,
-            users: _.filter(results, (u => {
-              return u.username.localeCompare(user);
+            users: _.filter(suggestedUsers, (suggestedUser => {
+              return suggestedUser.username.localeCompare(user);
             }))
-          });
+          })
         } else {
           res.status(200).render('pages/home', {
             username: user,
             users: []
-          });
+          })
         }
-      });
+      } catch (error) {
+        console.log(error.message);
+      }
+
     } else {
       res.status(401).render('pages/login', {
         success: true,
