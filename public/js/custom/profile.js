@@ -23,7 +23,6 @@ const activateBtn = ({srcElement})=>{
 			element.setAttributeNode(disabled);
 		}
 		const api = 'http://localhost:4000/api/validate';
-
 		let userInfo = {
 			name: srcElement.name,
 			value: srcElement.value
@@ -36,8 +35,8 @@ const activateBtn = ({srcElement})=>{
 			},
 			body: JSON.stringify(userInfo)
 		}).then((res) => { return res.json(); })
-          .then(checkResponce)
-          .catch((error) => { console.error('Error', error);});
+      .then(checkResponce)
+      .catch((error) => { console.error('Error', error);});
 
 };
 

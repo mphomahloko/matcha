@@ -1,117 +1,87 @@
- import express from 'express';
+import express from 'express';
+
 import db from '../../config/database/connection';
+import query from '../utils/dbqueries';
 import passEncrypt from 'bcryptjs';
 
 const profileRoute = express.Router();
 
 // /profile routes
 
- profileRoute.route('/')
-   .get((req, res) => {
+profileRoute.route('/')
+  .get(async (req, res) => {
     // get loggedin user from database
     if (req.session.loggedin) {
-        let user = req.session.username;
-        db.query('SELECT * from matcha.matcha_users WHERE username=?', [user], (err, results) => {
-            if (err) throw err;
-            results.forEach(element => {
-                res.status(200).render('pages/profile', element);
-                res.end();
-            });
-        });
+      try {
+        const userDetails = await query.getUserDetails(req.session.username);
+        res.status(200).render('pages/profile', userDetails[0]);
+      } catch (error) {
+        console.log(error.message);
+      }
     } else {
-        res.status(401).render('pages/login', {
-            success: true,
-            message: "have an account?... Enter your details to login"
-        });
-        res.end();
+      res.status(401).render('pages/login', {
+        success: true,
+        message: "have an account?... Enter your details to login"
+      });
+      res.end();
     }
-   })
-   .post((req, res) => {
+  })
+  .post(async (req, res) => {
+    console.log(req.body);
     if (req.session.loggedin) {
-        let user = req.session.username;
+      let user = req.session.username;
+      // validate all given data before update
+      try {
         if (req.body.username) {
-            db.query('UPDATE matcha.matcha_users SET username = ? WHERE username = ?',
-              [req.body.username, user],
-              (err, results) => {
-                if (err) throw err;
-                else {
-                    req.session.username = req.body.username;
-                    console.log("succesfully updated username");
-                }
-            });
+          const userExists = await query.getUserDetails(req.body.username);
+          if (userExists[0]) throw new Error("Username already taken...");
+          await query.updateUsername(req.body.username, user);
+          req.session.username = req.body.username;
+          user = req.body.username;
+          console.log("succesfully updated username");
         }
         if (req.body.email) {
-            db.query('UPDATE matcha.matcha_users SET email = ? WHERE username = ?',
-              [req.body.email, user],
-              (err, results) => {
-                if (err) throw err;
-                else {
-                    console.log("succesfully updated email");
-                }
-            });
+          const emailExits = await query.findUserByEmail(req.body.email);
+          if (emailExits) throw new Error("Email already in use...");
+          await query.updateUserEmail(req.body.email, user);
+          console.log("succesfully updated user's email");
         }
         if (req.body.firstname) {
-            db.query('UPDATE matcha.matcha_users SET firstname = ? WHERE username = ?',
-              [req.body.firstname, user],
-              (err, results) => {
-                if (err) throw err;
-                else {
-                    console.log("succesfully updated firstname");
-                }
-            });
+          await query.updateUserFirstName(req.body.firstname, user);
+          console.log("succesfully updated user's firstname");
         }
         if (req.body.lastname) {
-            db.query('UPDATE matcha.matcha_users SET lastname = ? WHERE username = ?',
-              [req.body.lastname, user],
-              (err, results) => {
-                if (err) throw err;
-                else {
-                    console.log("succesfully updated lastname");
-                }
-            });
+          await query.updateUserFirstName(req.body.firstname, user);
+          console.log("succesfully updated user's lastname");
         }
         if (req.body.password) {
-            passEncrypt.hash(req.body.password, 8, (error, hashedPass) => {
-                if (error) throw err;
-                db.query('UPDATE matcha.matcha_users SET password = ? WHERE username = ?',
-                  [hashedPass, user],
-                  (err, results) => {
-                    if (err) throw err;
-                    else {
-                        console.log("succesfully updated password");
-                    }
-                });
-            });
+          const newPass = await passEncrypt.hash(user.password, 10);
+          await query.updateUserPassword(req.body.password, user);
+          console.log("succesfully updated user's password");
         }
         if (req.body.gender) {
-            db.query('UPDATE matcha.matcha_users SET gender = ?',
-              [req.body.gender],
-              (err, results) => {
-                if (err) throw err;
-                else {
-                    console.log("succesfully updated gender")
-                }
-            });
+          await query.updateUserGender(req.body.gender, user);
+          console.log("succesfully updated user's gender");
         }
-        if (req.body.sexualPreference) {
-            db.query('UPDATE matcha.matcha_users SET sexualPreference = ?',
-              [req.body.sexualPreference],
-              (err, results) => {
-                if (err) throw err;
-                else {
-                    console.log("succesfully updated sexualPreference");
-                }
-            })
+        if (req.body.Preference) {
+          await query.updateUserSexualPreference(req.body.sexualPreference, user);
+          console.log("succesfully updated user's sexualPreference");
         }
-        if (req.body.bibliography) {
-            db.query('UPDATE matcha.matcha_user SET bibliography = ?',
-              [req.body.bibliography],
-              (err, results) => {
-                if (err) throw err;
-            })
+        if (req.body.bio) {
+          await query.updateUserBio(req.body.bio, user);
+          console.log("succesfully updated user's bio");
         }
-        res.render('pages/home', {username: req.body.username});
+        if (req.body.ethnicity) {
+          await query.updateUserEthnicity(req.body.ethnicity, user);
+          console.log("succesfully updated user's ethnicity");
+        }
+        // redirect back to profile
+        const userDetails = await query.getUserDetails(req.session.username);
+        res.render('pages/profile', userDetails[0]);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
-});
+  });
 
 module.exports = profileRoute;

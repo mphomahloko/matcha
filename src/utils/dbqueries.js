@@ -69,7 +69,7 @@ matchaQueries.disLike = (participant, liked_participant) => {
 
 matchaQueries.getUserMessages = (id) => {
 	return new Promise((resolve, reject) => {
-		dbc.query('SELECT * FROM matcha.messages WHERE messages.room_id = ?',
+		dbc.query('SELECT * FROM matcha.messages WHERE messages.room_id=?',
 			[id],
 			(error, result) => {
 				if (error) {
@@ -102,6 +102,142 @@ matchaQueries.getUserRooms = (username) => {
 					return reject(error);
 				}
 				return resolve(result);
+			})
+	})
+}
+
+/**
+ * PROFILE SECTION
+ */
+
+matchaQueries.updateUsername = (newUsername, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET username=? WHERE username=?',
+			[newUsername, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.updateUserEmail = (newEmail, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET email=? WHERE username=?',
+			[newEmail, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.findUserByEmail = (newEmail) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * matcha.matcha_users WHERE email=?',
+			[newEmail],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.updateUserFirstName = (firstname, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET firstname=? WHERE username=?',
+			[firstname, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+
+matchaQueries.updateUserLasttName = (firstname, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET lastname=? WHERE username=?',
+			[firstname, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.updateUserPassword = (password, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET password=? WHERE username=?',
+			[password, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+
+matchaQueries.updateUserGender = (gender, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET gender=? WHERE username=?',
+			[gender, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.updateUserSexualPreference = (sexualPreference, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET sexualPreference=? WHERE username=?',
+			[sexualPreference, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.updateUserBio = (sexualPreference, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET bio=? WHERE username=?',
+			[sexualPreference, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.updateUserEthnicity = (ethnicity, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET ethnicity=? WHERE username=?',
+			[ethnicity, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
 			})
 	})
 }
