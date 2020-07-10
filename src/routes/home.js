@@ -36,4 +36,30 @@ homeRouter.route('/')
     }
   });
 
+homeRouter.route('/search')
+  .post(async (req, res) => {
+    if (req.session.loggedin) {
+      try {
+        console.log(req.body)
+        let user = req.session.username;
+        let suggestedUsers = await query.getSuggestedUsers();
+        if (suggestedUsers.length > 0) {
+          res.status(200).render('pages/home', {
+            username: user,
+            users: _.filter(suggestedUsers, (suggestedUser => {
+              return suggestedUser.username.localeCompare(user);
+            }))
+          })
+        }
+      } catch (error) {
+
+      }
+    } else {
+      res.status(401).render('pages/login', {
+        success: true,
+        message: 'have an account?... Enter your details to login'
+      });
+    }
+  })
+
 module.exports = homeRouter;

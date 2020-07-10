@@ -1,1 +1,7 @@
 /*	HOME-PAGE	CSS */
+.container {
+	float: left;
+}
+.card {
+	float: left;
+}

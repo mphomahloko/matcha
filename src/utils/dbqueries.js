@@ -346,9 +346,24 @@ matchaQueries.getSuggestedUsers = () => {
  * LOGOUT/LOGIN SECTION
  */
 
+ 
+
+matchaQueries.status = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET status="online" WHERE username=?',
+		[username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
 matchaQueries.lastSeen = (username) => {
 	return new Promise((resolve, reject) => {
-		dbc.query('UPDATE matcha.matcha_users SET lastseen=?, status=offline WHERE username=?',
+		dbc.query('UPDATE matcha.matcha_users SET lastseen=?, status="offline" WHERE username=?',
 		[new Date(), username],
 			(error, result) => {
 				if (error) {
