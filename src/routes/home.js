@@ -40,9 +40,8 @@ homeRouter.route('/search')
   .post(async (req, res) => {
     if (req.session.loggedin) {
       try {
-        console.log(req.body)
         let user = req.session.username;
-        let suggestedUsers = await query.getSuggestedUsers();
+        let suggestedUsers = await query.search(req.body);
         if (suggestedUsers.length > 0) {
           res.status(200).render('pages/home', {
             username: user,
@@ -50,9 +49,14 @@ homeRouter.route('/search')
               return suggestedUser.username.localeCompare(user);
             }))
           })
+        } else {
+          res.status(200).render('pages/home', {
+            username: user,
+            users: []
+          })
         }
       } catch (error) {
-
+        console.log(error.message);
       }
     } else {
       res.status(401).render('pages/login', {
