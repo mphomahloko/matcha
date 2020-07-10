@@ -297,6 +297,21 @@ matchaQueries.getUserInterest = (interest, username) => {
 	})
 }
 
+matchaQueries.updateUserLocation = (loc, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users 
+								SET logitude=?, latitude=?, country=?, postal_code=?, city=?, region=?
+								WHERE username=?`,
+			[loc.logitude, loc.latitude, loc.country, loc.postal_code, loc.city, loc.region, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
 
 /**
  * DETAILS SECTION

@@ -27,7 +27,6 @@ profileRoute.route('/')
     }
   })
   .post(async (req, res) => {
-    console.log(req.body);
     if (req.session.loggedin) {
       let user = req.session.username;
       // validate all given data before update
@@ -64,7 +63,7 @@ profileRoute.route('/')
           console.log("succesfully updated user's gender");
         }
         if (req.body.Preference) {
-          await query.updateUserSexualPreference(req.body.sexualPreference, user);
+          await query.updateUserSexualPreference(req.body.Preference, user);
           console.log("succesfully updated user's sexualPreference");
         }
         if (req.body.age) {
@@ -91,12 +90,18 @@ profileRoute.route('/')
         }
         // redirect back to profile
         const userDetails = await query.getUserDetails(req.session.username);
+        console.log(userDetails);
         const interests = await query.getUserInterests(req.session.username);
         res.status(200).render('pages/profile', { user: userDetails[0], interests });
       } catch (error) {
         console.log(error.message);
       }
     }
-  });
+  })
+
+  profileRoute.route('/location')
+    .post(async (req, res) => {
+      console.log(req.body, "IN LOCATION");
+    });
 
 module.exports = profileRoute;

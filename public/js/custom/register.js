@@ -39,6 +39,4 @@ const activateBtn = ({srcElement})=>{
 // event listeners
 document.querySelector("input[name='username']").addEventListener('blur', activateBtn);
 document.querySelector("input[name='email']").addEventListener('blur', activateBtn);
-// document.querySelector("input[name='firstname']").addEventListener('blur', activateBtn);
-// document.querySelector("input[name='lastname']").addEventListener('blur', activateBtn);
 document.querySelector("input[name='password']").addEventListener('blur', activateBtn);

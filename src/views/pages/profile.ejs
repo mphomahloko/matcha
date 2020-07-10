@@ -73,7 +73,7 @@
                       <option value="White">White</option>
                       <option value="Other">Other</option>
                     </select>
-                    current: <%=user.ethnicity%>
+                    current: <%=user.Ethnicity%>
                   </p>
                   <p>
                     <label>Sexual Partner Preference:</label>
@@ -102,6 +102,57 @@
                     <textarea class="form-control interests" name="interests" required
                       placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
                   </div>
+                  <div class="card-header">
+                    <h4> Location Details </h4>
+                  </div>
+                  <p>
+                    <label>Street:</label>
+                    <input type="text"
+                    name="street"
+                      id="street" placeholder="street"
+                      class="form-control"
+                      title="Enter your street name">
+                  </p>
+                  <p>
+                    <label>Region:</label>
+                    <input type="text"
+                    name="region"
+                      id="region" placeholder="region"
+                      class="form-control"
+                      title="Enter your region details">
+                  </p>
+                  <p>
+                    <label>Postal code:</label>
+                    <input type="text"
+                    name="postal_code"
+                      id="postal_code" placeholder="Postal Code"
+                      class="form-control"
+                      title="Enter your Postal code">
+                  </p>
+                  <p>
+                    <label>Country:</label>
+                    <input type="text"
+                    name="Country"
+                      id="Country" placeholder="Country"
+                      class="form-control"
+                      title="Enter your Country details">
+                  </p>
+                  <p>
+                    <label>Latitude:</label>
+                    <input type="text"
+                    name="Latitude"
+                      id="latitude" placeholder="Latitude details"
+                      class="form-control"
+                      title="Enter your Latitude details">
+                  </p>
+                  <p>
+                    <label>Longitude:</label>
+                    <input type="text"
+                    name="longitude"
+                      id="longitude" placeholder="Longitude details"
+                      class="form-control"
+                      title="Enter your Longitude details">
+                  </p>
                   <p>
                     <label>Password:</label>
                     <input type="password" name="current-password" required autocomplete="current-password"
@@ -115,35 +166,24 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+      </div>
+    </div>
+  </section>
+  
+        <!-- <div class="col-md-6">
           <h3>Your Avator</h3>
           <img src="/img/beads.jpeg" alt="" class="d-block img-fluid mb-6">
           <button class="btn btn-primary btn-block">Edit Image</button>
           <button class="btn btn-danger btn-block">Delete Image</button>
-        </div>
-      </div>
-    </div>
-  </section>
+        </div> -->
 
   <!-- <label>Location:</label>
   <div>
-    <p>To better match you, we need your location to match you with partners in your
-      area</p>
-    <p>Do you want us to find you a partner based on your location?</p>
-    <input class="btn btn-success" type="button" value="YES">
-    <input class="btn btn-danger" type="button" value="NO">
+    
   </div>
   <label>Image upload:</label>
   <div>
     <input type="file" id="img" name="img">
-  </div>
-  <label>Location:</label>
-  <div>
-    <p>To better match you, we need your location to match you with partners in your
-      area</p>
-    <p>Do you want us to find you a partner based on your location?</p>
-    <input class="btn btn-success" type="button" value="YES">
-    <input class="btn btn-danger" type="button" value="NO">
   </div>
   <label>Image upload:</label>
   <div>
@@ -152,7 +192,6 @@
   </div>
 </body>
 <!-- footer -->
-<%- include('helpers/footer'); -%>
 <script language="Javascript" type="text/javascript" src="/js/custom/profile.js"></script>
-
+<%- include('helpers/footer'); -%>
 </html>

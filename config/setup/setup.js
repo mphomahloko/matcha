@@ -10,17 +10,23 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   firstname varchar(100),
   lastname varchar(100),
   gender varchar(10),
-  sexualPreference varchar(10),
+  sexualPreference varchar(10) default 'Bisexual',
   bio varchar(250),
   active int(2) NOT NULL,
   age int(2),
-  Ethnicity varchar(50),
+  ethnicity varchar(50),
   token varchar(200) NOT NULL,
-  lastSeen datetime,
+  lastSeen datetime DEFAULT CURRENT_TIMESTAMP,
   reported int(2) NOT NULL,
   reportedBy varchar(50),
-  profileCompleted int(2),
-  fameRating int(2)
+  profileCompleted int(2) default 0,
+  fameRating int(2),
+  logitude double,
+  latitude double,
+  country varchar(255),
+  postal_code int,
+  city varchar(255),
+  region varchar(255)
 )`;
 const interestsSql = `CREATE TABLE IF NOT EXISTS matcha.interests(
   interest_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
