@@ -346,12 +346,12 @@ matchaQueries.getSuggestedUsers = () => {
  * LOGOUT/LOGIN SECTION
  */
 
- 
+
 
 matchaQueries.status = (username) => {
 	return new Promise((resolve, reject) => {
 		dbc.query('UPDATE matcha.matcha_users SET status="online" WHERE username=?',
-		[username],
+			[username],
 			(error, result) => {
 				if (error) {
 					return reject(error);
@@ -364,7 +364,27 @@ matchaQueries.status = (username) => {
 matchaQueries.lastSeen = (username) => {
 	return new Promise((resolve, reject) => {
 		dbc.query('UPDATE matcha.matcha_users SET lastseen=?, status="offline" WHERE username=?',
-		[new Date(), username],
+			[new Date(), username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+/**
+ * SEARCH SECTION
+ */
+
+matchaQueries.search = (obj) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`SELECT * FROM matcha.matcha_users 
+								WHERE city=?
+								OR age > ? AND age < ?
+								OR fameRating > ? AND fameRating < ?`,
+			[obj.city, obj.min_age, obj.max_age, obj.min_fame, obj.max_fame],
 			(error, result) => {
 				if (error) {
 					return reject(error);
