@@ -11,7 +11,7 @@ detailsRouter.route('/')
         const details = await query.getUserDetails(req.query.user);
         const interests = await query.getUserInterests(req.query.user);
         const liked = await query.isUserLiked(req.query.user, req.session.username);
-        if (user.profileCompleted) {
+        if (user[0].profileCompleted > 0) {
           res.status(200).render('pages/details', {
             username: req.session.username,
             users: details,

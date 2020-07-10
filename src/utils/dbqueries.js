@@ -312,7 +312,20 @@ matchaQueries.updateUserLocation = (loc, username) => {
 	})
 }
 
-
+matchaQueries.userProfileComplete = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users 
+								SET profileCompleted="1"
+								WHERE username=?`,
+			[username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
 /**
  * DETAILS SECTION
  */

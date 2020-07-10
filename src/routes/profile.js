@@ -45,39 +45,25 @@ profileRoute.route('/')
           await query.updateUserEmail(req.body.email, user);
           console.log("succesfully updated user's email");
         }
-        if (req.body.firstname) {
-          await query.updateUserFirstName(req.body.firstname, user);
-          console.log("succesfully updated user's firstname");
-        }
-        if (req.body.lastname) {
-          await query.updateUserFirstName(req.body.firstname, user);
-          console.log("succesfully updated user's lastname");
-        }
+        if (req.body.firstname) await query.updateUserFirstName(req.body.firstname, user);
+
+        if (req.body.lastname) await query.updateUserFirstName(req.body.firstname, user);
+
         if (req.body.password) {
           const newPass = await passEncrypt.hash(user.password, 10);
           await query.updateUserPassword(req.body.password, user);
           console.log("succesfully updated user's password");
         }
-        if (req.body.gender) {
-          await query.updateUserGender(req.body.gender, user);
-          console.log("succesfully updated user's gender");
-        }
-        if (req.body.Preference) {
-          await query.updateUserSexualPreference(req.body.Preference, user);
-          console.log("succesfully updated user's sexualPreference");
-        }
-        if (req.body.age) {
-          await query.updateUserAge(req.body.age, user);
-          console.log("succesfully updated user's age");
-        }
-        if (req.body.bio) {
-          await query.updateUserBio(req.body.bio, user);
-          console.log("succesfully updated user's bio");
-        }
-        if (req.body.ethnicity) {
-          await query.updateUserEthnicity(req.body.ethnicity, user);
-          console.log("succesfully updated user's ethnicity");
-        }
+
+        if (req.body.gender) await query.updateUserGender(req.body.gender, user);
+
+        if (req.body.Preference)          await query.updateUserSexualPreference(req.body.Preference, user);
+
+        if (req.body.age) await query.updateUserAge(req.body.age, user);
+
+        if (req.body.bio) await query.updateUserBio(req.body.bio, user);
+
+        if (req.body.ethnicity) await query.updateUserEthnicity(req.body.ethnicity, user);
 
         if (req.body.interests) {
           req.body.interests.split(",").forEach(async element => {
@@ -86,11 +72,13 @@ profileRoute.route('/')
                 await query.updateUserInterests(element.trim(), user);
             }
           });
-          console.log(`succesfully inserted user's intrests`);
         }
         // redirect back to profile
         const userDetails = await query.getUserDetails(req.session.username);
-        console.log(userDetails);
+        if (userDetails[0].gender && userDetails[0].bio &&
+          userDetails[0].age && userDetails[0].ethnicity) {
+            await query.userProfileComplete(req.session.username);
+        }
         const interests = await query.getUserInterests(req.session.username);
         res.status(200).render('pages/profile', { user: userDetails[0], interests });
       } catch (error) {
