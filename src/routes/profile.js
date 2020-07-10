@@ -82,9 +82,12 @@ profileRoute.route('/')
 
         if (req.body.interests) {
           req.body.interests.split(",").forEach(async element => {
-            await query.updateUserInterests(element.trim(), user);
-            console.log(`succesfully inserted ${element.trim()} interest for user: ${user}`);
+            if (element.trim()) {
+              if (!await query.getUserInterest(element.trim(), user))
+                await query.updateUserInterests(element.trim(), user);
+            }
           });
+          console.log(`succesfully inserted user's intrests`);
         }
         // redirect back to profile
         const userDetails = await query.getUserDetails(req.session.username);

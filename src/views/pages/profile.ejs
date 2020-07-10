@@ -28,93 +28,86 @@
               <form action="profile" method="POST">
                 <div class="form-group">
                   <label>Username:</label>
-                  <input  type="text"
-                          name="username"
-                          id="username"
-                          autocomplete="username"
-                          placeholder="<%=user.username%>"
-                          class="form-control" pattern="(?=.*[a-zA-Z]).{2,20}"
-                          title="2-20 characters and atleast one alphabetic character">
+                  <input type="text" name="username" id="username" autocomplete="username"
+                    placeholder="<%=user.username%>" class="form-control" pattern="(?=.*[a-zA-Z]).{2,20}"
+                    title="2-20 characters and atleast one alphabetic character">
 
                   <label>Firstname:</label>
-                  <input  type="text"
-                          name="firstname"
-                          id="firstname"
-                          autocomplete="name"
-                          placeholder="<%=user.firstname%>"
-                          class="form-control" pattern="[A-Za-z -].{1,20}"
-                          title="2-20 characters, only alphabet characters are allowed for firstname">
+                  <input type="text" name="firstname" id="firstname" autocomplete="name"
+                    placeholder="<%=user.firstname%>" class="form-control" pattern="[A-Za-z -].{1,20}"
+                    title="2-20 characters, only alphabet characters are allowed for firstname">
 
                   <label>Lastname:</label>
-                  <input  type="text"
-                          name="lastname"
-                          autocomplete="family-name"
-                          id="lastname"
-                          placeholder="<%=user.lastname %>"
-                          class="form-control"
-                          pattern="[A-Za-z -].{1,20}"
-                          title="2-20 characters, only alphabet characters are allowed for lastname">
+                  <input type="text" name="lastname" autocomplete="family-name" id="lastname"
+                    placeholder="<%=user.lastname %>" class="form-control" pattern="[A-Za-z -].{1,20}"
+                    title="2-20 characters, only alphabet characters are allowed for lastname">
 
                   <label>Email:</label>
                   <input type="email" name="email" autocomplete="email" id="email" placeholder="<%=user.email%>"
                     class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     title="Something like 'user@mail.domain'. small caps only">
-
-                  <label>New Password:</label>
-                  <input type="password" name="password" autocomplete="new-password" id="password"
-                    placeholder="change password" class="form-control"
-                    pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
-                    title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
+                  <p>
+                    <label>New Password:</label>
+                    <input type="password" name="password" autocomplete="new-password" id="password"
+                      placeholder="change password" class="form-control"
+                      pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                      title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
+                  </p>
                   <p>
                     <label>Gender:</label>
                     <select name="gender" id="gender">
+                      <option value=""></option>
                       <option value="Bisexual">Bisexual</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
+                    current: <%=user.gender%>
                   </p>
                   <p>
                     <label>Ethnicity:</label>
                     <select name="ethnicity" id="ethnicity">
+                      <option value=""></option>
                       <option value="Black">Black</option>
                       <option value="Coloured">Coloured</option>
                       <option value="Indian">Indian</option>
                       <option value="White">White</option>
                       <option value="Other">Other</option>
                     </select>
+                    current: <%=user.ethnicity%>
                   </p>
                   <p>
                     <label>Sexual Partner Preference:</label>
                     <select name="Preference" id="Preference">
+                      <option value=""></option>
                       <option value="Bisexual">Bisexual</option>
                       <option value="Men">Men</option>
                       <option value="Women">Women</option>
                     </select>
+                    current: <%=user.sexualPreference%>
                   </p>
-                  <label>Age:</label>
-                  <input type="number" name="age" id="age" placeholder="<%=user.age%>" class="form-control">
+                  <label>Age:</label><small class="text-muted">  hint: 18-99</small>
+                  <input type="text"
+                          name="age"
+                          pattern="^(1[89]|[2-9][0-9])$"
+                          id="age"
+                          placeholder="<%=user.age%>"
+                          class="form-control">
                   <div class="form-group">
                     <label>Bio</label>
                     <textarea class="form-control" name="bio"
                       placeholder="tell us about yourself..."><%=user.bio%></textarea>
                   </div>
-                  
                   <div class="form-group">
                     <label>Interests</label>
-                    <textarea class="form-control interests"
-                              name="interests"
-                              placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
+                    <textarea class="form-control interests" name="interests" required
+                      placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
                   </div>
                   <p>
                     <label>Password:</label>
-                    <input  type="password"
-                            name="current-password"
-                            required
-                            autocomplete="current-password"
-                            id="confirm-password"
-                            placeholder="password" class="form-control"
-                            pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
-                            title="Enter your password to update your profile">
+                    <input type="password" name="current-password" required autocomplete="current-password"
+                      id="confirm-password" placeholder="password" class="form-control"
+                      pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
+                      title="Enter your password to update your profile">
                   </p>
                   <input type="submit" name="submit" value="Update Profile" class="form-control">
                 </div>

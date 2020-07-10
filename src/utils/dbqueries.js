@@ -284,6 +284,20 @@ matchaQueries.getUserInterests = (username) => {
 }
 
 
+matchaQueries.getUserInterest = (interest, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * FROM matcha.interests WHERE username=? AND interestName=?',
+			[username, interest],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+
 /**
  * DETAILS SECTION
  */
