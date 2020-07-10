@@ -1,6 +1,5 @@
 import express from 'express';
 
-import db from '../../config/database/connection';
 import query from '../utils/dbqueries';
 import passEncrypt from 'bcryptjs';
 
@@ -14,7 +13,8 @@ profileRoute.route('/')
     if (req.session.loggedin) {
       try {
         const userDetails = await query.getUserDetails(req.session.username);
-        res.status(200).render('pages/profile', userDetails[0]);
+        const interests = await query.getUserInterests(req.session.username);
+        res.status(200).render('pages/profile', { user: userDetails[0], interests });
       } catch (error) {
         console.log(error.message);
       }
@@ -67,6 +67,10 @@ profileRoute.route('/')
           await query.updateUserSexualPreference(req.body.sexualPreference, user);
           console.log("succesfully updated user's sexualPreference");
         }
+        if (req.body.age) {
+          await query.updateUserAge(req.body.age, user);
+          console.log("succesfully updated user's age");
+        }
         if (req.body.bio) {
           await query.updateUserBio(req.body.bio, user);
           console.log("succesfully updated user's bio");
@@ -75,9 +79,17 @@ profileRoute.route('/')
           await query.updateUserEthnicity(req.body.ethnicity, user);
           console.log("succesfully updated user's ethnicity");
         }
+
+        if (req.body.interests) {
+          req.body.interests.split(",").forEach(async element => {
+            await query.updateUserInterests(element.trim(), user);
+            console.log(`succesfully inserted ${element.trim()} interest for user: ${user}`);
+          });
+        }
         // redirect back to profile
         const userDetails = await query.getUserDetails(req.session.username);
-        res.render('pages/profile', userDetails[0]);
+        const interests = await query.getUserInterests(req.session.username);
+        res.status(200).render('pages/profile', { user: userDetails[0], interests });
       } catch (error) {
         console.log(error.message);
       }

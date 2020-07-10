@@ -203,6 +203,19 @@ matchaQueries.updateUserGender = (gender, username) => {
 	})
 }
 
+matchaQueries.updateUserAge = (age, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('UPDATE matcha.matcha_users SET age=? WHERE username=?',
+			[age, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
 matchaQueries.updateUserSexualPreference = (sexualPreference, username) => {
 	return new Promise((resolve, reject) => {
 		dbc.query('UPDATE matcha.matcha_users SET sexualPreference=? WHERE username=?',
@@ -241,6 +254,35 @@ matchaQueries.updateUserEthnicity = (ethnicity, username) => {
 			})
 	})
 }
+
+matchaQueries.updateUserInterests = (interests, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('INSERT INTO matcha.interests(interestName, username) VALUES(?,?)',
+			[interests, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				console.log();
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.getUserInterests = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('SELECT * FROM matcha.interests WHERE username=?',
+			[username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				console.log();
+				return resolve(result);
+			})
+	})
+}
+
 
 /**
  * DETAILS SECTION
