@@ -73,7 +73,7 @@
                       <option value="White">White</option>
                       <option value="Other">Other</option>
                     </select>
-                    current: <%=user.Ethnicity%>
+                    current: <%=user.ethnicity%>
                   </p>
                   <p>
                     <label>Sexual Partner Preference:</label>
@@ -92,24 +92,24 @@
                           id="age"
                           placeholder="<%=user.age%>"
                           class="form-control">
-                  <div class="form-group">
+                        <p>
                     <label>Bio</label>
                     <textarea class="form-control" name="bio"
                       placeholder="tell us about yourself..."><%=user.bio%></textarea>
-                  </div>
-                  <div class="form-group">
+                    </p>
+                  <p>
                     <label>Interests</label>
                     <textarea class="form-control interests" name="interests" required
                       placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
-                  </div>
+                  </p>
                   <div class="card-header">
                     <h4> Location Details </h4>
                   </div>
                   <p>
-                    <label>Street:</label>
+                    <label>City:</label>
                     <input type="text"
-                    name="street"
-                      id="street" placeholder="street"
+                    name="city"
+                      id="city" placeholder="<%=user.city%>"
                       class="form-control"
                       title="Enter your street name">
                   </p>
@@ -117,7 +117,7 @@
                     <label>Region:</label>
                     <input type="text"
                     name="region"
-                      id="region" placeholder="region"
+                      id="region" placeholder="<%=user.region%>"
                       class="form-control"
                       title="Enter your region details">
                   </p>
@@ -125,7 +125,7 @@
                     <label>Postal code:</label>
                     <input type="text"
                     name="postal_code"
-                      id="postal_code" placeholder="Postal Code"
+                      id="postal_code" placeholder="<%=user.postal_code%>"
                       class="form-control"
                       title="Enter your Postal code">
                   </p>
@@ -133,7 +133,7 @@
                     <label>Country:</label>
                     <input type="text"
                     name="Country"
-                      id="Country" placeholder="Country"
+                      id="Country" placeholder="<%=user.country%>"
                       class="form-control"
                       title="Enter your Country details">
                   </p>
@@ -141,7 +141,7 @@
                     <label>Latitude:</label>
                     <input type="text"
                     name="Latitude"
-                      id="latitude" placeholder="Latitude details"
+                      id="latitude" placeholder="<%=user.latitude%>"
                       class="form-control"
                       title="Enter your Latitude details">
                   </p>
@@ -149,7 +149,7 @@
                     <label>Longitude:</label>
                     <input type="text"
                     name="longitude"
-                      id="longitude" placeholder="Longitude details"
+                      id="longitude" placeholder="<%=user.logitude%>"
                       class="form-control"
                       title="Enter your Longitude details">
                   </p>

@@ -1,69 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Home</title>
-        <%- include('helpers/head'); -%>
-        <link href="/css/custom/home.css" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        <!-- header -->
-        <%- include('helpers/header'); -%>
-        <div class="alert alert-info alert-dismissible fade" role="alert">
-        </div>
-        <%users.forEach(user => {%>
-            <p>
-                <label for="username">Username: </label>
-                <span id="username"><%=user.username%></span>
-            </p>
-            <p>
-                <label for="">Profile picture:</label>
-            </p>
-            <p>
-                <label for="">Last Seen:</label>
-                <%=user.lastSeen.toLocaleString()%>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+  <%- include('helpers/head'); -%>
+  <link href="/css/custom/details.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <!-- header -->
+  <%- include('helpers/header'); -%>
+  <main>
+    <div class="alert alert-info alert-dismissible fade" role="alert">
+    </div>
+    <%users.forEach(user => {%>
+    <% if (liked) {%>
+    <p>
+      <%=user.username%> likes your profile
+    </p>
+    <%}%>
+    <p>
+      <label for="username">Username: </label>
+      <span id="username"><%=user.username%></span>
+    </p>
+    <p>
+      <label for="username">status: </label>
+      <span id="status"><%=user.status%></span>
+    </p>
+    <p>
+      <label for="">Last Seen:</label>
+      <% if (user.status !== 'online'){%>
+      <%=user.lastSeen.toLocaleString()%>
+      <%}%>
             </p>
             <p>
                 <label for="">Last name:</label>
                 <%=user.lastname%>
-            </p>
-            <p>
-                <label for="">First name:</label>
-                <%=user.firstname%>
-            </p>
-            <p>
-                <label for="">Gender:</label>
-                <%=user.gender%>
-            </p>
-            <p>
-                <label for="">Age:</label>
-            </p>
-            <p>
-                <label for="">Bibliography:</label>
-                <%=user.bibliography%>
-            </p>
-            <p>
-                <label for="">Sexual Preference:</label>
-            </p>
-            <p>
-                <label for="">Interests:</label>
-            </p>
-            <p>
-                <label for="">Fame rating:</label>
-            </p>
-            <p>
-                <label for="">Other pictures:</label>
-            </p>
-        <%})%>
-        <form action="" method="POST">
-            <button type="button" dis-like class="btn btn-primary btn-block"></button>
-            <button type="button" name="un-block" id="un-block" class="btn btn-danger btn-block">Block</button>
-        </form>
-        <input type="text" hidden class="_" value="<%=username%>" />
-        <script src="/js/custom/details.js" rel="text/js"></script>
-        <!-- footer -->
-        <%- include('helpers/footer'); -%>
-    </body>
+    </p>
+    <p>
+      <label for="">First name:</label>
+      <%=user.firstname%>
+    </p>
+    <p>
+      <label for="">Gender:</label>
+      <%=user.gender%>
+    </p>
+    <p>
+      <label for="">Age:</label>
+      <%=user.age%>
+    </p>
+    <p>
+      <label for="">Bibliography:</label>
+      <%=user.bio%>
+    </p>
+    <p>
+      <label for="">Sexual Preference:</label>
+      <%=user.sexualPreference%>
+    </p>
+    <p>
+      <label for="">Fame rating:</label>
+      <%=user.fameRating%>
+    </p>
+    <p>
+      <label for="">Profile picture:</label>
+    </p>
+    <p>
+      <label for="">Ethnicity:</label>
+      <%=user.ethnicity%>
+    </p>
+    <p>
+      <label for="">Country:</label>
+      <%=user.country%>
+    </p>
+    <p>
+      <label for="">City:</label>
+      <%=user.city%>
+    </p>
+    <p>
+      <label for="">Region:</label>
+      <%=user.region%>
+    </p>
+    <%})%>
+    <p>
+      <label for="">Interests:</label>
+      <%interests.forEach(interest => {%><%=interest.interestName%>,<%})%>
+    </p>
+    <form action="" method="POST">
+      <button type="button" dis-like class="btn btn-primary btn-block"></button>
+      <button type="button" name="un-block" id="un-block" class="btn btn-danger btn-block">Block</button>
+    </form>
+    <input type="text" hidden class="_" value="<%=username%>" />
+    <script src="/js/custom/details.js" rel="text/js"></script>
+  </main>
+  <!-- footer -->
+  <%- include('helpers/footer'); -%>
+</body>
+
 </html>

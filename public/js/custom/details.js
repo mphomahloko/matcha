@@ -7,7 +7,6 @@ const decision = (res) => {
 (() => {
 	const participant = document.querySelector('._').value;
 	const liked_participant = document.querySelector("#username").textContent.trim();
-	console.log(liked_participant);
 	const api = `http://localhost:4000/api/dis-like?participant=${participant}&liked_participant=${liked_participant}`;
 	fetch(api).then((res) => { return res.json(); })
 			.then(decision)

@@ -348,7 +348,7 @@ matchaQueries.getSuggestedUsers = () => {
 
 matchaQueries.lastSeen = (username) => {
 	return new Promise((resolve, reject) => {
-		dbc.query('UPDATE matcha.matcha_users SET lastseen=? WHERE username=?',
+		dbc.query('UPDATE matcha.matcha_users SET lastseen=?, status=offline WHERE username=?',
 		[new Date(), username],
 			(error, result) => {
 				if (error) {

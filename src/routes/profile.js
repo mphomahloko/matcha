@@ -99,9 +99,27 @@ profileRoute.route('/')
     }
   })
 
-  profileRoute.route('/location')
-    .post(async (req, res) => {
-      console.log(req.body, "IN LOCATION");
-    });
+profileRoute.route('/location')
+  .post(async (req, res) => {
+    if (req.session.username) {
+      try {
+        let loc = {};
+        loc.latitude = req.body.loc.split(',')[0];
+        loc.logitude = req.body.loc.split(',')[1];
+        loc.country = req.body.country;
+        loc.postal_code = req.body.postal_code;
+        loc.city = req.body.city;
+        loc.region = req.body.region;
+        await query.updateUserLocation(loc, req.session.username);
+
+        res.status(200).json({ status: true, message: "successful..." });
+      } catch (error) {
+        console.log(error);
+        res.status(200).json({ status: false, message: "an error occured..." });
+      }
+    } else {
+      res.status(401).json({ status: false, message: "You are not logged in..." });
+    }
+  });
 
 module.exports = profileRoute;
