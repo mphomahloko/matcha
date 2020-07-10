@@ -389,7 +389,7 @@ matchaQueries.search = (obj) => {
 				if (error) {
 					return reject(error);
 				}
-				return resolve(result[0]);
+				return resolve(result);
 			})
 	})
 }
