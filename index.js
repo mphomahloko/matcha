@@ -33,9 +33,9 @@ app.post('/messages', async (req, res) => {
 app.get('/details', async (req, res) => {
   if (req.session.loggedin) { 
     try {
+      const user = await query.getUserDetails(req.session.username)
       if (user[0].profileCompleted > 0) {
         console.log(`${req.session.username} viewd ${req.query.user}'s profile`);
-        const user = await query.getUserDetails(req.session.username)
         const details = await query.getUserDetails(req.query.user);
         const interests = await query.getUserInterests(req.query.user);
         const liked = await query.isUserLiked(req.query.user, req.session.username);
@@ -69,7 +69,7 @@ app.post('/api/dis-like/like', async (req, res) => {
   try {
 
     await query.likeUser(req.body.participant, req.body.liked_participant);
-    
+
     if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
       await query.connectUsers(req.body.participant, req.body.liked_participant);
       console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile back`);
