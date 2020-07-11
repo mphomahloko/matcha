@@ -1,4 +1,5 @@
 import express from 'express';
+import fetch from 'node-fetch';
 
 import query from '../utils/dbqueries';
 import passEncrypt from 'bcryptjs';
@@ -91,15 +92,18 @@ profileRoute.route('/location')
   .post(async (req, res) => {
     if (req.session.username) {
       try {
-        let loc = {};
-        loc.latitude = req.body.loc.split(',')[0];
-        loc.logitude = req.body.loc.split(',')[1];
-        loc.country = req.body.country;
-        loc.postal_code = req.body.postal_code;
-        loc.city = req.body.city;
-        loc.region = req.body.region;
-        await query.updateUserLocation(loc, req.session.username);
 
+        let loc = {};
+        const location = await fetch(`https://ipinfo.io/?token=${process.env.TOKEN}`);
+        const location_data = await location.json();
+
+        loc.latitude = location_data.loc.split(',')[0];
+        loc.logitude = location_data.loc.split(',')[1];
+        loc.country = location_data.country;
+        loc.postal_code = location_data.postal;
+        loc.city = location_data.city;
+        loc.region = location_data.region;
+        await query.updateUserLocation(loc, req.session.username);
         res.status(200).json({ status: true, message: "successful..." });
       } catch (error) {
         console.log(error);

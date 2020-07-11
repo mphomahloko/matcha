@@ -1,7 +1,11 @@
 import con from '../database/connection'
 
-/*                                        Queries                                                 */
+/**
+ * QUERIES SECTION
+ */
+
 const dbSql = 'CREATE DATABASE IF NOT EXISTS matcha';
+
 const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   user_id int(11) NOT NULL AUTO_INCREMENT  PRIMARY KEY,
   username varchar(50) NOT NULL,
@@ -22,23 +26,26 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   reportedBy varchar(50),
   profileCompleted int(2) default 0,
   fameRating int default 3,
-  logitude double,
-  latitude double,
+  logitude double default 0,
+  latitude double default 0,
   country varchar(255),
   postal_code int,
   city varchar(255),
   region varchar(255)
 )`;
+
 const interestsSql = `CREATE TABLE IF NOT EXISTS matcha.interests(
   interest_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   username varchar(50) NOT NULL,
   interestName varchar(50)
 )`;
+
 const picturesSql = `CREATE TABLE IF NOT EXISTS matcha.pictures(
   picture_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int(11) NOT NULL,
-  profilePic int(2)
+  username int(11) NOT NULL,
+  picture varchar(255)
 )`;
+
 const roomsSql = `CREATE TABLE IF NOT EXISTS matcha.rooms(
   room_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   participant_1 varchar(50) NOT NULL,
@@ -46,6 +53,7 @@ const roomsSql = `CREATE TABLE IF NOT EXISTS matcha.rooms(
   msg varchar(255),
   date_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 )`;
+
 const messagesSql = `CREATE TABLE IF NOT EXISTS matcha.messages(
   msg_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   room_id int(11) NOT NULL,
@@ -65,7 +73,15 @@ const likeSql = `CREATE TABLE IF NOT EXISTS matcha.likes(
   participant varchar(50) NOT NULL,
   liked_participant varchar(50) NOT NULL
 )`;
-/*                                        End of Queries                                          */
+
+const notificationSql = `CREATE TABLE IF NOT EXISTS matcha.notifications(
+  notifications_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  notification varchar(250) NOT NULL
+)`;
+
+/**
+ * DATABASE AND TABLE CREATION SECTION
+ */
 
 con.connect((connectErr) => {
     if (connectErr) {
@@ -81,13 +97,14 @@ con.connect((connectErr) => {
         con.query('USE matcha');
 
         con.query(
-            `${matchaUsersSql};
-      ${interestsSql};
-      ${picturesSql};
-      ${roomsSql};
-      ${messagesSql};
-      ${likeSql};
-      ${blockedSql}`,
+          `${matchaUsersSql};
+          ${interestsSql};
+          ${picturesSql};
+          ${roomsSql};
+          ${messagesSql};
+          ${likeSql};
+          ${notificationSql};
+          ${blockedSql}`,
             (matchaUsersErr) => {
                 if (matchaUsersErr) throw matchaUsersErr;
                 console.info('Tables created');
@@ -95,3 +112,9 @@ con.connect((connectErr) => {
         );
     });
 });
+
+/**
+ * SEEDING SECTION
+ */
+
+ 

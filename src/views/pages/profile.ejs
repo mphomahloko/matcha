@@ -26,6 +26,7 @@
             </div>
             <div class="card-body">
               <form action="profile" method="POST">
+                <input type="hidden" name="profile">
                 <div class="form-group">
                   <label>Username:</label>
                   <input type="text" name="username" id="username" autocomplete="username"
@@ -48,7 +49,7 @@
                     title="Something like 'user@mail.domain'. small caps only">
                   <p>
                     <label>New Password:</label>
-                    <input type="password" name="password" autocomplete="new-password" id="password"
+                    <input type="password" name="password" autocomplete="new-password" id="new-password"
                       placeholder="change password" class="form-control"
                       pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
                       title="8-20 characters, lower and upper case, number(s), special character(s) atleast">
@@ -85,76 +86,63 @@
                     </select>
                     current: <%=user.sexualPreference%>
                   </p>
-                  <label>Age:</label><small class="text-muted">  hint: 18-99</small>
-                  <input type="text"
-                          name="age"
-                          pattern="^(1[89]|[2-9][0-9])$"
-                          id="age"
-                          placeholder="<%=user.age%>"
-                          class="form-control">
-                        <p>
+                  <label>Age:</label><small class="text-muted"> hint: 18-99</small>
+                  <input type="text" name="age" pattern="^(1[89]|[2-9][0-9])$" id="age" placeholder="<%=user.age%>"
+                    class="form-control">
+                  <p>
                     <label>Bio</label>
                     <textarea class="form-control" name="bio"
                       placeholder="tell us about yourself..."><%=user.bio%></textarea>
-                    </p>
+                  </p>
                   <p>
                     <label>Interests</label>
                     <textarea class="form-control interests" name="interests" required
                       placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
                   </p>
-                  <div class="card-header">
-                    <h4> Location Details </h4>
-                  </div>
-                  <p>
-                    <label>City:</label>
-                    <input type="text"
-                    name="city"
-                      id="city" placeholder="<%=user.city%>"
-                      class="form-control"
-                      title="Enter your street name">
-                  </p>
-                  <p>
-                    <label>Region:</label>
-                    <input type="text"
-                    name="region"
-                      id="region" placeholder="<%=user.region%>"
-                      class="form-control"
-                      title="Enter your region details">
-                  </p>
-                  <p>
-                    <label>Postal code:</label>
-                    <input type="text"
-                    name="postal_code"
-                      id="postal_code" placeholder="<%=user.postal_code%>"
-                      class="form-control"
-                      title="Enter your Postal code">
-                  </p>
-                  <p>
-                    <label>Country:</label>
-                    <input type="text"
-                    name="Country"
-                      id="Country" placeholder="<%=user.country%>"
-                      class="form-control"
-                      title="Enter your Country details">
-                  </p>
-                  <p>
-                    <label>Password:</label>
-                    <input type="password" name="current-password" required autocomplete="current-password"
-                      id="confirm-password" placeholder="password" class="form-control"
-                      pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+-=]).{8,}"
-                      title="Enter your password to update your profile">
-                  </p>
                   <input type="submit" name="submit" value="Update Profile" class="form-control btn-primary">
-                </div>
+              </form>
+              <p>
+              <div class="card-header">
+                <h4> Location Details </h4>
+              </div>
+              </p>
+              <p>
+              <p>Allow us to use GPS for a better expreience with match making</p>
+              <button type="button" class="btn btn-primary user_location">USE GPS</button>
+              </p>
+              <form action="profile" method="post">
+                <input type="hidden" name="gps">
+                <p>
+                  <label>City:</label>
+                  <input type="text" name="city" id="city" placeholder="<%=user.city%>" class="form-control"
+                    title="Enter your street name">
+                </p>
+                <p>
+                  <label>Region:</label>
+                  <input type="text" name="region" id="region" placeholder="<%=user.region%>" class="form-control"
+                    title="Enter your region details">
+                </p>
+                <p>
+                  <label>Postal code:</label>
+                  <input type="text" name="postal_code" id="postal_code" placeholder="<%=user.postal_code%>"
+                    class="form-control" title="Enter your Postal code">
+                </p>
+                <p>
+                  <label>Country:</label>
+                  <input type="text" name="Country" id="country" placeholder="<%=user.country%>" class="form-control"
+                    title="Enter your Country details">
+                </p>
+                <input type="submit" name="submit" value="Update GPS details" class="form-control btn-primary">
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </div>
   </section>
-  
-        <!-- <div class="col-md-6">
+
+  <!-- <div class="col-md-6">
           <h3>Your Avator</h3>
           <img src="/img/beads.jpeg" alt="" class="d-block img-fluid mb-6">
           <button class="btn btn-primary btn-block">Edit Image</button>
@@ -178,4 +166,5 @@
 <!-- footer -->
 <script language="Javascript" type="text/javascript" src="/js/custom/profile.js"></script>
 <%- include('helpers/footer'); -%>
+
 </html>

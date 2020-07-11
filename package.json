@@ -2,10 +2,10 @@
   "name": "matcha",
   "version": "1.0.0",
   "description": "Matcha an online dating site because, love too can be industrialised.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "nodemon --exec babel-node index.js",
+    "start": "nodemon --exec babel-node -r dotenv/config server.js",
     "db": "babel-node config/setup/setup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,6 +30,7 @@
     "http": "0.0.0",
     "lodash": "^4.17.15",
     "mysql": "^2.17.1",
+    "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.8",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"

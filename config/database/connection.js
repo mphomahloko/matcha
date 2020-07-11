@@ -1,6 +1,5 @@
 
 import mysql from 'mysql'
-import 'dotenv/config'
 
 const con = mysql.createConnection(
   {

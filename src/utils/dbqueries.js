@@ -263,7 +263,6 @@ matchaQueries.updateUserInterests = (interests, username) => {
 				if (error) {
 					return reject(error);
 				}
-				console.log();
 				return resolve(result[0]);
 			})
 	})
@@ -277,7 +276,6 @@ matchaQueries.getUserInterests = (username) => {
 				if (error) {
 					return reject(error);
 				}
-				console.log();
 				return resolve(result);
 			})
 	})
@@ -326,6 +324,7 @@ matchaQueries.userProfileComplete = (username) => {
 			})
 	})
 }
+
 /**
  * DETAILS SECTION
  */
@@ -358,8 +357,6 @@ matchaQueries.getSuggestedUsers = () => {
 /**
  * LOGOUT/LOGIN SECTION
  */
-
-
 
 matchaQueries.status = (username) => {
 	return new Promise((resolve, reject) => {

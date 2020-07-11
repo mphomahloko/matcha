@@ -1,6 +1,5 @@
 'use strict'
 import mailer from "nodemailer";
-import 'dotenv/config'
 
 export const mail = async (account,subject, message) => {
 

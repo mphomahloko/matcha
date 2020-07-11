@@ -34,9 +34,7 @@ homeRouter.route('/')
         message: 'have an account?... Enter your details to login'
       });
     }
-  });
-
-homeRouter.route('/search')
+  })
   .post(async (req, res) => {
     if (req.session.loggedin) {
       try {

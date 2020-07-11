@@ -3,9 +3,11 @@ import query from '../utils/dbqueries';
 
 const detailsRouter = express.Router();
 
+// to be moved to index file for notifications
+
 detailsRouter.route('/')
   .get(async (req, res) => {
-    if (req.session.loggedin) {
+    if (req.session.loggedin) { 
       try {
         const user = await query.getUserDetails(req.session.username)
         const details = await query.getUserDetails(req.query.user);

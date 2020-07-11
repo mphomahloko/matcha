@@ -11,7 +11,6 @@ export default class Account {
         this.active = user.active;
         this.token = user.token;
         this.reported = user.reported;
-
     }
 
     save() {
