@@ -447,6 +447,25 @@ matchaQueries.lastSeen = (username) => {
 }
 
 /**
+ * NOTIFICATION SECTION 
+ */
+
+matchaQueries.updateRoomMsg = (id, msg) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.rooms
+								SET msg=?
+								WHERE room_id=?`,
+			[msg, id],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+/**
  * SEARCH SECTION
  */
 

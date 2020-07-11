@@ -16,7 +16,8 @@ app.post('/messages', async (req, res) => {
       msg: req.body.msg
     });
     // send msg to specific user
-    alertUser(req.body.to, req.body.msg);
+    await query.updateRoomMsg(req.body.room, req.body.msg)
+    alertUser(req.body.to, req.body.msg)
     res.status(200).json({
       success: true,
       message: "message successfully sent."

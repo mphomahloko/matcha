@@ -34,7 +34,8 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   country varchar(255),
   postal_code int,
   city varchar(255),
-  region varchar(255)
+  region varchar(255),
+  admin int
 )`;
 
 const interestsSql = `CREATE TABLE IF NOT EXISTS matcha.interests(
