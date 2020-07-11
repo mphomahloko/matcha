@@ -63,7 +63,19 @@ matchaQueries.disLike = (participant, liked_participant) => {
 	})
 }
 
-
+matchaQueries.connectUsers = (user_1, user_2) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`INSERT INTO matcha.rooms (participant_1, participant_2)
+								VALUES (?, ?)`,
+			[user_1, user_2],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
 
 /**
  * MESSAGE SECTION

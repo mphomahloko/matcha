@@ -33,12 +33,12 @@ app.post('/messages', async (req, res) => {
 app.get('/details', async (req, res) => {
   if (req.session.loggedin) { 
     try {
-      console.log(`${req.session.username} viewd ${req.query.user}'s profile`);
-      const user = await query.getUserDetails(req.session.username)
-      const details = await query.getUserDetails(req.query.user);
-      const interests = await query.getUserInterests(req.query.user);
-      const liked = await query.isUserLiked(req.query.user, req.session.username);
       if (user[0].profileCompleted > 0) {
+        console.log(`${req.session.username} viewd ${req.query.user}'s profile`);
+        const user = await query.getUserDetails(req.session.username)
+        const details = await query.getUserDetails(req.query.user);
+        const interests = await query.getUserInterests(req.query.user);
+        const liked = await query.isUserLiked(req.query.user, req.session.username);
         res.status(200).render('pages/details', {
           username: req.session.username,
           users: details,
@@ -67,9 +67,16 @@ app.get('/details', async (req, res) => {
 
 app.post('/api/dis-like/like', async (req, res) => {
   try {
-    if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile back`);
-    else console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
+
     await query.likeUser(req.body.participant, req.body.liked_participant);
+    
+    if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
+      await query.connectUsers(req.body.participant, req.body.liked_participant);
+      console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile back`);
+      console.log(`notifiy both users that they are connected and can start chatting`);
+    }
+    else console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
+
     res.status(200).json({
       success: true,
       message: "like successful ..."
