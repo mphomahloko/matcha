@@ -59,9 +59,4 @@ app.use('/api/dis-like', disLikeAPI);
 app.use('/api/validate', validationAPI);
 app.use('/api/messages', messagesAPI);
 
-// error route
-app.get('*', (req, res) => {
-  res.render('pages/index');
-});
-
 module.exports = app;

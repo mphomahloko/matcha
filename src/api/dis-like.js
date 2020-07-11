@@ -23,24 +23,6 @@ router.route('/')
     }
   });
 
-router.route('/like')
-  .post(async (req, res) => {
-    try {
-      await query.likeUser(req.body.participant, req.body.liked_participant);
-      await query.userLikedBack(req.body.participant, req.body.liked_participant);
-      res.status(200).json({
-        success: true,
-        message: "like successful ..."
-      });
-    } catch (ex) {
-      console.log(ex.message);
-      res.status(200).json({
-        success: false,
-        message: "failed to like..."
-      });
-    }
-  })
-
 router.route('/dislike')
   .post(async (req, res) => {
     try {

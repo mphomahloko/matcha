@@ -33,13 +33,13 @@ matchaQueries.likeUser = (participant, liked_participant) => {
 	})
 }
 
-matchaQueries.userLikedBack = (participant, liked_participant) => {
+matchaQueries.aLikeBack = (participant, liked_participant) => {
 	return new Promise((resolve, reject) => {
-		dbc.query(`INSERT INTO matcha.rooms (participant_1, participant_2)
-                            SELECT participant, liked_participant
-                            FROM matcha.likes
-                            WHERE liked_participant LIKE ?
-                            AND participant LIKE ?;`,
+		dbc.query(`
+					SELECT participant, liked_participant
+            FROM matcha.likes
+            WHERE liked_participant LIKE ?
+            AND participant LIKE ?;`,
 			[participant, liked_participant],
 			(error, result) => {
 				if (error) {
@@ -62,6 +62,8 @@ matchaQueries.disLike = (participant, liked_participant) => {
 			})
 	})
 }
+
+
 
 /**
  * MESSAGE SECTION

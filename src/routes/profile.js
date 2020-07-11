@@ -1,8 +1,9 @@
 import express from 'express';
 import fetch from 'node-fetch';
+import passEncrypt from 'bcryptjs';
+import 'dotenv/config'
 
 import query from '../utils/dbqueries';
-import passEncrypt from 'bcryptjs';
 
 const profileRoute = express.Router();
 

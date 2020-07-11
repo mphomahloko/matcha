@@ -26,6 +26,7 @@ const matchaUsersSql = `CREATE TABLE IF NOT EXISTS matcha.matcha_users(
   reportedBy varchar(50),
   profileCompleted int(2) default 0,
   fameRating int default 3,
+  profilePic varchar(255),
   logitude double default 0,
   latitude double default 0,
   country varchar(255),

@@ -1,5 +1,6 @@
 'use strict'
 import mailer from "nodemailer";
+import 'dotenv/config'
 
 export const mail = async (account,subject, message) => {
 
@@ -15,7 +16,7 @@ export const mail = async (account,subject, message) => {
     });
 
     let info = await transporter.sendMail({
-        from: `Matcha <noreply@matcha.com>`,
+        from: `Matcha`,
         to: account.email,
         subject: subject,
         html: message
