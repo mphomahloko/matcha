@@ -65,9 +65,9 @@ matchaQueries.disLike = (participant, liked_participant) => {
 
 matchaQueries.connectUsers = (user_1, user_2) => {
 	return new Promise((resolve, reject) => {
-		dbc.query(`INSERT INTO matcha.rooms (participant_1, participant_2)
-								VALUES (?, ?)`,
-			[user_1, user_2],
+		dbc.query(`INSERT INTO matcha.rooms (participant_1, participant_2, msg)
+								VALUES (?, ?, ?)`,
+			[user_1, user_2, "We match ;-)"],
 			(error, result) => {
 				if (error) {
 					return reject(error);
@@ -75,6 +75,54 @@ matchaQueries.connectUsers = (user_1, user_2) => {
 				return resolve(result[0]);
 			})
 	})
+}
+
+
+matchaQueries.getRoomId = (user_1, user_2) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`select room_id FROM matcha.rooms
+								WHERE participant_1=? AND participant_2=?
+								OR participant_1=? AND participant_2=?`,
+			[user_1, user_2, user_2, user_1],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				console.log(result);
+				return resolve(result[0]);
+			})
+	}) 
+}
+
+matchaQueries.deleteHistoryMsgs = (id) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`DELETE FROM matcha.messages
+								WHERE room_id=?`,
+			[id],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				console.log(result);
+				return resolve(result[0]);
+			})
+	}) 
+}
+
+matchaQueries.disConnectUsers = async (user_1, user_2) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`DELETE FROM matcha.rooms
+								WHERE participant_1=? AND participant_2=?
+								OR participant_1=? AND participant_2=?`,
+			[user_1, user_2, user_2, user_1],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				console.log(result);
+				return resolve(result[0]);
+			})
+	}) 
 }
 
 /**

@@ -90,6 +90,32 @@ app.post('/api/dis-like/like', async (req, res) => {
   }
 })
 
+app.post('/api/dis-like/dislike', async (req, res) => {
+  try {
+
+    await query.disLike(req.body.participant, req.body.liked_participant)
+    console.log(`${req.body.participant} disliked ${req.body.liked_participant}'s profile at ${new Date()}`)
+
+    if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
+      console.log(`deleteing history messages between ${req.body.participant} and ${req.body.liked_participant}`);
+      const id = await query.getRoomId(req.body.participant, req.body.liked_participant)
+      await query.disConnectUsers(req.body.participant, req.body.liked_participant)
+      console.log(`${req.body.participant} disconnected ${req.body.liked_participant}'s`);
+      await query.deleteHistoryMsgs(id.room_id)
+      console.log(`conversations between ${req.body.participant} and ${req.body.liked_participant} deleted...`);
+    }
+    res.status(200).json({
+      success: true,
+      message: "disliked user successfully ..."
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      message: "Failed to dislike user, please try again later..."
+    });
+  }
+})
+
 // error route
 app.get('*', (req, res) => {
   res.render('pages/index');

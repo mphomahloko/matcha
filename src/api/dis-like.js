@@ -23,20 +23,4 @@ router.route('/')
     }
   });
 
-router.route('/dislike')
-  .post(async (req, res) => {
-    try {
-      await query.disLike(req.body.participant, req.body.liked_participant)
-      res.status(200).json({
-        success: true,
-        message: "disliked user successfully ..."
-      });
-    } catch (error) {
-      res.status(200).json({
-        success: false,
-        message: "Failed to dislike user, please try again later..."
-      });
-    }
-  })
-
 module.exports = router;
