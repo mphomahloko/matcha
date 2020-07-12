@@ -80,7 +80,8 @@ const likeSql = `CREATE TABLE IF NOT EXISTS matcha.likes(
 
 const notificationSql = `CREATE TABLE IF NOT EXISTS matcha.notifications(
   notifications_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  notification varchar(250) NOT NULL
+  notification varchar(250) NOT NULL,
+  user_id int
 )`;
 
 const seedSql = `INSERT INTO matcha.matcha_users (user_id, username, password, email, firstname, lastname, notifications, messages, status, gender, sexualPreference, bio, active, age, ethnicity, token, lastSeen, reported, reportedBy, profileCompleted, fameRating, profilePic, logitude, latitude, country, postal_code, city, region, admin)

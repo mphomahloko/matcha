@@ -495,6 +495,36 @@ matchaQueries.updateRoomMsg = (id, msg) => {
 	})
 }
 
+
+matchaQueries.insertNotifications = (notification, user_id) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`INSERT INTO matcha.notifications (notification, user_id)
+								VALUES (?, ?)`,
+			[notification, user_id],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+
+matchaQueries.getUserNotifications = (user_id) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`SELECT * FROM matcha.notifications
+								WHERE user_id=?`,
+			[user_id],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result);
+			})
+	})
+}
+
 /**
  * SEARCH SECTION
  */

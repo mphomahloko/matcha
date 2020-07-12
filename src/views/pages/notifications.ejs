@@ -13,11 +13,13 @@
         <%- include('helpers/header'); -%>
 
         <!-- Notifications template -->
+        <% notifications.forEach( ({ notification }) => {%>
         <div class="card">
           <div class="card-body">
-            This is some text within a card body.
+            <%=notification%>
           </div>
         </div>
+        <%})%>
         <!-- Notifications template -->
 
         <!-- footer -->

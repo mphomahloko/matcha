@@ -72,6 +72,9 @@ app.get('/details', async (req, res) => {
         const details = await query.getUserDetails(req.query.user);
         const interests = await query.getUserInterests(req.query.user);
         const liked = await query.isUserLiked(req.query.user, req.session.username);
+        // emit to user in real time
+        await query.insertNotifications(`${req.session.username} viewd your profile.`, details[0].user_id);
+        // increment variable for notifications
         res.status(200).render('pages/details', {
           username: req.session.username,
           users: details,
@@ -99,35 +102,47 @@ app.get('/details', async (req, res) => {
 })
 
 app.post('/like', async (req, res) => {
-  try {
-
-    await query.likeUser(req.body.participant, req.body.liked_participant);
-
-    if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
-      await query.connectUsers(req.body.participant, req.body.liked_participant);
-      console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile back`);
-      console.log(`notifiy both users that they are connected and can start chatting`);
+  if (req.session.loggedin) {
+    try {
+      await query.likeUser(req.body.participant, req.body.liked_participant);
+      const details = await query.getUserDetails(req.body.liked_participant);
+      await query.insertNotifications(`${req.session.username} liked your profile.`, details[0].user_id);
+      if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
+        await query.connectUsers(req.body.participant, req.body.liked_participant);
+        await query.insertNotifications(`You and ${req.session.username} liked each other's profile and can start chatting in the message section`, details[0].user_id);
+        await query.insertNotifications(`You and ${details[0].username} liked each other's profile and can start chatting in the message section`, req.session.user_id);
+        console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile back`);
+        console.log(`notifiy both users that they are connected and can start chatting`);
+      }
+      else console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
+  
+      res.status(200).json({
+        success: true,
+        message: "like successful ..."
+      });
+    } catch (ex) {
+      console.log(ex.message);
+      res.status(200).json({
+        success: false,
+        message: "failed to like..."
+      });
     }
-    else console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
-
-    res.status(200).json({
-      success: true,
-      message: "like successful ..."
-    });
-  } catch (ex) {
-    console.log(ex.message);
+  } else {
     res.status(200).json({
       success: false,
-      message: "failed to like..."
+      message: "Navigate to the login page to continue..."
     });
   }
 })
 
 app.post('/dislike', async (req, res) => {
+  if (req.session.loggedin) {
   try {
 
     await query.disLike(req.body.participant, req.body.liked_participant)
+    const details = await  query.getUserDetails(req.body.liked_participant);
     console.log(`${req.body.participant} disliked ${req.body.liked_participant}'s profile at ${new Date()}`)
+    await query.insertNotifications(`${req.session.username} disliked your profile.`, details[0].user_id);
 
     if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
       console.log(`deleteing history messages between ${req.body.participant} and ${req.body.liked_participant}`);
@@ -142,11 +157,18 @@ app.post('/dislike', async (req, res) => {
       message: "disliked user successfully ..."
     });
   } catch (error) {
+    console.log(error.message);
     res.status(200).json({
       success: false,
       message: "Failed to dislike user, please try again later..."
     });
   }
+} else {
+  res.status(200).json({
+    success: false,
+    message: "Navigate to the login page to continue..."
+  });
+}
 })
 
 app.post('/upload', async (req, res) => {
