@@ -72,6 +72,7 @@ app.get('/details', async (req, res) => {
         const details = await query.getUserDetails(req.query.user);
         const interests = await query.getUserInterests(req.query.user);
         const liked = await query.isUserLiked(req.query.user, req.session.username);
+        const images = await query.getUserImages(details[0].user_id);
         // emit to user in real time
         await query.insertNotifications(`${req.session.username} viewd your profile.`, details[0].user_id);
         // increment variable for notifications
@@ -79,9 +80,11 @@ app.get('/details', async (req, res) => {
           username: req.session.username,
           users: details,
           interests: interests,
+          images: images,
           liked: liked
         });
       } else {
+        // to navigate to user profile and ask user to complete their profile
         res.status(200).render('pages/home', {
           username: user,
           users: []

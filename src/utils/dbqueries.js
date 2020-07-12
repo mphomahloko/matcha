@@ -446,6 +446,20 @@ matchaQueries.getSuggestedUsers = () => {
 	})
 }
 
+matchaQueries.getUserImages = (user_id) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`SELECT * FROM matcha.pictures
+								WHERE user_id=?`,
+								[user_id],
+								(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result);
+			})
+	})
+}
+
 /**
  * LOGOUT/LOGIN SECTION
  */

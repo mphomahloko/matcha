@@ -156,6 +156,10 @@
       <p>
         <label for="">Interests:</label>
         <%interests.forEach(interest => {%><%=interest.interestName%>,<%})%>
+      </p>      
+      <p>
+        <label for="">Images:</label>
+        <%images.forEach(image => {%><%=image.picture%>,<%})%>
       </p>
 
       <input type="text" hidden class="_" value="<%=username%>" />
