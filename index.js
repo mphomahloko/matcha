@@ -104,17 +104,20 @@ app.get('/details', async (req, res) => {
 app.post('/like', async (req, res) => {
   if (req.session.loggedin) {
     try {
-      await query.likeUser(req.body.participant, req.body.liked_participant);
       const details = await query.getUserDetails(req.body.liked_participant);
-      await query.insertNotifications(`${req.session.username} liked your profile.`, details[0].user_id);
+      await query.likeUser(req.body.participant, req.body.liked_participant);
       if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
+        await query.insertNotifications(`${req.session.username} liked you back`, details[0].user_id);
         await query.connectUsers(req.body.participant, req.body.liked_participant);
         await query.insertNotifications(`You and ${req.session.username} liked each other's profile and can start chatting in the message section`, details[0].user_id);
         await query.insertNotifications(`You and ${details[0].username} liked each other's profile and can start chatting in the message section`, req.session.user_id);
         console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile back`);
         console.log(`notifiy both users that they are connected and can start chatting`);
       }
-      else console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
+      else {
+        await query.insertNotifications(`${req.session.username} liked you profile.`, details[0].user_id);
+        console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
+      }
   
       res.status(200).json({
         success: true,
