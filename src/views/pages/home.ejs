@@ -23,33 +23,39 @@
                     </div>
                     <form action="home" method="POST">
                         <p id="Interests">
-                            <label>Interests:</label>
+                            <h5 class="search-label">Interests:</h5>
                         </p>
                          <p><label for="#skiing"><input name="interests" type="checkbox" value="#skiing">#skiing</label></p>
                         <p>
-                            <label>City:</label>
+                            <h5 class="search-label">City:</h5>
                             <input type="text" name="city">
                         </p>
-                        <p>
-                            <label>Age:</label>
-                            <p>
-                            min age <input type="range" name="min_age" min="17" max="99">
-                            </p>
-                            <p>
-                            max age <input type="range" name="max_age" min="17" max="100">
-                            </p>
+                        <p >
+                            <h5 class="search-label">Age:</h5>
+                            <div class="range-slider">
+                                min age <input class="range-slider__range" name="min_age" type="range" value="20" min="18" max="98">
+                                <span class="range-slider__value">20</span>
+                            </div>
+
+                            <div class="range-slider">
+                               max age <input class="range-slider__range" name="max_age"type="range" value="25" min="19" max="100">
+                                <span class="range-slider__value">25</span>
+                            </div>
                         </p>
 
                         <p>
-                            <label>popularity:</label>
+                            <h5 class="search-label">popularity:</h5>
                         </p>
-                        <p>
-                            min fame<input type="range" name="" min="0" max="2">
-                        </p>
-                        <p>
-                            max fame<input type="range" name="max_fame" min="3" max="6">
-                        </p>
-                        <p><input type="submit" value="submit"></p>
+                        <div class="range-slider">
+                                min fame <input class="range-slider__range" name="min_fame" type="range" value="0" min="0" max="2">
+                                <span class="range-slider__value">0</span>
+                            </div>
+
+                            <div class="range-slider">
+                               max fame <input class="range-slider__range" name="max_fame"type="range" value="3" min="3" max="6">
+                                <span class="range-slider__value">3</span>
+                            </div>
+                        <p><input class="btn btn-outline-secondary btn-large"type="submit" value="submit"></p>
                     </form>
                 </div>
             </div>
@@ -81,6 +87,7 @@
     </div>
   <!-- footer -->
   <%- include('helpers/footer'); -%>
+  <script src="js/custom/home.js" rel="text/js"></script>
 </body>
 
 </html>

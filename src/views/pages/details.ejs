@@ -12,13 +12,13 @@
   <body>
     <!-- header -->
     <%- include('helpers/header'); -%>
-
+	<%users.forEach(user => {%>
     <main>
       <div class="container">
         <div class="row">
-          <div class="col-sm">
+          <div class="col-12 col-lg-8">
               <div
-                id="testimonials-carousel"
+                id="user-picture-carousel"
                 class="carousel slide"
                 data-ride="carousel"
               >
@@ -28,7 +28,7 @@
                     class="carousel-item <% if (i === 0) { %> active <% i++} %>"
                   >
                     <img
-                      class="details-img"
+                      class="details-img rounded"
                       src="img/pics/<%=image.picture%>"
                       alt="user-image"
                     />
@@ -37,7 +37,7 @@
                 </div>
                 <a
                   class="carousel-control-prev"
-                  href="#testimonials-carousel"
+                  href="#user-picture-carousel"
                   role="button"
                   data-slide="prev"
                 >
@@ -49,7 +49,7 @@
                 </a>
                 <a
                   class="carousel-control-next"
-                  href="#testimonials-carousel"
+                  href="#user-picture-carousel"
                   role="button"
                   data-slide="next"
                 >
@@ -60,7 +60,9 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-                <h5 class="subtitle" <%=username%></h5>
+                <h5><%=user.username%></h5>
+				<h6> Bio </h6>
+				<p class="lead"><%=user.bio%> </p>
                 <form action="" method="POST">
                   <button
                     class="btn btn-outline-primary"
@@ -85,15 +87,12 @@
               class="alert alert-info alert-dismissible fade"
               role="alert"
             ></div>
-            <%users.forEach(user => {%> <% if (liked) {%>
+            
+			<% if (liked) {%>
             <p>
               <%=user.username%> likes you
             </p>
             <%}%>
-            <p>
-              <label for="username">Username: </label>
-              <span id="username"><%=user.username%></span>
-            </p>
             <p>
               <label for="username">status: </label>
               <span id="status"><%=user.status%></span>
@@ -154,10 +153,6 @@
               <label for="">Interests:</label>
               <%interests.forEach(interest =>
               {%><%=interest.interestName%>,<%})%>
-            </p>
-            <p>
-              <label for="">Images:</label>
-              <%images.forEach(image => {%><%=image.picture%>,<%})%>
             </p>
           </div>
           <input type="text" hidden class="_" value="<%=username%>" />
