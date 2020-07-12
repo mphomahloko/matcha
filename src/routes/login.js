@@ -4,7 +4,8 @@ import _ from 'lodash';
 import Auth from '../controller/auth';
 import User from '../models/user'
 import validators from '../utils/validators';
-import query from '../utils/dbqueries'
+import query from '../utils/dbqueries';
+import sanitize from '../utils/sanitize';
 
 const loginRoute = express.Router();
 const auth = new Auth();
@@ -64,8 +65,8 @@ loginRoute.route('/')
 
   })
   .post(async (req, res) => {
-    const username = req.body.username;
-    const pass = req.body.password;
+    const username = sanitize.sanitize(req.body.username);
+    const pass = sanitize.sanitize(req.body.password);
     if (validators.validateUsername(username) && validators.validatePass(pass)) {
       try {
         let user = new User();
