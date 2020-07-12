@@ -7,8 +7,6 @@ import query from '../utils/dbqueries';
 
 const profileRoute = express.Router();
 
-// /profile routes
-
 profileRoute.route('/')
   .get(async (req, res) => {
     // get loggedin user from database
@@ -33,62 +31,72 @@ profileRoute.route('/')
       let user = req.session.username;
       // validate all given data before update
       try {
-        if (req.body.username) {
-          const userExists = await query.getUserDetails(req.body.username);
-          if (userExists[0]) throw new Error("Username already taken...");
-          await query.updateUsername(req.body.username, user);
-          req.session.username = req.body.username;
-          user = req.body.username;
-          console.log("succesfully updated username");
-        }
-        if (req.body.email) {
-          const emailExits = await query.findUserByEmail(req.body.email);
-          if (emailExits) throw new Error("Email already in use...");
-          await query.updateUserEmail(req.body.email, user);
-          console.log("succesfully updated user's email");
-        }
-        if (req.body.firstname) await query.updateUserFirstName(req.body.firstname, user);
+        console.log(req.body);
+        if (req.body.profile) {
+          if (req.body.username) {
+            const userExists = await query.getUserDetails(req.body.username);
+            if (userExists[0]) throw new Error("Username already taken...");
+            await query.updateUsername(req.body.username, user);
+            req.session.username = req.body.username;
+            user = req.body.username;
+            console.log("succesfully updated username");
+          }
+          if (req.body.email) {
+            const emailExits = await query.findUserByEmail(req.body.email);
+            if (emailExits) throw new Error("Email already in use...");
+            await query.updateUserEmail(req.body.email, user);
+            console.log("succesfully updated user's email");
+          }
+          if (req.body.firstname) await query.updateUserFirstName(req.body.firstname, user);
 
-        if (req.body.lastname) await query.updateUserFirstName(req.body.firstname, user);
+          if (req.body.lastname) await query.updateUserFirstName(req.body.firstname, user);
 
-        if (req.body.password) {
-          const newPass = await passEncrypt.hash(user.password, 10);
-          await query.updateUserPassword(req.body.password, user);
-          console.log("succesfully updated user's password");
-        }
+          if (req.body.password) {
+            const newPass = await passEncrypt.hash(user.password, 10);
+            await query.updateUserPassword(req.body.password, user);
+            console.log("succesfully updated user's password");
+          }
 
-        if (req.body.gender) await query.updateUserGender(req.body.gender, user);
+          if (req.body.gender) await query.updateUserGender(req.body.gender, user);
 
-        if (req.body.Preference)          await query.updateUserSexualPreference(req.body.Preference, user);
+          if (req.body.Preference) await query.updateUserSexualPreference(req.body.Preference, user);
 
-        if (req.body.age) await query.updateUserAge(req.body.age, user);
+          if (req.body.age) await query.updateUserAge(req.body.age, user);
 
-        if (req.body.bio) await query.updateUserBio(req.body.bio, user);
+          if (req.body.bio) await query.updateUserBio(req.body.bio, user);
 
-        if (req.body.ethnicity) await query.updateUserEthnicity(req.body.ethnicity, user);
+          if (req.body.ethnicity) await query.updateUserEthnicity(req.body.ethnicity, user);
 
-        if (req.body.interests) {
-          req.body.interests.split(",").forEach(async element => {
-            if (element.trim()) {
-              if (!await query.getUserInterest(element.trim(), user))
-                await query.updateUserInterests(element.trim(), user);
-            }
-          });
+          if (req.body.interests) {
+            req.body.interests.split(",").forEach(async element => {
+              if (element.trim()) {
+                if (!await query.getUserInterest(element.trim(), user))
+                  await query.updateUserInterests(element.trim(), user);
+              }
+            });
+          }
+        } else if (req.body.gps) {
+          console.log('uploading gps details');
         }
         // redirect back to profile
         const userDetails = await query.getUserDetails(req.session.username);
-        if (userDetails[0].gender && userDetails[0].bio &&
+        if (userDetails[0].gender && userDetails[0].bio && userDetails[0].profilePic &&
           userDetails[0].age && userDetails[0].ethnicity) {
-            await query.userProfileComplete(req.session.username);
+          await query.userProfileComplete(req.session.username);
         }
         const interests = await query.getUserInterests(req.session.username);
         res.status(200).render('pages/profile', { user: userDetails[0], interests });
       } catch (error) {
         console.log(error.message);
       }
+    } else {
+      res.status(401).render('pages/login', {
+        success: true,
+        message: "have an account?... Enter your details to login"
+      });
     }
   })
-
+  
 profileRoute.route('/location')
   .post(async (req, res) => {
     if (req.session.username) {

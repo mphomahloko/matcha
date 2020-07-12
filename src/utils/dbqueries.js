@@ -387,6 +387,36 @@ matchaQueries.userProfileComplete = (username) => {
 	})
 }
 
+
+matchaQueries.uploadProfilepic = (username, src) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users 
+								SET profilePic=?
+								WHERE username=?`,
+			[src, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.uploadUserImages = (username, src) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`INSERT INTO matcha.pictures(username, picture)
+								VALUES (?, ?)`,
+			[username, src],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
 /**
  * DETAILS SECTION
  */

@@ -26,7 +26,7 @@
             </div>
             <div class="card-body">
               <form action="profile" method="POST">
-                <input type="hidden" name="profile">
+                <input type="hidden" name="profile" value="profile">
                 <div class="form-group">
                   <label>Username:</label>
                   <input type="text" name="username" id="username" autocomplete="username"
@@ -96,7 +96,7 @@
                   </p>
                   <p>
                     <label>Interests</label>
-                    <textarea class="form-control interests" name="interests" required
+                    <textarea class="form-control interests" name="interests"
                       placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
                   </p>
                   <input type="submit" name="submit" value="Update Profile" class="form-control btn-primary">
@@ -111,7 +111,7 @@
               <button type="button" class="btn btn-primary user_location">USE GPS</button>
               </p>
               <form action="profile" method="post">
-                <input type="hidden" name="gps">
+                <input type="hidden" name="gps" value="gps">
                 <p>
                   <label>City:</label>
                   <input type="text" name="city" id="city" placeholder="<%=user.city%>" class="form-control"
@@ -134,6 +134,25 @@
                 </p>
                 <input type="submit" name="submit" value="Update GPS details" class="form-control btn-primary">
               </form>
+              
+              <p>
+                <div class="card-header">
+                  <h4> Upload Images </h4>
+                </div>
+                </p>
+              <form action="upload" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="profilePic">Profile picture:</label>
+                  <input type="file" name="profilePic" id="profilePic" class="form-control-file"
+                    title="Upload your images to get started">
+                </div>
+                <div class="form-group">
+                  <label for="pictures">Please select 4 images of your choice:</label>
+                  <input type="file" name="pictures" id="pictures" class="form-control-file"
+                    title="Upload up to four images of your choice" multiple>
+                </div>
+                <input type="submit" name="submit" value="Update Images" class="form-control btn-primary">
+              </form>
             </div>
           </div>
         </div>
@@ -141,26 +160,6 @@
     </div>
     </div>
   </section>
-
-  <!-- <div class="col-md-6">
-          <h3>Your Avator</h3>
-          <img src="/img/beads.jpeg" alt="" class="d-block img-fluid mb-6">
-          <button class="btn btn-primary btn-block">Edit Image</button>
-          <button class="btn btn-danger btn-block">Delete Image</button>
-        </div> -->
-
-  <!-- <label>Location:</label>
-  <div>
-    
-  </div>
-  <label>Image upload:</label>
-  <div>
-    <input type="file" id="img" name="img">
-  </div>
-  <label>Image upload:</label>
-  <div>
-    <input type="file" id="img" name="img">
-  </div> -->
   </div>
 </body>
 <!-- footer -->

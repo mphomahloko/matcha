@@ -1,3 +1,6 @@
+import path from 'path';
+import multer from 'multer';
+
 import app from './app';
 import query from './src/utils/dbqueries'
 
@@ -5,6 +8,35 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 const alertUser = (reciever, message) => io.emit(reciever, message);
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (file.fieldname === 'profilePic') cb(null, './public/img/profile')
+    if (file.fieldname === 'pictures') cb (null, './public/img/pics')
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${req.session.username}-${Date.now()}${path.extname(file.originalname)}`)
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 10 },
+  fileFilter: (req, file, cb) => {
+    checkFileType(file, cb)
+  }
+}).fields([
+  { name: 'profilePic', maxCount: 1 },
+  { name: 'pictures', maxCount: 4 }
+]);
+
+const checkFileType = (file, cb) => {
+  const fileTypes = /\.(jpe?g|png|gif|bmp)$/i;
+  const fileMimeType = /image\/(gif|p?jpeg|(x-)?png)/i;
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = fileMimeType.test(file.mimetype);
+  if (mimetype && extname) return cb(null, true);
+  else cb(`Error: Only images are accepted`, false)
+}
 
 app.post('/messages', async (req, res) => {
   // insert msg into database accordingly
@@ -32,7 +64,7 @@ app.post('/messages', async (req, res) => {
 });
 
 app.get('/details', async (req, res) => {
-  if (req.session.loggedin) { 
+  if (req.session.loggedin) {
     try {
       const user = await query.getUserDetails(req.session.username)
       if (user[0].profileCompleted > 0) {
@@ -66,7 +98,7 @@ app.get('/details', async (req, res) => {
   }
 })
 
-app.post('/api/dis-like/like', async (req, res) => {
+app.post('/like', async (req, res) => {
   try {
 
     await query.likeUser(req.body.participant, req.body.liked_participant);
@@ -91,7 +123,7 @@ app.post('/api/dis-like/like', async (req, res) => {
   }
 })
 
-app.post('/api/dis-like/dislike', async (req, res) => {
+app.post('/dislike', async (req, res) => {
   try {
 
     await query.disLike(req.body.participant, req.body.liked_participant)
@@ -113,6 +145,39 @@ app.post('/api/dis-like/dislike', async (req, res) => {
     res.status(200).json({
       success: false,
       message: "Failed to dislike user, please try again later..."
+    });
+  }
+})
+
+app.post('/upload', async (req, res) => {
+  if (req.session.loggedin) {
+    try {
+      const userDetails = await query.getUserDetails(req.session.username);
+      upload(req, res, async (err) => {
+        if (err) console.log(err);
+        if (req.files['profilePic']) {
+          await query.uploadProfilepic(userDetails[0].username, req.files['profilePic'][0].filename);
+        }
+        if (req.files['pictures']) {
+          req.files['pictures'].forEach(async file => {
+            await query.uploadUserImages(userDetails[0].user_id, file.filename);
+            console.log(file.filename);
+          });
+        }
+        if (userDetails[0].gender && userDetails[0].bio && userDetails[0].profilePic &&
+          userDetails[0].age && userDetails[0].ethnicity) {
+          await query.userProfileComplete(req.session.username);
+        }
+        const interests = await query.getUserInterests(req.session.username);
+        res.status(200).render('pages/profile', { user: userDetails[0], interests });
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    res.status(401).render('pages/login', {
+      success: true,
+      message: "have an account?... Enter your details to login"
     });
   }
 })

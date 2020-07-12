@@ -15,7 +15,7 @@ const decision = (res) => {
 
 
 const checkResponce = (res) => {
-	if (!res.message.includes('dislike')){
+	if (!res.message.includes('dislike')) {
 		document.querySelector('button[dis-like]').textContent = 'dislike';
 	} else {
 		document.querySelector('button[dis-like]').textContent = 'like';
@@ -27,7 +27,7 @@ const checkResponce = (res) => {
 } 
 
 const dis_like = () => {
-	const api = `http://localhost:4000/api/dis-like/${document.querySelector('button[dis-like]').textContent}`;
+	const api = `http://localhost:4000/${document.querySelector('button[dis-like]').textContent}`;
 	const participant = document.querySelector('._').value;
 	const liked_participant = document.querySelector("#username").textContent.trim();
 	const Info = {
