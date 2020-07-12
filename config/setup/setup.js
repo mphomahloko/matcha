@@ -46,7 +46,7 @@ const interestsSql = `CREATE TABLE IF NOT EXISTS matcha.interests(
 
 const picturesSql = `CREATE TABLE IF NOT EXISTS matcha.pictures(
   picture_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username int(11) NOT NULL,
+  user_id int(11) NOT NULL,
   picture varchar(255)
 )`;
 

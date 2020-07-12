@@ -1,6 +1,10 @@
 #MAC-OS
 .DS_Store
 
+#imagefiles
+public/img/pics
+public/img/profile
+
 # Logs
 logs
 *.log

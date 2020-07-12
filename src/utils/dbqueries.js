@@ -403,11 +403,11 @@ matchaQueries.uploadProfilepic = (username, src) => {
 	})
 }
 
-matchaQueries.uploadUserImages = (username, src) => {
+matchaQueries.uploadUserImages = (user_id, src) => {
 	return new Promise((resolve, reject) => {
-		dbc.query(`INSERT INTO matcha.pictures(username, picture)
+		dbc.query(`INSERT INTO matcha.pictures(user_id, picture)
 								VALUES (?, ?)`,
-			[username, src],
+			[user_id, src],
 			(error, result) => {
 				if (error) {
 					return reject(error);

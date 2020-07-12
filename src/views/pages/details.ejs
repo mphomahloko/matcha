@@ -1,102 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <%- include('helpers/head'); -%>
+    <link href="/css/custom/details.css" rel="stylesheet" type="text/css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Home</title>
-  <%- include('helpers/head'); -%>
-  <link href="/css/custom/details.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-  <!-- header -->
-  <%- include('helpers/header'); -%>
-  <main>
-    <div class="alert alert-info alert-dismissible fade" role="alert">
-    </div>
-    <%users.forEach(user => {%>
-    <% if (liked) {%>
-    <p>
-      <%=user.username%> likes your profile
-    </p>
-    <%}%>
-    <p>
-      <label for="username">Username: </label>
-      <span id="username"><%=user.username%></span>
-    </p>
-    <p>
-      <label for="username">status: </label>
-      <span id="status"><%=user.status%></span>
-    </p>
-    <p>
-      <label for="">Last Seen:</label>
-      <% if (user.status !== 'online'){%>
-      <%=user.lastSeen.toLocaleString()%>
+  <body>
+    <!-- header -->
+    <%- include('helpers/header'); -%>
+    <%users.forEach(user => {%> <% if (liked) {%>
+    <main>
+      <div class="card" style="width: 50%;">
+        <div class="card-header">
+          <h4><%=user.username%></h4>
+        </div>
+        <div
+          id="testimonials-carousel"
+          class="carousel slide"
+          data-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                class="details-img"
+                src="img/pics/zimmy-1594568301947.jpg"
+                alt="dog-profile"
+              />
+              <em>Pebbles, New York</em>
+            </div>
+            <div class="carousel-item">
+              <img
+                class="details-img"
+                src="img/pics/zimmy-1594568301957.jpg"
+                alt="lady-profile"
+              />
+              <em>Beverly, Illinois</em>
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#testimonials-carousel"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#testimonials-carousel"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card su</h6>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <form action="" method="POST">
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              dis-like
+              class="btn btn-primary btn-block"
+            ></button>
+            <button
+              class="btn btn-outline-danger"
+              type="button"
+              name="un-block"
+              id="un-block"
+              class="btn btn-danger btn-block"
+            >
+              Block
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="alert alert-info alert-dismissible fade" role="alert"></div>
+      
+      <p>
+        <%=user.username%> likes you
+      </p>
       <%}%>
-            </p>
-            <p>
-                <label for="">Last name:</label>
-                <%=user.lastname%>
-    </p>
-    <p>
-      <label for="">First name:</label>
-      <%=user.firstname%>
-    </p>
-    <p>
-      <label for="">Gender:</label>
-      <%=user.gender%>
-    </p>
-    <p>
-      <label for="">Age:</label>
-      <%=user.age%>
-    </p>
-    <p>
-      <label for="">Bibliography:</label>
-      <%=user.bio%>
-    </p>
-    <p>
-      <label for="">Sexual Preference:</label>
-      <%=user.sexualPreference%>
-    </p>
-    <p>
-      <label for="">Fame rating:</label>
-      <%=user.fameRating%>
-    </p>
-    <p>
-      <label for="">Profile picture:</label>
-    </p>
-    <p>
-      <label for="">Ethnicity:</label>
-      <%=user.ethnicity%>
-    </p>
-    <p>
-      <label for="">Country:</label>
-      <%=user.country%>
-    </p>
-    <p>
-      <label for="">City:</label>
-      <%=user.city%>
-    </p>
-    <p>
-      <label for="">Region:</label>
-      <%=user.region%>
-    </p>
-    <%})%>
-    <p>
-      <label for="">Interests:</label>
-      <%interests.forEach(interest => {%><%=interest.interestName%>,<%})%>
-    </p>
-    <form action="" method="POST">
-      <button type="button" dis-like class="btn btn-primary btn-block"></button>
-      <button type="button" name="un-block" id="un-block" class="btn btn-danger btn-block">Block</button>
-    </form>
-    <input type="text" hidden class="_" value="<%=username%>" />
-    <script src="/js/custom/details.js" rel="text/js"></script>
-  </main>
-  <!-- footer -->
-  <%- include('helpers/footer'); -%>
-</body>
+      <p>
+        <label for="username">Username: </label>
+        <span id="username"><%=user.username%></span>
+      </p>
+      <p>
+        <label for="username">status: </label>
+        <span id="status"><%=user.status%></span>
+      </p>
+      <p>
+        <label for="">Last Seen:</label>
+        <% if (user.status !== 'online'){%> <%=user.lastSeen.toLocaleString()%>
+        <%}%>
+      </p>
+      <p>
+        <label for="">Last name:</label>
+        <%=user.lastname%>
+      </p>
+      <p>
+        <label for="">First name:</label>
+        <%=user.firstname%>
+      </p>
+      <p>
+        <label for="">Gender:</label>
+        <%=user.gender%>
+      </p>
+      <p>
+        <label for="">Age:</label>
+        <%=user.age%>
+      </p>
+      <p>
+        <label for="">Bibliography:</label>
+        
+      </p>
+      <p>
+        <label for="">Sexual Preference:</label>
+        <%=user.sexualPreference%>
+      </p>
+      <p>
+        <label for="">Fame rating:</label>
+        <%=user.fameRating%>
+      </p>
+      <p>
+        <label for="">Profile picture:</label>
+      </p>
+      <p>
+        <label for="">Ethnicity:</label>
+        <%=user.ethnicity%>
+      </p>
+      <p>
+        <label for="">Country:</label>
+        <%=user.country%>
+      </p>
+      <p>
+        <label for="">City:</label>
+        <%=user.city%>
+      </p>
+      <p>
+        <label for="">Region:</label>
+        <%=user.region%>
+      </p>
+      <%})%>
+      <p>
+        <label for="">Interests:</label>
+        <%interests.forEach(interest => {%><%=interest.interestName%>,<%})%>
+      </p>
 
+      <input type="text" hidden class="_" value="<%=username%>" />
+      <script src="/js/custom/details.js" rel="text/js"></script>
+    </main>
+    <!-- footer -->
+    <%- include('helpers/footer'); -%>
+  </body>
 </html>

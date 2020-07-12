@@ -185,7 +185,12 @@ app.post('/upload', async (req, res) => {
         }
         if (req.files['pictures']) {
           req.files['pictures'].forEach(async file => {
+              try {
             await query.uploadUserImages(userDetails[0].user_id, file.filename);
+                  
+              } catch (error) {
+                  console.log(error.message);
+              }
             console.log(file.filename);
           });
         }
