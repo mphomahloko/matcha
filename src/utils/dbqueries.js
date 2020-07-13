@@ -1,4 +1,5 @@
 import dbc from '../../config/database/connection';
+import sanitize from './sanitize'
 
 let matchaQueries = {};
 
@@ -7,6 +8,8 @@ let matchaQueries = {};
  */
 
 matchaQueries.isUserLiked = (participant, liked_participant) => {
+	participant = sanitize(participant);
+	liked_participant = sanitize(liked_participant);
 	return new Promise((resolve, reject) => {
 		dbc.query('SELECT * FROM matcha.likes WHERE participant=? AND liked_participant=?',
 			[participant, liked_participant],
