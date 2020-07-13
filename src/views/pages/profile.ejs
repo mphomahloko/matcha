@@ -17,6 +17,11 @@
     <%- include('helpers/header'); -%>
   </header>
   <section id="profile">
+    <% if (error.status) {%>
+      <div class="alert alert-warning" role="alert">
+        <%=error.message%>
+      </div>
+    <%}%>
     <div class="container">
       <div class="row">
         <div class="col-md-10">
@@ -151,7 +156,7 @@
                   <input type="file" name="pictures" id="pictures" class="form-control-file"
                     title="Upload up to four images of your choice" multiple>
                 </div>
-                <input type="submit" name="submit" value="Update Images" class="form-control btn-primary">
+                <input type="submit" name="upload" value="Update Images" class="form-control btn-primary">
               </form>
             </div>
           </div>

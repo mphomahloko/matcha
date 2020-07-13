@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mahloko/matcha.git"
+    "url": "git+https://github.com/mahloko/matcha.git"
   },
-  "author": "jphasha, mmahloko, momogash",
+  "author": "jphasha, mmahloko, momogash, kmashao, jwere",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Mahloko/matcha/issues"
+    "url": "https://github.com/mahloko/matcha/issues"
   },
-  "homepage": "https://github.com/Mahloko/matcha#readme",
+  "homepage": "https://github.com/mahloko/matcha#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

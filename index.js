@@ -181,28 +181,47 @@ app.post('/upload', async (req, res) => {
   if (req.session.loggedin) {
     try {
       const userDetails = await query.getUserDetails(req.session.username);
+      const interests = await query.getUserInterests(req.session.username);
       upload(req, res, async (err) => {
-        if (err) console.log(err);
-        if (req.files['profilePic']) {
-          await query.uploadProfilepic(userDetails[0].username, req.files['profilePic'][0].filename);
-        }
-        if (req.files['pictures']) {
-          req.files['pictures'].forEach(async file => {
-              try {
-            await query.uploadUserImages(userDetails[0].user_id, file.filename);
-                  
-              } catch (error) {
-                  console.log(error.message);
-              }
-            console.log(file.filename);
+        if (err instanceof multer.MulterError) {
+          res.status(200).render('pages/profile', {
+            user: userDetails[0],
+            interests,
+            error: {
+              status: true,
+              message: "An error occured uploading your images, Please make sure to upload not more than 4 images",
+              type: "warning"
+            }
           });
         }
-        if (userDetails[0].gender && userDetails[0].bio && userDetails[0].profilePic &&
-          userDetails[0].age && userDetails[0].ethnicity) {
-          await query.userProfileComplete(req.session.username);
+        else if (err) {
+          console.log(err);
+          res.sendStatus(500).send(err);
+        } else {
+          if (req.files['profilePic']) {
+            await query.uploadProfilepic(userDetails[0].username, req.files['profilePic'][0].filename);
+          }
+          if (req.files['pictures']) {
+            req.files['pictures'].forEach(async file => {
+                try {
+              await query.uploadUserImages(userDetails[0].user_id, file.filename);
+                    
+                } catch (error) {
+                    console.log(error.message);
+                }
+              console.log(file.filename);
+            });
+          }
+          if (userDetails[0].gender && userDetails[0].bio && userDetails[0].profilePic &&
+            userDetails[0].age && userDetails[0].ethnicity) {
+            await query.userProfileComplete(req.session.username);
+          }
+          res.status(200).render('pages/profile', {
+            user: userDetails[0],
+            interests,
+            error: { status: false, message: '' }
+          });
         }
-        const interests = await query.getUserInterests(req.session.username);
-        res.status(200).render('pages/profile', { user: userDetails[0], interests });
       })
     } catch (error) {
       console.error(error);

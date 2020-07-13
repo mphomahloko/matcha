@@ -14,7 +14,11 @@ profileRoute.route('/')
       try {
         const userDetails = await query.getUserDetails(req.session.username);
         const interests = await query.getUserInterests(req.session.username);
-        res.status(200).render('pages/profile', { user: userDetails[0], interests });
+        res.status(200).render('pages/profile', {
+          user: userDetails[0],
+          interests,
+          error: { status: false, message: '' }
+        });
       } catch (error) {
         console.log(error.message);
       }
@@ -31,7 +35,6 @@ profileRoute.route('/')
       let user = req.session.username;
       // validate all given data before update
       try {
-        console.log(req.body);
         if (req.body.profile) {
           if (req.body.username) {
             const userExists = await query.getUserDetails(req.body.username);
@@ -85,7 +88,11 @@ profileRoute.route('/')
           await query.userProfileComplete(req.session.username);
         }
         const interests = await query.getUserInterests(req.session.username);
-        res.status(200).render('pages/profile', { user: userDetails[0], interests });
+        res.status(200).render('pages/profile', {
+          user: userDetails[0],
+          interests,
+          error: { status: false, message: '' }
+        });
       } catch (error) {
         console.log(error.message);
       }

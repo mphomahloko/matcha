@@ -13,3 +13,5 @@
 - **[Johannes Phasha](https://github.com/jphasha)**
 - **[Mpho Mahloko](https://github.com/mahloko)**
 - **[Moloko Mogashoa](https://github.com/momogash)**
+- **[Kabelo Mashao](https://github.com/kmashao)**
+- **[Jimmy Were](https://github.com/jwere)**
