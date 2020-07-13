@@ -60,18 +60,18 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-                <h5><%=user.username%></h5>
+                <h5 id="username"><%=user.username%></h5>
 				<h6> Bio </h6>
 				<p class="lead"><%=user.bio%> </p>
                 <form action="" method="POST">
                   <button
-                    class="btn btn-outline-primary"
+                    class="btn btn-outline-primary details-btn"
                     type="button"
                     dis-like
                     class="btn btn-primary btn-block"
                   ></button>
                   <button
-                    class="btn btn-outline-danger"
+                    class="btn btn-outline-danger details-btn"
                     type="button"
                     name="un-block"
                     id="un-block"
