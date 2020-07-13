@@ -11,84 +11,111 @@
 
   <body>
     <!-- header -->
-    <%- include('helpers/header'); -%>
-	<%users.forEach(user => {%>
+    <%- include('helpers/header'); -%> <%users.forEach(user => {%>
     <main>
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-8">
-              <div
-                id="user-picture-carousel"
-                class="carousel slide"
-                data-ride="carousel"
-              >
-                <div class="carousel-inner">
-                  <% let i = 0; %> <%images.forEach(image => {%>
-                  <div
-                    class="carousel-item <% if (i === 0) { %> active <% i++} %>"
-                  >
-                    <img
-                      class="details-img rounded"
-                      src="img/pics/<%=image.picture%>"
-                      alt="user-image"
-                    />
-                  </div>
-                  <%})%>
+            <div
+              id="user-picture-carousel"
+              class="carousel slide"
+              data-ride="carousel"
+            >
+              <div class="carousel-inner">
+				<% if(user.profilePic) { %> 
+				<div
+                  class="carousel-item active"
+                >
+                  <img
+                    class="details-img rounded"
+                    src="img/profile/<%=user.profilePic%>"
+                    alt="user-image"
+                  /> 
                 </div>
-                <a
-                  class="carousel-control-prev"
-                  href="#user-picture-carousel"
-                  role="button"
-                  data-slide="prev"
+               <%images.forEach(image => {%>
+                <div
+                  class="carousel-item"
                 >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a
-                  class="carousel-control-next"
-                  href="#user-picture-carousel"
-                  role="button"
-                  data-slide="next"
+                  <img
+                    class="details-img rounded"
+                    src="img/pics/<%=image.picture%>"
+                    alt="user-image"
+                  />
+                </div>
+                <%})%>
+				<% }else { %>
+				<div
+                  class="carousel-item active"
                 >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Next</span>
-                </a>
+					<div class="alert alert-primary" role="alert">
+  						<p class="lead"><%= user.username %> does not have any pictures yet.</p>
+					</div>
+				</div>
+				<% } %>
               </div>
-                <h5 id="username"><%=user.username%></h5>
-				<h6> Bio </h6>
-				<p class="lead"><%=user.bio%> </p>
-                <form action="" method="POST">
-                  <button
-                    class="btn btn-outline-primary details-btn"
-                    type="button"
-                    dis-like
-                    class="btn btn-primary btn-block"
-                  ></button>
-                  <button
-                    class="btn btn-outline-danger details-btn"
-                    type="button"
-                    name="un-block"
-                    id="un-block"
-                    class="btn btn-danger btn-block"
-                  >
-                    Block
-                  </button>
-                </form>
+              <a
+                class="carousel-control-prev"
+                href="#user-picture-carousel"
+                role="button"
+                data-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a
+                class="carousel-control-next"
+                href="#user-picture-carousel"
+                role="button"
+                data-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            <h5 id="username"><%=user.username%></h5>
+            <h6>Bio</h6>
+            <p class="lead"><%=user.bio%></p>
+            <form action="" method="POST">
+              <button
+                class="btn btn-outline-primary details-btn"
+                type="button"
+                dis-like
+                class="btn btn-primary btn-block"
+              ></button>
+              <button
+                class="btn btn-outline-danger details-btn"
+                type="button"
+                name="un-block"
+                id="un-block"
+                class="btn btn-danger btn-block"
+              >
+                Block
+              </button>
+            </form>
           </div>
 
           <div class="col-sm">
             <div
-              class="alert alert-info alert-dismissible fade"
+              class="alert alert-info alert-dismissible fade info-alert"
               role="alert"
-            ></div>
-            
-			<% if (liked) {%>
+            >
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <% if (liked) {%>
             <p>
               <%=user.username%> likes you
             </p>

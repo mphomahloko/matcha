@@ -22,3 +22,7 @@ h1, h2, h3, h4, h5, h6{
 .details-btn{
     width: 80px;
 }
+
+.info-alert{
+    margin: 20px;
+}
