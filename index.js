@@ -11,7 +11,7 @@ const alertUser = (reciever, message) => io.emit(reciever, message);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.fieldname === 'profilePic') cb(null, './public/img/profile')
-    if (file.fieldname === 'pictures') cb (null, './public/img/pics')
+    if (file.fieldname === 'pictures') cb(null, './public/img/pics')
   },
   filename: (req, file, cb) => {
     cb(null, `${req.session.username}-${Date.now()}${path.extname(file.originalname)}`)
@@ -84,11 +84,15 @@ app.get('/details', async (req, res) => {
           liked: liked
         });
       } else {
-        // to navigate to user profile and ask user to complete their profile
-        res.status(200).render('pages/home', {
-          username: user,
-          users: []
-        })
+        res.status(200).render('pages/profile', {
+          user: user[0],
+          interests: await query.getUserInterests(user[0].username),
+          error: {
+            status: true,
+            message: 'Complete Profile to continue',
+            type: 'primary'
+          }
+        });
       }
     } catch (error) {
       res.status(401).render('pages/login', {
@@ -121,7 +125,7 @@ app.post('/like', async (req, res) => {
         await query.insertNotifications(`${req.session.username} liked you profile.`, details[0].user_id);
         console.log(`${req.body.participant} liked ${req.body.liked_participant}'s profile`);
       }
-  
+
       res.status(200).json({
         success: true,
         message: "like successful ..."
@@ -143,38 +147,38 @@ app.post('/like', async (req, res) => {
 
 app.post('/dislike', async (req, res) => {
   if (req.session.loggedin) {
-  try {
+    try {
 
-    await query.disLike(req.body.participant, req.body.liked_participant)
-    const details = await  query.getUserDetails(req.body.liked_participant);
-    console.log(`${req.body.participant} disliked ${req.body.liked_participant}'s profile at ${new Date()}`)
-    await query.insertNotifications(`${req.session.username} disliked your profile.`, details[0].user_id);
+      await query.disLike(req.body.participant, req.body.liked_participant)
+      const details = await query.getUserDetails(req.body.liked_participant);
+      console.log(`${req.body.participant} disliked ${req.body.liked_participant}'s profile at ${new Date()}`)
+      await query.insertNotifications(`${req.session.username} disliked your profile.`, details[0].user_id);
 
-    if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
-      console.log(`deleteing history messages between ${req.body.participant} and ${req.body.liked_participant}`);
-      const id = await query.getRoomId(req.body.participant, req.body.liked_participant)
-      await query.disConnectUsers(req.body.participant, req.body.liked_participant)
-      console.log(`${req.body.participant} disconnected ${req.body.liked_participant}'s`);
-      await query.deleteHistoryMsgs(id.room_id)
-      console.log(`conversations between ${req.body.participant} and ${req.body.liked_participant} deleted...`);
+      if (await query.aLikeBack(req.body.participant, req.body.liked_participant)) {
+        console.log(`deleteing history messages between ${req.body.participant} and ${req.body.liked_participant}`);
+        const id = await query.getRoomId(req.body.participant, req.body.liked_participant)
+        await query.disConnectUsers(req.body.participant, req.body.liked_participant)
+        console.log(`${req.body.participant} disconnected ${req.body.liked_participant}'s`);
+        await query.deleteHistoryMsgs(id.room_id)
+        console.log(`conversations between ${req.body.participant} and ${req.body.liked_participant} deleted...`);
+      }
+      res.status(200).json({
+        success: true,
+        message: "disliked user successfully ..."
+      });
+    } catch (error) {
+      console.log(error.message);
+      res.status(200).json({
+        success: false,
+        message: "Failed to dislike user, please try again later..."
+      });
     }
-    res.status(200).json({
-      success: true,
-      message: "disliked user successfully ..."
-    });
-  } catch (error) {
-    console.log(error.message);
+  } else {
     res.status(200).json({
       success: false,
-      message: "Failed to dislike user, please try again later..."
+      message: "Navigate to the login page to continue..."
     });
   }
-} else {
-  res.status(200).json({
-    success: false,
-    message: "Navigate to the login page to continue..."
-  });
-}
 })
 
 app.post('/upload', async (req, res) => {
@@ -203,12 +207,12 @@ app.post('/upload', async (req, res) => {
           }
           if (req.files['pictures']) {
             req.files['pictures'].forEach(async file => {
-                try {
-              await query.uploadUserImages(userDetails[0].user_id, file.filename);
-                    
-                } catch (error) {
-                    console.log(error.message);
-                }
+              try {
+                await query.uploadUserImages(userDetails[0].user_id, file.filename);
+
+              } catch (error) {
+                console.log(error.message);
+              }
               console.log(file.filename);
             });
           }
@@ -219,7 +223,11 @@ app.post('/upload', async (req, res) => {
           res.status(200).render('pages/profile', {
             user: userDetails[0],
             interests,
-            error: { status: false, message: '' }
+            error: {
+              status: false,
+              message: '',
+              type: ""
+            }
           });
         }
       })

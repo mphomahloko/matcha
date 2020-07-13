@@ -14,4 +14,4 @@ const sanitize = (input) => {
     }).join('');
 }
 
-module.exports = {sanitize};
+module.exports = { sanitize };

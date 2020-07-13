@@ -17,7 +17,7 @@ profileRoute.route('/')
         res.status(200).render('pages/profile', {
           user: userDetails[0],
           interests,
-          error: { status: false, message: '' }
+          error: { status: false, message: '', type: "" }
         });
       } catch (error) {
         console.log(error.message);
@@ -56,7 +56,7 @@ profileRoute.route('/')
 
           if (req.body.password) {
             const newPass = await passEncrypt.hash(user.password, 10);
-            await query.updateUserPassword(req.body.password, user);
+            await query.updateUserPassword(newPass, user);
             console.log("succesfully updated user's password");
           }
 
@@ -80,6 +80,10 @@ profileRoute.route('/')
           }
         } else if (req.body.gps) {
           console.log('uploading gps details');
+          if (req.body.city) await query.uploadUserCity(req.body.city, user);
+          if (req.body.region) await query.uploadUserRegion(req.body.region, user)
+          if (req.body.postal_code) await query.uploadUserCode(req.body.postal_code, user)
+          if (req.body.country) await query.uploadUserCountry(req.body.country, user)
         }
         // redirect back to profile
         const userDetails = await query.getUserDetails(req.session.username);
@@ -91,9 +95,16 @@ profileRoute.route('/')
         res.status(200).render('pages/profile', {
           user: userDetails[0],
           interests,
-          error: { status: false, message: '' }
+          error: { status: false, message: '', type: "" }
         });
       } catch (error) {
+        res.status(200).render('pages/profile', {
+          user: userDetails[0],
+          interests,
+          error: { status: true,
+            message: error.message,
+            type: "danger" }
+        });
         console.log(error.message);
       }
     } else {

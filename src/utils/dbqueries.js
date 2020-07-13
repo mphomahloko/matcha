@@ -417,6 +417,67 @@ matchaQueries.uploadUserImages = (user_id, src) => {
 	})
 }
 
+
+matchaQueries.uploadUserRegion = (region, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users
+								SET region=?
+								WHERE username=?`,
+			[region, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.uploadUserCode = (code, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users
+								SET postal_code=?
+								WHERE username=?`,
+			[code, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.uploadUserCity = (city, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users
+								SET city=?
+								WHERE username=?`,
+			[city, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
+matchaQueries.uploadUserCountry = (country, username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query(`UPDATE matcha.matcha_users
+								SET country=?
+								WHERE username=?`,
+			[country, username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
 /**
  * DETAILS SECTION
  */

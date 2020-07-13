@@ -18,7 +18,7 @@
   </header>
   <section id="profile">
     <% if (error.status) {%>
-      <div class="alert alert-warning" role="alert">
+      <div class="alert alert-<%=error.type%>" role="alert">
         <%=error.message%>
       </div>
     <%}%>
@@ -33,25 +33,30 @@
               <form action="profile" method="POST">
                 <input type="hidden" name="profile" value="profile">
                 <div class="form-group">
-                  <label>Username:</label>
-                  <input type="text" name="username" id="username" autocomplete="username"
-                    placeholder="<%=user.username%>" class="form-control" pattern="(?=.*[a-zA-Z]).{2,20}"
-                    title="2-20 characters and atleast one alphabetic character">
-
-                  <label>Firstname:</label>
-                  <input type="text" name="firstname" id="firstname" autocomplete="name"
-                    placeholder="<%=user.firstname%>" class="form-control" pattern="[A-Za-z -].{1,20}"
-                    title="2-20 characters, only alphabet characters are allowed for firstname">
-
-                  <label>Lastname:</label>
-                  <input type="text" name="lastname" autocomplete="family-name" id="lastname"
-                    placeholder="<%=user.lastname %>" class="form-control" pattern="[A-Za-z -].{1,20}"
-                    title="2-20 characters, only alphabet characters are allowed for lastname">
-
-                  <label>Email:</label>
-                  <input type="email" name="email" autocomplete="email" id="email" placeholder="<%=user.email%>"
-                    class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                    title="Something like 'user@mail.domain'. small caps only">
+                  <p>
+                    <label>Username:</label>
+                    <input type="text" name="username" id="username" autocomplete="username"
+                      placeholder="<%=user.username%>" class="form-control" pattern="(?=.*[a-zA-Z]).{2,20}"
+                      title="2-20 characters and atleast one alphabetic character">
+                  </p>
+                  <p>
+                    <label>Firstname:</label>
+                    <input type="text" name="firstname" id="firstname" autocomplete="name"
+                      placeholder="<%=user.firstname%>" class="form-control" pattern="[A-Za-z -].{1,20}"
+                      title="2-20 characters, only alphabet characters are allowed for firstname">
+                  </p>
+                  <p>
+                    <label>Lastname:</label>
+                    <input type="text" name="lastname" autocomplete="family-name" id="lastname"
+                      placeholder="<%=user.lastname %>" class="form-control" pattern="[A-Za-z -].{1,20}"
+                      title="2-20 characters, only alphabet characters are allowed for lastname">
+                  </p>
+                  <p>
+                    <label>Email:</label>
+                    <input type="email" name="email" autocomplete="email" id="email" placeholder="<%=user.email%>"
+                      class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      title="Something like 'user@mail.domain'. small caps only">
+                  </p>
                   <p>
                     <label>New Password:</label>
                     <input type="password" name="password" autocomplete="new-password" id="new-password"
@@ -91,18 +96,22 @@
                     </select>
                     current: <%=user.sexualPreference%>
                   </p>
-                  <label>Age:</label><small class="text-muted"> hint: 18-99</small>
-                  <input type="text" name="age" pattern="^(1[89]|[2-9][0-9])$" id="age" placeholder="<%=user.age%>"
-                    class="form-control">
                   <p>
-                    <label>Bio</label>
+                    <label>Age:</label>
+                    <input type="text" name="age" pattern="^(1[89]|[2-9][0-9])$" id="age" placeholder="<%=user.age%>"
+                      class="form-control">
+                  </p>
+                  <p>
+                    <label>Bio</label><br/>
+                    <small class="text-muted">Inform other users abit about yourself</small>
                     <textarea class="form-control" name="bio"
                       placeholder="tell us about yourself..."><%=user.bio%></textarea>
                   </p>
                   <p>
-                    <label>Interests</label>
+                    <label>Interests</label><br/>
+                    <small class="text-muted">popular interests: #skiing, #rock_climbing, #...</small>
                     <textarea class="form-control interests" name="interests"
-                      placeholder="#skiing, #rock_climbing, #..."><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
+                      placeholder=""><%interests.forEach(interest => {%><%=interest.interestName%>,<%})%></textarea>
                   </p>
                   <input type="submit" name="submit" value="Update Profile" class="form-control btn-primary">
               </form>
@@ -134,7 +143,7 @@
                 </p>
                 <p>
                   <label>Country:</label>
-                  <input type="text" name="Country" id="country" placeholder="<%=user.country%>" class="form-control"
+                  <input type="text" name="country" id="country" placeholder="<%=user.country%>" class="form-control"
                     title="Enter your Country details">
                 </p>
                 <input type="submit" name="submit" value="Update GPS details" class="form-control btn-primary">
