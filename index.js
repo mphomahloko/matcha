@@ -95,6 +95,7 @@ app.get('/details', async (req, res) => {
         });
       }
     } catch (error) {
+        console.log(error);
       res.status(401).render('pages/login', {
         success: true,
         message: 'to login to continue...'

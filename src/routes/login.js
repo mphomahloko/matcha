@@ -5,7 +5,6 @@ import Auth from '../controller/auth';
 import User from '../models/user'
 import validators from '../utils/validators';
 import query from '../utils/dbqueries';
-import sanitize from '../utils/sanitize';
 
 const loginRoute = express.Router();
 const auth = new Auth();
@@ -34,9 +33,9 @@ loginRoute.route('/')
         console.log(error.message);
       }
     }
-    else {
-      const linkName = sanitize.sanitizeCreds(req.query.user);
-      const linkToken = sanitize.sanitizeCreds(req.query.token);
+    else if (req.query.user && req.query.token) {
+      const linkName = req.query.user;
+      const linkToken = req.query.token;
       if (linkToken && linkName) {
         try {
           let user = new User();
@@ -61,12 +60,17 @@ loginRoute.route('/')
           message: 'have an account? Enter your details to login'
         });
       }
-    }
+    } else {
+        res.status(200).render('pages/login', {
+          success: true,
+          message: 'have an account? Enter your details to login'
+        });
+      }
 
   })
   .post(async (req, res) => {
-    const username = sanitize.sanitizeCreds(req.body.username);
-    const pass = sanitize.sanitizeCreds(req.body.password);
+    const username = req.body.username;
+    const pass = req.body.password;
     if (validators.validateUsername(username) && validators.validatePass(pass)) {
       try {
         let user = new User();
