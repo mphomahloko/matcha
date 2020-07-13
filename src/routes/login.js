@@ -35,8 +35,8 @@ loginRoute.route('/')
       }
     }
     else {
-      const linkName = req.query.user;
-      const linkToken = req.query.token;
+      const linkName = sanitize.sanitizeCreds(req.query.user);
+      const linkToken = sanitize.sanitizeCreds(req.query.token);
       if (linkToken && linkName) {
         try {
           let user = new User();
@@ -65,8 +65,8 @@ loginRoute.route('/')
 
   })
   .post(async (req, res) => {
-    const username = sanitize.sanitize(req.body.username);
-    const pass = sanitize.sanitize(req.body.password);
+    const username = sanitize.sanitizeCreds(req.body.username);
+    const pass = sanitize.sanitizeCreds(req.body.password);
     if (validators.validateUsername(username) && validators.validatePass(pass)) {
       try {
         let user = new User();

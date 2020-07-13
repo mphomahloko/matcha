@@ -42,6 +42,10 @@ export default class User {
         this.reportedUser = user.reportedUser;
     }
 
+    isAdmin(username) {
+        this.username = username;
+    }
+
     findByUsername() {
         return new Promise((resolve, reject) => {
             db.query(

@@ -16,6 +16,7 @@ import routeToNotifications from './src/routes/notifications';
 import routeToForgotPassword from './src/routes/forgotpassword';
 import routeToResetPassword from './src/routes/resetpassword';
 import routeToReportUser from './src/routes/reportuser';
+import routeToAdmin from './src/routes/admin';
 
 // api's
 import disLikeAPI from './src/api/dis-like';
@@ -53,6 +54,7 @@ app.use('/notifications', routeToNotifications);
 app.use('/forgotpassword', routeToForgotPassword);
 app.use('/resetpass', routeToResetPassword);
 app.use('/reportuser', routeToReportUser);
+app.use('/admin', routeToAdmin);
 
 // defined api's
 app.use('/api/dis-like', disLikeAPI);

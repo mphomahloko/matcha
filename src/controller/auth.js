@@ -96,4 +96,14 @@ export default class Auth {
             throw new Error('Could not block user for some reason');
         }
     }
+
+    async isAdmin(userModel) {
+        let user = await userModel.findByUsername();
+
+        if (!user) {
+            throw new Error('non existant user');
+        } else {
+            console.log(user);
+        }
+    }
 }
