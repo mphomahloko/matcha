@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6{
 }
  .range-slider__range {
 	 -webkit-appearance: none;
-	 width: calc(100% - 75px));
+	 width: calc(100% - 75px);
 	 height: 10px;
 	 border-radius: 5px;
 	 background: #d7dcdf;
@@ -103,3 +103,12 @@ h1, h2, h3, h4, h5, h6{
  input::-moz-focus-inner, input::-moz-focus-outer {
 	 border: 0;
 }
+
+.my-custom-scrollbar {
+	position: relative;
+	height: 700px;
+	overflow: auto;
+	}
+	/* .table-wrapper-scroll-y {
+	display: block;
+	} */

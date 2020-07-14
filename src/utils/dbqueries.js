@@ -1,5 +1,4 @@
 import dbc from '../../config/database/connection';
-import sanitize from './sanitize'
 
 let matchaQueries = {};
 
@@ -174,6 +173,22 @@ matchaQueries.getUserRooms = (username) => {
 /**
  * PROFILE SECTION
  */
+
+ 
+
+matchaQueries.deleteOldInterests = (username) => {
+	return new Promise((resolve, reject) => {
+		dbc.query('DELETE FROM matcha.interests WHERE username=?',
+			[username],
+			(error, result) => {
+				if (error) {
+					return reject(error);
+				}
+				return resolve(result[0]);
+			})
+	})
+}
+
 
 matchaQueries.updateUsername = (newUsername, username) => {
 	return new Promise((resolve, reject) => {
@@ -500,7 +515,7 @@ matchaQueries.getUserDetails = (username) => {
 
 matchaQueries.getSuggestedUsers = () => {
 	return new Promise((resolve, reject) => {
-		dbc.query('SELECT * FROM matcha.matcha_users',
+		dbc.query('SELECT * FROM matcha.matcha_users WHERE gender LIKE sexualPreference',
 			(error, result) => {
 				if (error) {
 					return reject(error);
@@ -611,9 +626,9 @@ matchaQueries.search = (obj) => {
 	return new Promise((resolve, reject) => {
 		dbc.query(`SELECT * FROM matcha.matcha_users 
 								WHERE city=?
-								OR age > ? AND age < ?
-								OR fameRating > ? AND fameRating < ?`,
-			[obj.city, obj.min_age, obj.max_age, obj.min_fame, obj.max_fame],
+								AND age > ? AND age < ?
+								AND fameRating > ? AND fameRating < ?`,
+			[!obj.city? 'Johannesburg': obj.city, obj.min_age, obj.max_age, obj.min_fame, obj.max_fame],
 			(error, result) => {
 				if (error) {
 					return reject(error);

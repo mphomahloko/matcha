@@ -14,18 +14,29 @@ loginRoute.route('/')
   .get(async (req, res) => {
     if (req.session.loggedin) {
       try {
-        let user = req.session.username;
+        let user = await query.getUserDetails(req.session.username);
+        let userInt = await query.getUserInterests(req.session.username);
         let suggestedUsers = await query.getSuggestedUsers();
         if (suggestedUsers.length > 0) {
           res.status(200).render('pages/home', {
-            username: user,
-            users: _.filter(suggestedUsers, (suggestedUser => {
-              return suggestedUser.username.localeCompare(user);
+            username: user[0].username,
+            users: _.filter(suggestedUsers, (async (suggestedUser) => {
+              try {
+                let sugInt = await query.getUserInterests(suggestedUser.username)
+                if (sugInt.length < 0) return true;
+                let common = userInt.forEach(interest => {
+                  let int = sugInt.forEach(sInt => {
+                    if (sInt !== interest) return true;
+                  })
+                  return int === true ? true : false;
+                })
+                return common === true ? true : false;
+              } catch (e) { console.log(e)}
             }))
           })
         } else {
           res.status(200).render('pages/home', {
-            username: user,
+            username: user[0].username,
             users: []
           })
         }

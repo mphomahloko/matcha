@@ -71,6 +71,7 @@ profileRoute.route('/')
           if (req.body.ethnicity) await query.updateUserEthnicity(req.body.ethnicity, user);
 
           if (req.body.interests) {
+            await query.deleteOldInterests(user)
             req.body.interests.split(",").forEach(async element => {
               if (element.trim()) {
                 if (!await query.getUserInterest(element.trim(), user))
@@ -98,6 +99,7 @@ profileRoute.route('/')
           error: { status: false, message: '', type: "" }
         });
       } catch (error) {
+        console.log(error)
         res.status(200).render('pages/profile', {
           user: userDetails[0],
           interests,
