@@ -35,7 +35,7 @@
     "nodemailer": "^6.4.16",
     "path": "^0.12.7",
     "socket.io": "^2.4.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
